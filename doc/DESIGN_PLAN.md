@@ -1,10 +1,10 @@
 ### Introduction 
 
-* Over the course of this project we will create a program based on Cellular Automata (CA) that is capable of simulating at least three different scenarios. At the very least, we will simulate a grid of cells updated according to rules of the following three models:
-
+* Over the course of this project we will create a program based on Cellular Automata (CA) that is capable of simulating at least three different scenarios. At the very least, we will simulate a grid of cells updated according to rules of the following four models:
 	1. [Schelling’s Model of Segregation](http://nifty.stanford.edu/2014/mccown-schelling-model-segregation/), which describes how population groups separate over time.
 	2. [The Wa-Tor model](http://nifty.stanford.edu/2011/scott-wator-world/), which describes predator/prey relationships.
 	3. [The spreading of fire](http://nifty.stanford.edu/2007/shiflet-fire/), which delineates how wildfires spread with trees.
+	4. [Game of Life](https://bitstorm.org/gameoflife/)
 
 The program will be written so that if a new user would like to implement a new type of simulation, all that they need to do is design an XML file in the proper format and add a subclasses to the superclasses`Cell` and `Grid` that describes the rules of the simulation. `Cell` and `Grid` will be abstract classes, with subclasses that represent each distinct simulation. The cells will reside in a grid, which will require change based upon the type of the simulation; there are small rules difference better implemented in grid than cell. All of the updating and coloring of the cells is done within the individual cell subclasses, so users have a high degree of freedom and flexibility if they wish to design novel simulations. If they do so, they will also need to change one method in the class that displays the graphics, namely the method that picks the appropriate cells subclass. Besides that method, we would prefer to keep all other implementation of the class that runs the simulation closed. 
 
@@ -117,7 +117,7 @@ A second problem we have encountered was where to store the ‘rules’ of a spe
 
 * **Dylan** will handle the GUI through the `CellSociety` class, and the file selection process that accompanies it. He will also create the `Main` class through which the program will be launched. He will make sure that the grid displays properly and that cells change color according to the simulation.
 
-We will begin by creating the `Main` and `CellSociety` classes, so that we are sure that we can display a GUI (this will also be helpful in testing our implementation). Once we have a GUI up and working, we will next create the cell class and the “fire” subclass, because it is the simplest and will be easiest to test (along with the grid). Once the “fire” subclass has all of its methods written, we will move on to the grid. We will first test placing cells on the grid, and then test if we can update those cells in a loop according to rules. After we have all of this working, we will implement the other two simulations, Segregation and Wa-Tor. 
+We will begin by creating the `Main` and `CellSociety` classes, so that we are sure that we can display a GUI (this will also be helpful in testing our implementation). Once we have a GUI up and working, we will next create the cell class and the "Game of Life" subclass, because it is the simplest and will be easiest to test (along with the grid). Once the “Game of Life” subclass has all of its methods written, we will move on to the grid. We will first test placing cells on the grid, and then test if we can update those cells in a loop according to rules. After we have all of this working, we will implement the other three simulations, Segregation, Wa-Tor, and Fire. 
 
 
 
