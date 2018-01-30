@@ -1,21 +1,21 @@
-package cellsociety_team19;
+package cell;
 
 import java.util.Random;
-import javafx.scene.paint.Paint;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 /**
  * This is a super class of Cell, 
  * which will be instantiated by subclasses of specific types of cells.
- * @author zihui
+ * @author Yameng Liu
  *
  */
 public abstract class Cell extends Rectangle{
-	private Cell[] neighbors;
-	private String currState;
-	private String newState;
-	private double updateProb;
-	private Random rand;
+	protected Cell[] myNeighbors;
+	protected String currState;
+	protected String newState;
+	protected double updateProb;
+	protected Random rand;
 	
 	/**
 	 * Constructor of Cell class
@@ -34,17 +34,14 @@ public abstract class Cell extends Rectangle{
 	 * @param neighbors neighbors passed in by grid 
 	 */
 	public void setNeighbors(Cell[] neighbors){
-		this.neighbors = neighbors;
+		myNeighbors = neighbors;
 	}
 	
 	/**
-	 * find the next state to update to according to the probability 
+	 * find the next state to update 
 	 */
 	public void findState(){
 		newState = updateByRule();
-		if(rand.nextInt(1) >= updateProb){
-			newState = currState;
-		}
 	}
 	
 	/**
@@ -65,5 +62,5 @@ public abstract class Cell extends Rectangle{
 	 * abstract method: decide graphic color according to specific state
 	 * @return color
 	 */
-	protected abstract Paint colorByState(String state);
+	protected abstract Color colorByState(String state);
 }
