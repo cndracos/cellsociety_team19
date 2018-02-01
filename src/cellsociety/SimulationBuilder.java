@@ -1,4 +1,4 @@
-package cellsociety_team19;
+package cellsociety;
 
 import java.io.File;
 
@@ -11,7 +11,14 @@ public class SimulationBuilder {
 	private static final String ACCEPTABLE_EXTENSION = "*.xml";
 	private final FileChooser FILE_CHOOSER = buildChooser(ACCEPTABLE_EXTENSION);
 	
-	
+	public SimulationBuilder(Stage stage) {
+		File XMLFile = FILE_CHOOSER.showOpenDialog(stage);
+		if (XMLFile != null) {
+			
+		}
+		
+		
+	}
 	
 	
 	

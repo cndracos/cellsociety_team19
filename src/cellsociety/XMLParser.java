@@ -1,4 +1,4 @@
-package cellsociety_team19;
+package cellsociety;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,6 +21,7 @@ public class XMLParser {
 	
 	public XMLParser() {
 		DOCUMENT_BUILDER = getDocumentBuilder();
+		
 	}
 	
 	private Element getRootElement(File XMLFile) {
