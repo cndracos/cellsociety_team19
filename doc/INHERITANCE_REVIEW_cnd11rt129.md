@@ -1,0 +1,14 @@
+Rayan
+
+It is using the fact that only the grid knows where the cells are located and thus the grid is the best place to access and store the neighbors of any given cell. I intend to have subclasses of grid that are specific to any given simulation and represent the differences needed to make an efficient communication with the cell class and the simulation runner. I am trying to make the parsing through the cells closed as well as knowing certain rules of the game that only affect how one parses through the grid, and each subclass has its own methods that interact with a sub-cell. We could have an exception of not having a cell in a certain location, which would be treated as null, not passing any value to the neighbor arraylist, which doesn't care about where the neighbors are but instead just on their values, and this would check for null, or potentially make a type cell that is empty and carries no data. Accessing neighbors in null values outside of the indexes could be caught as well. I think the design is good but could be improved, as the data stored in neighbor is just an array of cells and do not tell a cell how to act upon them. 
+
+My area (grid) is linked to both the runner and the cell classes. The runner calls an update on the grid which in turn runs through all its elements and calls update on the cell class, meaning for each iteration it has to listen when to update and tell the cell what to do. Apart from this, it is an independent entity that does not have methods called by other classes beside from the runner. These dependencies kind of depend on other classes behavior, using the fact that each simulation requires certain ways for the other classes to run. These dependencies are minimized by storing values about a simulation in the grid class so it does not need to access how other classes keep the simulation updated. The grid superclass would have methods update() and get(index k, index n), with update() being an abstract method. It would also have show(Cell c) that calls on the cell to update its own state/color. In the subclasses would have how neighbors are stored, update methods that run through the grid and tell the cells to update and have certain ways of storing neighbors specific to the simulation. The difference is mainly how it stores neighbors and to which type of cell the simulation is acting upon. We could maybe have a general cell that is used in the superclass so that parsing is used just in the superclass. 
+
+Use cases:
+1. A cell is update on the grid from its neighbors.
+2. A corner cell wants to acces its neighbors.
+3. The grid is now satisfied. 
+4. A fire is started in FireSim and then switch to have new grid of WaterCells.
+5. A fish swims up the top of the screen and reappears on the bottom. 
+Most excited to work with making an efficient way of storing neighbor values. 
+Most worried about choosing where to put the nested for loops to efficiently update the cells. 
