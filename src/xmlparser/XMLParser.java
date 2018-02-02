@@ -1,4 +1,4 @@
-package cellsociety;
+package xmlparser;
 
 import java.io.File;
 import java.io.IOException;
@@ -8,6 +8,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Element;
+import org.xml.sax.SAXException;
 import org.w3c.dom.Document;
 
 /**
@@ -16,32 +17,41 @@ import org.w3c.dom.Document;
  *
  */
 public class XMLParser {
-
 	private static DocumentBuilder DOCUMENT_BUILDER;
+	// message that we want to display when the user picks a file in the incorrect format
+	private static final String ERROR_MESSAGE = "XML file does not represent %s";
+	// name of the root attribute that denotes the type of file we want to parse
+	private static String DATA_TYPE_ATTRIBUTE;
 	
-	public XMLParser() {
+	public XMLParser(String dataType) {
 		DOCUMENT_BUILDER = getDocumentBuilder();
-		
+		DATA_TYPE_ATTRIBUTE = dataType;
 	}
 	
+	public 
 	private Element getRootElement(File XMLFile) {
 		try {
 			DOCUMENT_BUILDER.reset();
 			Document XMLDoc = DOCUMENT_BUILDER.parse(XMLFile);
 			return XMLDoc.getDocumentElement();
-		}
-		catch (IOException e) {
-			// TODO implement better exception here
-			
+		} catch (SAXException | IOException e) {
+			// throw XML exception with same cause
+			throw new XMLException(e);
 		}
 	}
 	
+	// returns true if this is a valid Cellular Automata simulation data file
+	private boolean isCAFile(Element root, String type) {
+		return root.getAttribute(DATA_TYPE_ATTRIBUTE).equals(type);
+	}
+	
+	// generate the document builder for parsing the document
 	private DocumentBuilder getDocumentBuilder() {
 		try {
 			return DocumentBuilderFactory.newInstance().newDocumentBuilder();
 		} catch (ParserConfigurationException e) {
-			// TODO create an exception
-			return null;
+			// throw XMLException with same cause
+			throw new XMLException(e);
 		}
 	}
 }
