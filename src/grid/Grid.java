@@ -20,5 +20,5 @@ public abstract class Grid {
 	
 	public abstract ArrayList<Cell> getNeighbors(int n, int k);
 	
-	public abstract void addNeighbors (int n, int k);
+	public abstract void addNeighbors();
 }

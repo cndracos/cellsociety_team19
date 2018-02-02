@@ -15,11 +15,15 @@ public class FireGrid extends Grid {
 		return neighbors[n][k];
 	}
 	
-	public void addNeighbors (int n, int k) {
-		neighbors[n][k] = new ArrayList<Cell>();
-		if (n-1>=0) neighbors[n][k].add(this.get(n-1, k));
-		if (k-1>=0) neighbors[n][k].add(this.get(n, k-1));
-		if (k+1<neighbors.length) neighbors[n][k].add(this.get(n, k+1));
-		if (n+1<neighbors[0].length) neighbors[n][k].add(this.get(n+1, k));
+	public void addNeighbors() {
+		for (int n = 0; n < neighbors[0].length; n++) {
+			for (int k = 0; k < neighbors.length; k++) {
+				neighbors[n][k] = new ArrayList<Cell>();
+				if (n-1>=0) neighbors[n][k].add(this.get(n-1, k));
+				if (k-1>=0) neighbors[n][k].add(this.get(n, k-1));
+				if (k+1<neighbors.length) neighbors[n][k].add(this.get(n, k+1));
+				if (n+1<neighbors[0].length) neighbors[n][k].add(this.get(n+1, k));
+			}
+		}
 	}
 }
