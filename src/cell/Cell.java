@@ -69,6 +69,10 @@ public abstract class Cell extends Rectangle{
 		this.setHeight(10);
 	}
 	
+	public String getState() {
+		return currState;
+	}
+	
 	
 	/**
 	 * abstract method: instantiate by subclasses according to specific updating rules

@@ -2,20 +2,27 @@ package grid;
 
 import cell.Cell;
 import java.util.ArrayList;
+import java.util.Map;
 
 public abstract class Grid {
 	private Cell[][] population;
+	private Map<String, double[]> keys;
 	private int n;
 	private int k;
 	
-	public Grid (int n, int k) {
+	public Grid (int n, int k, Map<String, double[]> keys) {
 		population = new Cell[n][k];
 		this.n = n;
 		this.k = k;
+		this.keys = keys;
 	}
 	
 	public Cell get(int n, int k) {
 		return population[n][k];
+	}
+	
+	public Map<String, double[]> getKeys() {
+		return keys;
 	}
 	
 	public void add (Cell c, int n, int k) {
