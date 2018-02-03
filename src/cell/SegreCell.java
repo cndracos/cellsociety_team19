@@ -3,8 +3,10 @@ package cell;
 import javafx.scene.paint.Color;
 
 public class SegreCell extends Cell{
-	public SegreCell(String currState, double updateProb) {
-		super(currState, updateProb);
+	private double probCatch;
+	public SegreCell(String currState, double probCatch) {
+		super(currState);
+		this.probCatch = probCatch;
 	}
 
 	@Override
@@ -18,10 +20,10 @@ public class SegreCell extends Cell{
 
 	public boolean isSatisfied(){
 		int count = 0;
-		for (Cell myNeighbor: myNeighbors){
-			count += myNeighbor.currState == currState ? 1: 0;
+		for (Cell myNeighbor: getNeighbors()){
+			count += myNeighbor.getState() == getState() ? 1: 0;
 		}
-		return count/8.0 < updateProb ? false : true;
+		return count/8.0 < probCatch ? false : true;
 	}
 	
 	public void changeState2(String newState){

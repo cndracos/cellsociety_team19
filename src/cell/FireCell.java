@@ -1,5 +1,7 @@
 package cell;
 
+import java.util.Random;
+
 import javafx.scene.paint.Color;
 
 /**
@@ -9,8 +11,12 @@ import javafx.scene.paint.Color;
  *
  */
 public class FireCell extends Cell{	
-	public FireCell(String currState, double updateProb) {
-		super(currState, updateProb);
+	private Random rand;
+	private double probCatch;
+	public FireCell(String currState, double probCatch) {
+		super(currState);
+		this.probCatch = probCatch;
+		rand = new Random();
 	}
 
 	@Override
@@ -19,21 +25,21 @@ public class FireCell extends Cell{
 	 * @return new state
 	 */
 	protected String updateByRule() {
-		if(currState == "EMPTY"){
-			return currState;
+		if(getState() == "EMPTY"){
+			return getState();
 		}
-		if(currState == "BURNING"){
+		if(getState() == "BURNING"){
 			return "EMPTY";
 		}
 		
 		boolean isNeighborsBurned = false;
-		for(Cell myNeighbor : myNeighbors){
-			if(myNeighbor.currState == "BURNING"){
+		for(Cell myNeighbor : getNeighbors()){
+			if(myNeighbor.getState() == "BURNING"){
 				isNeighborsBurned = true;
 				break;
 			}
 		}
-		if(isNeighborsBurned && rand.nextDouble() < updateProb){
+		if(isNeighborsBurned && rand.nextDouble() < probCatch){
 			return "BURNING";
 		}
 		return "TREE";
