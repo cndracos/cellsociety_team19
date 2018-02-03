@@ -2,6 +2,7 @@ package cell;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.ArrayList;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -52,6 +53,14 @@ public abstract class Cell extends Rectangle{
 		currState = newState;
 		this.setFill(colorByState(currState));
 	}
+	
+	public void addToScreen(int n, int k) {
+		this.setX(n*10 + 5);
+		this.setY(k*10 + 5);
+		this.setWidth(10);
+		this.setHeight(10);
+	}
+	
 	
 	/**
 	 * update the graphics of the cell
