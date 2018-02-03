@@ -28,7 +28,7 @@ public class XMLParser {
 		DATA_TYPE_ATTRIBUTE = dataType;
 	}
 	
-	public 
+	
 	private Element getRootElement(File XMLFile) {
 		try {
 			DOCUMENT_BUILDER.reset();

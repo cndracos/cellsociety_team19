@@ -22,7 +22,7 @@ public class practice extends Application{
     private int n;
     private int k;
     private Grid grid;
-
+    private Timeline animation;
     
     /**
      * Initialize what will be displayed and how it will be updated.
@@ -37,7 +37,7 @@ public class practice extends Application{
        
         KeyFrame frame = new KeyFrame(Duration.millis(1000),
                                       e -> step(60));
-        Timeline animation = new Timeline();
+        animation = new Timeline();
         animation.setCycleCount(Timeline.INDEFINITE);
         animation.getKeyFrames().add(frame);
         animation.play();
@@ -58,8 +58,8 @@ public class practice extends Application{
 		
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < k; j++) {
-				if (i==5 && j == 5) grid.add(new FireCell("BURNING", 1), i, j);
-				else grid.add(new FireCell(state, .3), i, j);
+				if (i==5 && j == 5) grid.add(new FireCell("BURNING", .3), i, j);
+				else grid.add(new FireCell(state, .1), i, j);
 				root.getChildren().add(grid.get(i, j));
 			}
 		}
@@ -71,9 +71,13 @@ public class practice extends Application{
 
     
     private void step (double elapsedTime) {
-    		for (int i = 0; i < n; i++) {
+    	boolean isFire = false;
+    	for (int i = 0; i < n; i++) {
 			for (int j = 0; j < k; j++) {
 				grid.get(i, j).findState();
+				if(grid.get(i, j).getState() == "BURNING"){
+					isFire = true;
+				}
 			}
 		}
 		for (int i = 0; i < n; i++) {
@@ -81,7 +85,16 @@ public class practice extends Application{
 				grid.get(i, j).setState();
 			}
 		}
+		
+		//check if states of all grids in the cell converges or not
+		if(grid.isConverge()){
+			stopGame();
+		}
 	}
+
+    private void stopGame(){
+    	animation.stop();
+    }
 }
 
 
