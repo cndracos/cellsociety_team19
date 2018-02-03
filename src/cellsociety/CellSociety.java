@@ -13,9 +13,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.Group;
 
+import xmlparser.*;
+
 public class CellSociety {
 	// title of the window
 	private static String simulationType;
+	public static final String DATA_TYPE = "CA";
 	// dimensions of the viewing window
 	private static final int X_DIMENSION = 800;
 	private static final int Y_DIMENSION = 600;
@@ -25,6 +28,7 @@ public class CellSociety {
 	private static final int FRAMES_PER_SECOND = 60;
 	private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
 	private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
+
 	
 	
 	// objects that aid with the GUI
@@ -32,11 +36,14 @@ public class CellSociety {
 	private Group root;
 	
 	public CellSociety(Stage stage) {
+		SimulationBuilder sb = new SimulationBuilder(stage);
+		sb.build();
 		// stage
 		stage.setTitle(simulationType);
 		stage.setScene(setupSimulationWindow(root, X_DIMENSION, Y_DIMENSION, BACKGROUND_COLOR));
 		// set to visible
 		stage.show();
+		// test
 		
 		// animation specifics
 		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
