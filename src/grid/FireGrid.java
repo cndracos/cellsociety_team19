@@ -23,6 +23,7 @@ public class FireGrid extends Grid {
 				if (k-1>=0) neighbors[n][k].add(this.get(n, k-1));
 				if (k+1<neighbors.length) neighbors[n][k].add(this.get(n, k+1));
 				if (n+1<neighbors[0].length) neighbors[n][k].add(this.get(n+1, k));
+				population[n][k].setNeighbors(neighbors[n][k]);
 			}
 		}
 	}

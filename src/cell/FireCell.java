@@ -27,6 +27,7 @@ public class FireCell extends Cell{
 		}
 		
 		boolean isNeighborsBurned = false;
+		System.out.println(myNeighbors == null);
 		for(Cell myNeighbor : myNeighbors){
 			if(myNeighbor.currState == "BURNING"){
 				isNeighborsBurned = true;

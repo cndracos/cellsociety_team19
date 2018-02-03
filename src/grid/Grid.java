@@ -4,7 +4,7 @@ import cell.Cell;
 import java.util.ArrayList;
 
 public abstract class Grid {
-	private Cell[][] population;
+	protected Cell[][] population;
 	
 	public Grid (int n, int k) {
 		population = new Cell[n][k];

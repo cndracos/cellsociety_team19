@@ -1,5 +1,6 @@
 package cell;
 
+import java.util.ArrayList;
 import java.util.Random;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -11,7 +12,7 @@ import javafx.scene.shape.Rectangle;
  *
  */
 public abstract class Cell extends Rectangle{
-	protected Cell[] myNeighbors;
+	protected ArrayList<Cell> myNeighbors;
 	protected String currState;
 	protected String newState;
 	protected double updateProb;
@@ -33,7 +34,7 @@ public abstract class Cell extends Rectangle{
 	 * set neighbors array of the cell 
 	 * @param neighbors neighbors passed in by grid 
 	 */
-	public void setNeighbors(Cell[] neighbors){
+	public void setNeighbors(ArrayList<Cell> neighbors){
 		myNeighbors = neighbors;
 	}
 	
@@ -45,10 +46,17 @@ public abstract class Cell extends Rectangle{
 	}
 	
 	/**
-	 * update the state and graphics of the cell
+	 * update the state of the cell
 	 */
 	public void setState(){
 		currState = newState;
+		this.setFill(colorByState(currState));
+	}
+	
+	/**
+	 * update the graphics of the cell
+	 */
+	public void setGUI(){
 		this.setFill(colorByState(currState));
 	}
 	

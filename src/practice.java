@@ -58,7 +58,7 @@ public class practice extends Application{
 		
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < k; j++) {
-				if (i==5 && j == 5) grid.add(new FireCell("BURNING", 1), i, j);
+				if (i==5 && j == 5) grid.add(new FireCell("BURNING", .3), i, j);
 				else grid.add(new FireCell(state, .3), i, j);
 				root.getChildren().add(grid.get(i, j));
 			}
