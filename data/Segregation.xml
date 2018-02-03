@@ -1,0 +1,9 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<data simulation = "CA">
+	<model>Segregation</model>
+	<rows>11</rows>
+	<columns>11</columns>
+	<probability>0.3</probability>
+	<initialStates type = "X">0.0 0.4</initialStates>
+	<initialStates type = "O">0.4 0.8</initialStates>
+</data>

@@ -61,6 +61,7 @@ public class SimulationBuilder {
 		switch (simulationType) {
 			case "Fire": 
 				return new FireGrid(rows, cols, probability, initialStates);
+			
 		}
 			
 			
