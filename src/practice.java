@@ -30,7 +30,7 @@ public class practice extends Application{
     @Override
     public void start (Stage stage) {
     		
-        myScene = setupGame(300, 300, Color.WHITE);
+        myScene = setupGame(320, 320, Color.WHITE);
         stage.setScene(myScene);
         stage.setTitle("practice");
         stage.show();
@@ -50,16 +50,17 @@ public class practice extends Application{
    
         Scene scene = new Scene(root, width, height, background);
         
-        n =  9;
-		k = 9;
+        n =  31;
+		k = 31;
+		int probCatch = 1;
 		String state = "TREE";
 		
-		grid = new FireGrid(n, k);
+		grid = new LifeGrid(n, k);
 		
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < k; j++) {
-				if (i==5 && j == 5) grid.add(new FireCell("BURNING", 1), i, j);
-				else grid.add(new FireCell(state, .3), i, j);
+				if (i==15 && j == 15) grid.add(new FireCell("BURNING", .3), i, j);
+				else grid.add(new FireCell(state, probCatch), i, j);
 				root.getChildren().add(grid.get(i, j));
 			}
 		}
@@ -71,6 +72,7 @@ public class practice extends Application{
 
     
     private void step (double elapsedTime) {
+    		boolean isfire = false;
     		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < k; j++) {
 				grid.get(i, j).findState();
@@ -81,6 +83,7 @@ public class practice extends Application{
 				grid.get(i, j).setState();
 			}
 		}
+		if (!isfire) System.out.println("over");
 	}
 }
 
