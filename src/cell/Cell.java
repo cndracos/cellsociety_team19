@@ -71,13 +71,6 @@ public abstract class Cell extends Rectangle{
 	
 	
 	/**
-	 * update the graphics of the cell
-	 */
-	public void setGUI(){
-		this.setFill(colorByState(currState));
-	}
-	
-	/**
 	 * abstract method: instantiate by subclasses according to specific updating rules
 	 * @return new state
 	 */

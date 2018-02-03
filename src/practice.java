@@ -8,6 +8,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
+import java.util.Random;
+
 import cell.*;
 
 public class practice extends Application{
@@ -23,7 +26,7 @@ public class practice extends Application{
     private int k;
     private Grid grid;
     private Timeline animation;
-    
+    private Random rand;
     /**
      * Initialize what will be displayed and how it will be updated.
      */
@@ -41,11 +44,13 @@ public class practice extends Application{
         animation.setCycleCount(Timeline.INDEFINITE);
         animation.getKeyFrames().add(frame);
         animation.play();
+        
     }
 
   
     private Scene setupGame (int width, int height, Paint background) {
-      
+    	rand = new Random();
+    	
         Group root = new Group();
    
         Scene scene = new Scene(root, width, height, background);
@@ -54,12 +59,19 @@ public class practice extends Application{
 		k = 9;
 		String state = "TREE";
 		
-		grid = new FireGrid(n, k);
+		//grid = new FireGrid(n, k);
+		grid = new LifeGrid(n,k);
 		
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < k; j++) {
-				if (i==5 && j == 5) grid.add(new FireCell("BURNING", .3), i, j);
-				else grid.add(new FireCell(state, .1), i, j);
+				//if (i==5 && j == 5) grid.add(new FireCell("BURNING", .3), i, j);
+				//else grid.add(new FireCell(state, .1), i, j);
+				if(rand.nextInt(100) < 10){
+					grid.add(new LifeCell("ALIVE", .3), i, j);
+				}
+				else{
+					grid.add(new LifeCell("DEAD", .3), i, j);
+				}
 				root.getChildren().add(grid.get(i, j));
 			}
 		}
@@ -71,13 +83,9 @@ public class practice extends Application{
 
     
     private void step (double elapsedTime) {
-    	boolean isFire = false;
     	for (int i = 0; i < n; i++) {
 			for (int j = 0; j < k; j++) {
 				grid.get(i, j).findState();
-				if(grid.get(i, j).getState() == "BURNING"){
-					isFire = true;
-				}
 			}
 		}
 		for (int i = 0; i < n; i++) {
@@ -87,9 +95,9 @@ public class practice extends Application{
 		}
 		
 		//check if states of all grids in the cell converges or not
-		if(grid.isConverge()){
-			stopGame();
-		}
+		//if(grid.isConverge()){
+			//stopGame();
+		//}
 	}
 
     private void stopGame(){
