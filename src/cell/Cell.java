@@ -85,4 +85,4 @@ public abstract class Cell extends Rectangle{
 	 * @return color
 	 */
 	protected abstract Color colorByState(String state);
-}
+:}

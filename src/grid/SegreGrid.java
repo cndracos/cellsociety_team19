@@ -73,8 +73,8 @@ public class SegreGrid extends Grid {
 	
 	@Override
 	public void update() {
-		ArrayList<Cell> empty = new ArrayList<Cell>();
-		ArrayList<Cell> disatisfied = new ArrayList<Cell>();
+		ArrayList<SegreCell> empty = new ArrayList<SegreCell>();
+		ArrayList<SegreCell> disatisfied = new ArrayList<SegreCell>();
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < k; j++) {
 				SegreCell s = (SegreCell) this.get(i, j);
