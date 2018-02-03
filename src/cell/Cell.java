@@ -1,8 +1,6 @@
 package cell;
 
 import java.util.ArrayList;
-import java.util.Random;
-import java.util.ArrayList;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -13,22 +11,18 @@ import javafx.scene.shape.Rectangle;
  *
  */
 public abstract class Cell extends Rectangle{
-	protected ArrayList<Cell> myNeighbors;
-	protected String currState;
+	private ArrayList<Cell> myNeighbors;
+	private String currState;
 	protected String newState;
-	protected double updateProb;
-	protected Random rand;
 	
 	/**
 	 * Constructor of Cell class
 	 * @param currState current state of cell
 	 * @param updateProb update probability at which the cell updates
 	 */
-	public Cell(String currState, double updateProb){
+	public Cell(String currState){
 		this.setFill(colorByState(currState));
 		this.currState = currState;
-		this.updateProb = updateProb;
-		rand = new Random();
 	}
 	
 	/**
@@ -69,6 +63,9 @@ public abstract class Cell extends Rectangle{
 		this.setHeight(10);
 	}
 	
+	public ArrayList<Cell> getNeighbors(){
+		return myNeighbors;
+	}
 	
 	/**
 	 * abstract method: instantiate by subclasses according to specific updating rules
