@@ -61,6 +61,10 @@ public class SimulationBuilder {
 		switch (simulationType) {
 			case "Fire": 
 				return new FireGrid(rows, cols, probability, initialStates);
+			case "Segregation":
+				return new SegreGrid(rows, cols, probability, initialStates);
+			case "Game of Life":
+				return new LifeGrid(rows, cols, initialStates);
 			
 		}
 			
