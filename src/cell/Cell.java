@@ -47,6 +47,14 @@ public abstract class Cell extends Rectangle{
 	}
 	
 	/**
+	 * get current state
+	 * @return current state
+	 */
+	public String getState(){
+		return currState;
+	}
+	
+	/**
 	 * update the state of the cell
 	 */
 	public void setState(){

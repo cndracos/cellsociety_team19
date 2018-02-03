@@ -8,8 +8,8 @@ import javafx.scene.paint.Color;
  * @author Yameng Liu
  *
  */
-public class FireCell extends Cell{	
-	public FireCell(String currState, double updateProb) {
+public class LifeCell extends Cell{	
+	public LifeCell(String currState, double updateProb) {
 		super(currState, updateProb);
 	}
 
@@ -19,24 +19,20 @@ public class FireCell extends Cell{
 	 * @return new state
 	 */
 	protected String updateByRule() {
-		if(currState == "EMPTY"){
-			return currState;
+		int count = 0;
+		for(Cell myNeighbor:myNeighbors){
+			count += myNeighbor.getState() == "ALIVE"? 1: 0;
 		}
-		if(currState == "BURNING"){
-			return "EMPTY";
+		if(count < 2 || count > 3){
+			return "DEAD";
 		}
-		
-		boolean isNeighborsBurned = false;
-		for(Cell myNeighbor : myNeighbors){
-			if(myNeighbor.currState == "BURNING"){
-				isNeighborsBurned = true;
-				break;
-			}
+		if(count == 2 || count == 3){
+			return "ALIVE";
 		}
-		if(isNeighborsBurned && rand.nextDouble() < updateProb){
-			return "BURNING";
+		if(currState == "DEAD" && count == 3){
+			return "ALIVE";
 		}
-		return "TREE";
+		return currState;
 	}
 
 	@Override
@@ -46,7 +42,7 @@ public class FireCell extends Cell{
 	 * @return current color of graphics
 	 */
 	protected Color colorByState(String state) {
-		return state == "EMPTY" ? Color.YELLOW : state == "TREE" ? Color.GREEN : Color.RED;
+		return state == "DEAD" ? Color.BLACK : Color.RED;
 	}
 
 }
