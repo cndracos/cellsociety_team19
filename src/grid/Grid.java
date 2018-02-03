@@ -16,6 +16,7 @@ public abstract class Grid {
 	
 	public void add (Cell c, int n, int k) {
 		population[n][k] = c;
+		c.addToScreen(n, k);
 	}
 	
 	public abstract ArrayList<Cell> getNeighbors(int n, int k);
