@@ -1,5 +1,6 @@
 package cell;
 
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.ArrayList;
 import javafx.scene.paint.Color;
@@ -46,7 +47,15 @@ public abstract class Cell extends Rectangle{
 	}
 	
 	/**
-	 * update the state and graphics of the cell
+	 * get current state
+	 * @return current state
+	 */
+	public String getState(){
+		return currState;
+	}
+	
+	/**
+	 * update the state of the cell
 	 */
 	public void setState(){
 		currState = newState;
@@ -64,6 +73,13 @@ public abstract class Cell extends Rectangle{
 		return currState;
 	}
 	
+	
+	/**
+	 * update the graphics of the cell
+	 */
+	public void setGUI(){
+		this.setFill(colorByState(currState));
+	}
 	
 	/**
 	 * abstract method: instantiate by subclasses according to specific updating rules
