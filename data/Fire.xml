@@ -1,0 +1,8 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<data simulation = "CA">
+	<model>Fire</model>
+	<rows>11</rows>
+	<columns>11</columns>
+	<probability>0.3</probability>
+	<initialStates type="BURNING">0.0 0.03</initialStates>
+</data>
