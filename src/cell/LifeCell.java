@@ -1,5 +1,6 @@
 package cell;
 
+
 import javafx.scene.paint.Color;
 
 /**
@@ -9,8 +10,8 @@ import javafx.scene.paint.Color;
  *
  */
 public class LifeCell extends Cell{	
-	public LifeCell(String currState, double updateProb) {
-		super(currState, updateProb);
+	public LifeCell(String currState, double probCatch) {
+		super(currState);
 	}
 
 	@Override
@@ -20,7 +21,7 @@ public class LifeCell extends Cell{
 	 */
 	protected String updateByRule() {
 		int count = 0;
-		for(Cell myNeighbor:myNeighbors){
+		for(Cell myNeighbor:getNeighbors()){
 			count += myNeighbor.getState() == "ALIVE"? 1: 0;
 		}
 		if(count < 2 || count > 3){
@@ -29,10 +30,10 @@ public class LifeCell extends Cell{
 		if(count == 2 || count == 3){
 			return "ALIVE";
 		}
-		if(currState == "DEAD" && count == 3){
+		if(getState() == "DEAD" && count == 3){
 			return "ALIVE";
 		}
-		return currState;
+		return getState();
 	}
 
 	@Override
