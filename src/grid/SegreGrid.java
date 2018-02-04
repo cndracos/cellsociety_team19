@@ -18,7 +18,7 @@ public class SegreGrid extends Grid {
 		rand = new Random();
 		init();
 	}
-	
+
 	public void init() {
 		/**
 		double[] probX = this.getKeys().get("X");
@@ -55,9 +55,6 @@ public class SegreGrid extends Grid {
 				}
 			}
 		}
-
-		Collections.shuffle(disatisfied);
-        Collections.shuffle(empty);
 		
 		Collections.shuffle(empty);
 		Collections.shuffle(disatisfied);
