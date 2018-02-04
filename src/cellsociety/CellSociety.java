@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.stage.FileChooser;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.Group;
@@ -18,8 +19,6 @@ import xmlparser.*;
 import grid.*;
 
 public class CellSociety {
-	// title of the window
-	private static String simulationType;
 	public static final String DATA_TYPE = "CA";
 	// dimensions of the viewing window
 	private static final int X_DIMENSION = 800;
@@ -30,6 +29,10 @@ public class CellSociety {
 	private static final int FRAMES_PER_SECOND = 60;
 	private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
 	private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
+	// buttons for user control
+	private static final Button PAUSE_BUTTON = new Button("Pause");
+	private static final Button RESUME_BUTTON = new Button("Resume");
+	private static final Button STEP_BUTTON = new Button("Step");
 
 	
 	
@@ -75,6 +78,7 @@ public class CellSociety {
 	 */
 	private Scene setupSimulationWindow(Group root, int height, int width, Paint background) {
 		root = new Group();
+		initButtons();
 		return new Scene(root, height, width, background);
 	}
 	
@@ -88,6 +92,21 @@ public class CellSociety {
 				root.getChildren().add(grid.get(i, j));
 			}
 		}
+	}
+	
+	/**
+	 * Set up the buttons for user control.
+	 */
+	private void initButtons() {
+		PAUSE_BUTTON.setOnAction(__ -> {
+			timeline.pause();
+		});
+		RESUME_BUTTON.setOnAction(__ -> {
+			timeline.play();
+		});
+		STEP_BUTTON.setOnAction(__ -> {
+			timeline.pause();
+		});
 	}
 
 }
