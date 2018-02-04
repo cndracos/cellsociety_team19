@@ -15,7 +15,7 @@ public abstract class Cell extends Rectangle{
 	private String currState;
 	protected String newState;
 	private final int SIZE = 10;
-	private final int DEFAULT_DIS = 5;
+	private final int DEFAULT_DIS = 10;
 	/**
 	 * Constructor of Cell class
 	 * @param currState current state of cell
