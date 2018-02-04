@@ -19,7 +19,7 @@ public class SegreGrid extends Grid {
 		init();
 	}
 	
-<<<<<<< HEAD
+
 	public ArrayList<Cell> getNeighbors(int n, int k){
 		return neighbors[n][k];
 	}
@@ -49,8 +49,7 @@ public class SegreGrid extends Grid {
 		}
 	}
 	
-=======
->>>>>>> f316dc24fd45d213c88e031638235dc775e855aa
+    
 	public void init() {
 		/**
 		double[] probX = this.getKeys().get("X");
@@ -87,7 +86,11 @@ public class SegreGrid extends Grid {
 				}
 			}
 		}
+
 		Collections.shuffle(disatisfied);
+
+		
+	
 		for (int l = 0; l < Math.min(empty.size(), disatisfied.size()); l++) {
 			empty.get(l).changeState2(disatisfied.get(l).getState());
 			disatisfied.get(l).changeState2("EMPTY");
