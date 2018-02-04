@@ -7,13 +7,13 @@ import javafx.scene.paint.Color;
 
 public class WatorCell extends Cell{
 	private String currState;
-	private int fishR;
-	private int sharkR;
-	private int sharkE;
+	private double fishR;
+	private double sharkR;
+	private double sharkE;
 	private Random rand;
 	private final int fishE = 7;
 	
-	public WatorCell(String currState,int fishR,int sharkR,int sharkE){
+	public WatorCell(String currState,double fishR,double sharkR,double sharkE){
 		super(currState);
 		this.fishR = fishR;
 		this.sharkR = sharkR;

@@ -71,6 +71,7 @@ public class practice extends Application{
 
                 
        grid = new WatorGrid(n, k, vals, keys);
+       System.out.print(root== null);
        for (int i = 0; i < n; i++) {
     	   	for (int j = 0; j < k; j++) {
     	   		root.getChildren().add(grid.get(i, j));
