@@ -18,7 +18,7 @@ public class SegreGrid extends Grid {
 		rand = new Random();
 		init();
 	}
-    
+
 	public void init() {
 		/**
 		double[] probX = this.getKeys().get("X");
