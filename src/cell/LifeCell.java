@@ -43,7 +43,7 @@ public class LifeCell extends Cell{
 	 * @return current color of graphics
 	 */
 	protected Color colorByState(String state) {
-		return state == "DEAD" ? Color.BLACK : Color.RED;
+		return state == "DEAD" ? Color.WHITE : Color.RED;
 	}
 
 }
