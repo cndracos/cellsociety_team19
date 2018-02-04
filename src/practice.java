@@ -68,6 +68,7 @@ public class practice extends Application{
         Oprob[1] = 0.8;
         keys.put("X", Xprob);
         keys.put("O", Oprob);
+
                 
        grid = new SegreGrid(n, k, satisfied, keys);
        for (int i = 0; i < n; i++) {
@@ -81,7 +82,6 @@ public class practice extends Application{
 
     
     private void step (double elapsedTime) {
-
             grid.update();
                 
             //check if states of all grids in the cell converges or not

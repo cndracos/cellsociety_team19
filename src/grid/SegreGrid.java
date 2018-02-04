@@ -36,7 +36,8 @@ public class SegreGrid extends Grid {
 		}
 		
 		this.addNeighbors();
-	}
+    }
+
 	
 	@Override
 	public void update() {
