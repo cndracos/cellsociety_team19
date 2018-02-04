@@ -40,7 +40,7 @@ public class FireGrid extends Grid {
 					this.add(new FireCell("EMPTY", probCatch), i, j);
 				else {
 					double randD = rand.nextDouble();
-					if (randD > probFire[0] && randD <= probFire[1]) 
+					if (randD >= probFire[0] && randD < probFire[1]) 
 						this.add(new FireCell("BURNING", probCatch), i, j);
 					else this.add(new FireCell("TREE", probCatch), i, j);
 				}

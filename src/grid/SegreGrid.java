@@ -20,15 +20,14 @@ public class SegreGrid extends Grid {
 	}
 
 	public void init() {
-		/**
 		double[] probX = this.getKeys().get("X");
 		double[] probO = this.getKeys().get("O");
 		for (int i = 0; i < this.getRows(); i++) {
 			for (int j = 0; j < this.getCols(); j++) {
 				double randD = rand.nextDouble();
-				if (randD > probX[0] && randD <= probX[1]) 
+				if (randD >= probX[0] && randD < probX[1]) 
 					this.add(new SegreCell("X", satisfied), i, j);
-				else if (randD > probO[0] && randD <= probO[1])
+				else if (randD >= probO[0] && randD < probO[1])
 					this.add(new SegreCell("O", satisfied), i, j);
 				else {
 					this.add(new SegreCell("EMPTY", satisfied), i, j);
@@ -37,8 +36,8 @@ public class SegreGrid extends Grid {
 		}
 		
 		this.addNeighbors();
-		**/
-	}
+    }
+
 	
 	@Override
 	public void update() {
