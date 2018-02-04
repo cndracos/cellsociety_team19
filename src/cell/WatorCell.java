@@ -80,6 +80,6 @@ public class WatorCell extends Cell{
 	
 	@Override
 	protected Color colorByState(String state) {
-		return state == "WATER" ? Color.WHITE : state == "FISH" ? Color.GREEN : Color.BLUE;
+		return state == "WATER" ? Color.BLUE : state == "FISH" ? Color.GREEN : Color.YELLOW;
 	}
 }
