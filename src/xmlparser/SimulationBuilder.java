@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -51,7 +52,7 @@ public class SimulationBuilder {
 				simulationName = gridProperties.get("model").toString();
 				int rows = Integer.parseInt(gridProperties.get("rows").toString());
 				int cols = Integer.parseInt(gridProperties.get("columns").toString());
-				double probability = Double.parseDouble(gridProperties.get("probability").toString());
+				double[] probability = Stream.of(gridProperties.get("probability").split("\\s+")).mapToDouble(Double::parseDouble).toArray();
 				// extract the percentages for the initial states of the cells
 				Map<String, double[]> initialStates = parser.getInitialStates(XMLFile);
 				return generateGrid(rows, cols, probability, initialStates);
@@ -60,19 +61,25 @@ public class SimulationBuilder {
 				alert.setContentText(e.getMessage());
 				alert.showAndWait();
 			}
-		} 
+		}
 		return null;
+		
 	}
 	
 	// select which type of grid we want to initialize based upon the simulation type
-	public Grid generateGrid(int rows, int cols, double probability, Map<String, double[]> initialStates) {
+	public Grid generateGrid(int rows, int cols, double[] probability, Map<String, double[]> initialStates) {
 		switch (simulationName) {
+			
+			case "Fire": 
+				// probability[0] only b/c only one probability exists for this simulation
+				return new FireGrid(rows, cols, probability[0], initialStates);
+			case "Segregation":
+				// probability[0] only b/c only one probability exists for this simulation
+				return new SegreGrid(rows, cols, probability[0], initialStates);
 			default:
 				return new LifeGrid(rows, cols, initialStates);
-			case "Fire": 
-				return new FireGrid(rows, cols, probability, initialStates);
-			case "Segregation":
-				return new SegreGrid(rows, cols, probability, initialStates);
+			//case "Wator":
+			//	return new WatorGrid(rows, cols, probability, initialStates);
 		}
 			
 			

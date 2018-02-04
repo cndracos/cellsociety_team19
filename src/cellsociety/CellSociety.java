@@ -3,6 +3,7 @@ package cellsociety;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Random;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -17,18 +18,19 @@ import javafx.scene.Group;
 
 import xmlparser.*;
 import grid.*;
+import cell.*;
 
 public class CellSociety {
 	public static final String DATA_TYPE = "CA";
 	// dimensions of the viewing window
-	private static final int X_DIMENSION = 800;
-	private static final int Y_DIMENSION = 600;
+	private static final int X_DIMENSION = 320;
+	private static final int Y_DIMENSION = 320;
 	// color of the viewing window
-	private static final Paint BACKGROUND_COLOR = Color.WHITE;
+	private static final Paint BACKGROUND_COLOR = Color.BLACK;
 	// for animations
 	private static final int FRAMES_PER_SECOND = 60;
-	private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
-	private static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
+	private static final int MILLISECOND_DELAY = 1000;
+	private static final double SECOND_DELAY = FRAMES_PER_SECOND;
 	// buttons for user control
 	private static final Button PAUSE_BUTTON = new Button("Pause");
 	private static final Button RESUME_BUTTON = new Button("Resume");
@@ -38,22 +40,23 @@ public class CellSociety {
 	
 	// objects that aid with the GUI
 	private Timeline timeline;
-	private Group root;
+	private Group root = new Group();
 	private Grid grid;
 	
 	/**
 	 * Default constructor. Should initialize the grid and handle setting the stage, scene, and animation.
 	 * @param stage
+	 * @throws InterruptedException 
 	 * @throws FileNotFoundException
 	 */
-	public CellSociety(Stage stage) {
+	public CellSociety(Stage stage) throws InterruptedException {
 		// set up grid and cells with SimulationBuilder
 		SimulationBuilder sb = new SimulationBuilder(stage);
 		grid = sb.build();
-		initGrid(grid);
 		// stage
 		stage.setTitle(sb.getBuildType());
 		stage.setScene(setupSimulationWindow(root, X_DIMENSION, Y_DIMENSION, BACKGROUND_COLOR));
+		initGrid(grid);
 		// set to visible
 		stage.show();
 		// animation specifics
@@ -77,7 +80,6 @@ public class CellSociety {
 	 * Create the Scene for the simulation (effectively the GUI)
 	 */
 	private Scene setupSimulationWindow(Group root, int height, int width, Paint background) {
-		root = new Group();
 		initButtons();
 		return new Scene(root, height, width, background);
 	}

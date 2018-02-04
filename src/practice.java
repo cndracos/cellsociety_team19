@@ -87,12 +87,7 @@ public class practice extends Application{
         keys.put("O", Oprob);
 **/
                 
-       grid = new SegreGrid(n, k, satisfied, keys);
-       for (int i = 0; i < n; i++) {
-    	   	for (int j = 0; j < k; j++) {
-    	   		root.getChildren().add(grid.get(i, j));
-    	   	}
-       }
+
        
        return scene;
     }

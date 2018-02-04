@@ -1,0 +1,9 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<data simulation = "CA">
+	<model>WaTor</model>
+	<rows>31</rows>
+	<columns>31</columns>
+	<probability>4.0 20.0 5.0</probability>
+	<initialStates type = "FISH">0.0 0.7</initialStates>
+	<initialStates type = "SHARK">0.7 0.8</initialStates>
+</data>
