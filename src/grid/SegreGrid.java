@@ -59,7 +59,9 @@ public class SegreGrid extends Grid {
 		Collections.shuffle(disatisfied);
         Collections.shuffle(empty);
 		
-	
+		Collections.shuffle(empty);
+		Collections.shuffle(disatisfied);
+		
 		for (int l = 0; l < Math.min(empty.size(), disatisfied.size()); l++) {
 			empty.get(l).changeState2(disatisfied.get(l).getState());
 			disatisfied.get(l).changeState2("EMPTY");
