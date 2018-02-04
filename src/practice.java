@@ -39,7 +39,7 @@ public class practice extends Application{
         stage.setTitle("practice");
         stage.show();
        
-        KeyFrame frame = new KeyFrame(Duration.millis(1000),
+        KeyFrame frame = new KeyFrame(Duration.millis(100),
                                       e -> step(60));
         animation = new Timeline();
         animation.setCycleCount(Timeline.INDEFINITE);
@@ -57,8 +57,8 @@ public class practice extends Application{
         n =  31;
         k = 31;
 
-
-        double satisfied = .50;
+        
+        double satisfied = .25;
         Map<String, double[]> keys = new HashMap<String, double[]>();
         double[] Xprob = new double[2];
         Xprob[0] = 0.0;
