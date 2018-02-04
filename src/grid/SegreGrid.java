@@ -18,7 +18,7 @@ public class SegreGrid extends Grid {
 		rand = new Random();
 		init();
 	}
-	
+
 	public void init() {
 		double[] probX = this.getKeys().get("X");
 		double[] probO = this.getKeys().get("O");
@@ -36,8 +36,8 @@ public class SegreGrid extends Grid {
 		}
 		
 		this.addNeighbors();
-		
-	}
+    }
+
 	
 	@Override
 	public void update() {
@@ -54,9 +54,6 @@ public class SegreGrid extends Grid {
 				}
 			}
 		}
-
-		Collections.shuffle(disatisfied);
-        Collections.shuffle(empty);
 		
 		for (int l = 0; l < Math.min(empty.size(), disatisfied.size()); l++) {
 			empty.get(l).changeState2(disatisfied.get(l).getState());

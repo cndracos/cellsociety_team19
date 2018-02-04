@@ -57,7 +57,10 @@ public class practice extends Application{
         n =  31;
         k = 31;
 
+<<<<<<< HEAD
         //String state = "TREE";
+=======
+>>>>>>> 8fa7a4362c9adfe0ef11ed36ce83d2bc64501762
         
         double satisfied = .50;
         Map<String, double[]> keys = new HashMap<String, double[]>();
@@ -69,7 +72,10 @@ public class practice extends Application{
         Oprob[1] = 0.8;
         keys.put("X", Xprob);
         keys.put("O", Oprob);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8fa7a4362c9adfe0ef11ed36ce83d2bc64501762
                 
        grid = new SegreGrid(n, k, satisfied, keys);
        for (int i = 0; i < n; i++) {
@@ -83,15 +89,9 @@ public class practice extends Application{
 
     
     private void step (double elapsedTime) {
-    	/**
-        boolean isfire = false;
-        boolean isFire = false;
         	for (int i = 0; i < n; i++) {
         		for (int j = 0; j < k; j++) {
         			grid.get(i, j).findState();
-                    	if(grid.get(i, j).getState() == "BURNING"){
-                    		isFire = true;
-                        }
                 }
             }
         	
@@ -101,15 +101,12 @@ public class practice extends Application{
                 }
             }
 
-            if (!isfire) System.out.println("over");
-
-       grid.update();
-                //check if states of all grids in the cell converges or not
-                //if(grid.isConverge()){
-                  //      stopGame();
-                //}
- */
-    	grid.update();
+            grid.update();
+                
+            //check if states of all grids in the cell converges or not
+            //if(grid.isConverge()){
+            //      stopGame();
+            //}
     }
 
     private void stopGame(){
