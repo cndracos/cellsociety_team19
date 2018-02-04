@@ -37,6 +37,6 @@ public class SegreCell extends Cell{
 	 * @return current color of graphics
 	 */
 	protected Color colorByState(String state) {
-		return state == "EMPTY" ? Color.YELLOW : state == "X" ? Color.GREEN : Color.RED;
+		return state == "EMPTY" ? Color.WHITE : state == "X" ? Color.GREEN : Color.RED;
 	}
 }
