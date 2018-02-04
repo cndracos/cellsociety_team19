@@ -56,8 +56,10 @@ public class practice extends Application{
         rand = new Random();
         
         
+
         int n =  97;
         int k = 70;
+
         double[] vals = {4, 20, 5};
         Map<String, double[]> keys = new HashMap<String, double[]>();
         double[] fProb = new double[2];
@@ -69,6 +71,7 @@ public class practice extends Application{
         keys.put("FISH", fProb);
         keys.put("SHARK", sProb);
         grid = new WatorGrid(n, k, vals, keys); 
+
         
        /**int n =  97;
         int k = 70;
@@ -85,6 +88,7 @@ public class practice extends Application{
         grid = new SegreGrid(n, k, vals, keys); **/
     
        //System.out.print(root== null);
+
        for (int i = 0; i < n; i++) {
     	   	for (int j = 0; j < k; j++) {
     	   		root.getChildren().add(grid.get(i, j));
