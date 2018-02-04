@@ -48,7 +48,7 @@ public class SegreGrid extends Grid {
 					if (j-1>=0) neighbors[i][j].add(this.get(i+1, j-1));
 					if (j+1<k) neighbors[i][j].add(this.get(i+1, j+1));
 				}
-				this.get(n, k).setNeighbors(neighbors[n][k]);
+				this.get(i, j).setNeighbors(neighbors[i][j]);
 			}
 		}
 	}
