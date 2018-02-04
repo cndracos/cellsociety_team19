@@ -12,10 +12,10 @@ public abstract class Grid {
 	private int cols;
 	
 	public Grid (int n, int k, Map<String, double[]> keys) {
-		population = new Cell[n][k];
-		neighbors = new ArrayList[n][k];
 		rows = n;
 		cols = k;
+		population = new Cell[rows][cols];
+		neighbors = new ArrayList[n][k];
 		this.keys = keys;
 	}
 	
