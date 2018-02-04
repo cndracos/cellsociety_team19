@@ -19,7 +19,7 @@ public class SegreCell extends Cell{
 	}
 
 	public boolean isSatisfied(){
-		int count = 0;
+		double count = 0;
 		for (Cell myNeighbor: getNeighbors()){
 			count += myNeighbor.getState() == getState() ? 1: 0;
 		}

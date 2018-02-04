@@ -54,11 +54,11 @@ public class practice extends Application{
    
         Scene scene = new Scene(root, width, height, background);
         rand = new Random();
-        n =  31;
-        k = 31;
+        n =  30;
+        k = 30;
 
 
-        double satisfied = .50;
+        double satisfied = .15;
         Map<String, double[]> keys = new HashMap<String, double[]>();
         double[] Xprob = new double[2];
         Xprob[0] = 0.0;
