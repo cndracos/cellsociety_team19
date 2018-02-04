@@ -8,6 +8,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
+import java.util.Random;
+
 import cell.*;
 
 public class practice extends Application{
@@ -23,14 +26,14 @@ public class practice extends Application{
     private int k;
     private Grid grid;
     private Timeline animation;
-    
+    private Random rand;
     /**
      * Initialize what will be displayed and how it will be updated.
      */
     @Override
     public void start (Stage stage) {
                 
-        myScene = setupGame(320, 320, Color.WHITE);
+        myScene = setupGame(320, 320, Color.BLACK);
         stage.setScene(myScene);
         stage.setTitle("practice");
         stage.show();
@@ -49,23 +52,26 @@ public class practice extends Application{
         Group root = new Group();
    
         Scene scene = new Scene(root, width, height, background);
-        
+        rand = new Random();
         n =  31;
-                k = 31;
-                int probCatch = 1;
-                String state = "TREE";
-                
-                grid = new LifeGrid(n, k);
-                
-                for (int i = 0; i < n; i++) {
-                        for (int j = 0; j < k; j++) {
-                                if (i==15 && j == 15) grid.add(new FireCell("BURNING", .3), i, j);
-                                else grid.add(new FireCell(state, probCatch), i, j);
+        k = 31;
+        int probCatch = 1;
+        String state = "TREE";
+        
+        grid = new SegreGrid(n, k,0.3, null);
+        
+        for (int i = 0; i < n; i++) {
+                for (int j = 0; j < k; j++) {
+               
+                		int key = rand.nextInt(10);
+                        if (key < 4) grid.add(new SegreCell("X", .3), i, j);
+                        else if(key < 8)grid.add(new SegreCell("O", 0.3), i, j);
+                        else grid.add(new SegreCell("EMPTY", 0.3), i, j);
 
-                                root.getChildren().add(grid.get(i, j));
-                        }
+                        root.getChildren().add(grid.get(i, j));
                 }
-                grid.addNeighbors();
+        }
+        grid.addNeighbors();        
                 
         
         return scene;
@@ -73,31 +79,34 @@ public class practice extends Application{
 
     
     private void step (double elapsedTime) {
-                boolean isfire = false;
-                for (int i = 0; i < n; i++) {
+    	/**
+        boolean isfire = false;
         boolean isFire = false;
-        for (int i = 0; i < n; i++) {
-                        for (int j = 0; j < k; j++) {
-                                grid.get(i, j).findState();
-                                if(grid.get(i, j).getState() == "BURNING"){
-                                        isFire = true;
-                                }
+        	for (int i = 0; i < n; i++) {
+        		for (int j = 0; j < k; j++) {
+        			grid.get(i, j).findState();
+                    	if(grid.get(i, j).getState() == "BURNING"){
+                    		isFire = true;
                         }
                 }
-                for (int i = 0; i < n; i++) {
-                        for (int j = 0; j < k; j++) {
-                                grid.get(i, j).setState();
-                        }
+            }
+        	
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < k; j++) {
+                    grid.get(i, j).setState();
                 }
+            }
 
-                if (!isfire) System.out.println("over");
+            if (!isfire) System.out.println("over");
 
                 
                 //check if states of all grids in the cell converges or not
                 //if(grid.isConverge()){
                   //      stopGame();
                 //}
-        }
+            */
+    	grid.update();
+    }
 
     private void stopGame(){
         animation.stop();

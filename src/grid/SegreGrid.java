@@ -4,6 +4,7 @@ import cell.Cell;
 import cell.SegreCell;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Map;
 import java.util.Random;
 
@@ -48,12 +49,13 @@ public class SegreGrid extends Grid {
 					if (j-1>=0) neighbors[i][j].add(this.get(i+1, j-1));
 					if (j+1<k) neighbors[i][j].add(this.get(i+1, j+1));
 				}
-				this.get(n, k).setNeighbors(neighbors[n][k]);
+				this.get(i, j).setNeighbors(neighbors[i][j]);
 			}
 		}
 	}
 	
 	public void init() {
+		/**
 		double[] probX = this.getKeys().get("X");
 		double[] probO = this.getKeys().get("O");
 		for (int i = 0; i < n; i++) {
@@ -68,7 +70,9 @@ public class SegreGrid extends Grid {
 				}
 			}
 		}
+		
 		this.addNeighbors();
+		**/
 	}
 	
 	@Override
@@ -86,7 +90,7 @@ public class SegreGrid extends Grid {
 				}
 			}
 		}
-		
+		Collections.shuffle(disatisfied);
 		for (int l = 0; l < Math.min(empty.size(), disatisfied.size()); l++) {
 			empty.get(l).changeState2(disatisfied.get(l).getState());
 			disatisfied.get(l).changeState2("EMPTY");
