@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.util.Random;
+
 import java.util.HashMap;
 import java.util.Map;
 import cell.*;
@@ -28,6 +29,7 @@ public class practice extends Application{
     private Grid grid;
     private Timeline animation;
     private Random rand;
+    private int count = 0;
     /**
      * Initialize what will be displayed and how it will be updated.
      */
@@ -50,7 +52,7 @@ public class practice extends Application{
   
     private Scene setupGame (int width, int height, Paint background) {
       
-        Group root = new Group();
+    	Group root = new Group(); 
    
         Scene scene = new Scene(root, width, height, background);
         rand = new Random();
@@ -71,7 +73,6 @@ public class practice extends Application{
 
                 
        grid = new WatorGrid(n, k, vals, keys);
-       System.out.print(root== null);
        for (int i = 0; i < n; i++) {
     	   	for (int j = 0; j < k; j++) {
     	   		root.getChildren().add(grid.get(i, j));
@@ -84,11 +85,9 @@ public class practice extends Application{
     
     private void step (double elapsedTime) {
             grid.update();
-                
+            count += 1;
             //check if states of all grids in the cell converges or not
-            //if(grid.isConverge()){
-            //      stopGame();
-            //}
+            
     }
 
     private void stopGame(){

@@ -23,41 +23,52 @@ public class WatorCell extends Cell{
 	
 	@Override
 	/**
+	 * find the next state to update 
+	 */
+	public void findState(){
+		//System.out.println("enter find state");
+		updateByRule();
+	}
+	
+	@Override
+	/**
 	 * Update states according to simple rules on course website with probability
 	 * @return new state
 	 */
 	protected String updateByRule() {
-		if(currState == "FISH"){
+		if(getState().equals("FISH")){
+			//System.out.print("enter fish");
 			ArrayList<WatorCell> waters = getTypes("WATER");
 			//if there is an unoccupied free cell, move to it
 			if(waters.size() > 0){
 				int key = rand.nextInt(waters.size());
-				this.setNewState("WATER");
-				waters.get(key).setNewState(currState);
+				this.newState ="WATER";
+				waters.get(key).newState = "FISH";
 			}
 		}
 		
-		else if(currState == "SHARK"){
+		else if(getState().equals("SHARK")){
+			//System.out.print("enter shark");
 			ArrayList<WatorCell> fishs = getTypes("FISH");
 			ArrayList<WatorCell> waters = getTypes("WATER");
 			//if there is a fish, devour it
 			if(fishs.size() > 0){
 				int key = rand.nextInt(fishs.size());
-				this.setNewState("WATER");
-				fishs.get(key).setNewState(currState);
+				this.newState ="WATER";
+				fishs.get(key).newState = "SHARK";
 				sharkE += fishE;
 				sharkE -= 1;
 			}
 			//if there is an unoccupied free cell, move to it
 			else if(waters.size() > 0){
-				int key = rand.nextInt(fishs.size());
-				this.setNewState("WATER");
-				fishs.get(key).setNewState(currState);
+				int key = rand.nextInt(waters.size());
+				this.newState = "WATER";
+				waters.get(key).newState = "SHARK";
 				sharkE -= 1;
 			}
 			//if a shark consumed all energy, it dies
 			if(sharkE == 0){
-				this.setNewState("WATER");
+				this.newState = "WATER";
 			}
 		}
 		
@@ -74,12 +85,8 @@ public class WatorCell extends Cell{
 		return typeArray;
 	}
 	
-	private void setNewState(String newState){
-		this.newState = newState;
-	}
-	
 	@Override
 	protected Color colorByState(String state) {
-		return state == "WATER" ? Color.WHITE : state == "FISH" ? Color.GREEN : Color.BLUE;
+		return state == "WATER" ? Color.BLUE : state == "FISH" ? Color.GREEN : Color.YELLOW;
 	}
 }

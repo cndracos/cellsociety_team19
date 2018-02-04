@@ -13,6 +13,8 @@ public class WatorGrid extends Grid {
 	public WatorGrid(int n, int k, double[] vals, Map<String, double[]> keys) {
 		super(n, k, keys);
 		this.vals = vals;
+		rand = new Random();
+		init();
 	}
 	
 	public void init() {
@@ -42,9 +44,9 @@ public class WatorGrid extends Grid {
 				for (int j = 0; j < this.getCols(); j++) {
 					this.getNeighborsArray()[i][j] = new ArrayList<Cell>();
 					if (i-1>=0) this.getNeighborsArray()[i][j].add(this.get(i-1, j));
-						else this.getNeighborsArray()[i][j].add(this.get(this.getRows(), j));
+						else this.getNeighborsArray()[i][j].add(this.get(this.getRows() - 1, j));
 					if (j-1>=0) this.getNeighborsArray()[i][j].add(this.get(i, j-1));
-						else this.getNeighborsArray()[i][j].add(this.get(i, this.getCols()));
+						else this.getNeighborsArray()[i][j].add(this.get(i, this.getCols() - 1));
 					if (j+1<this.getCols()) this.getNeighborsArray()[i][j].add(this.get(i, j+1));
 						else this.getNeighborsArray()[i][j].add(this.get(i, 0));
 					if (i+1<this.getRows()) this.getNeighborsArray()[i][j].add(this.get(i+1, j));
