@@ -4,6 +4,7 @@ import cell.Cell;
 import cell.SegreCell;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Map;
 import java.util.Random;
 
@@ -51,6 +52,8 @@ public class SegreGrid extends Grid {
 				}
 			}
 		}
+		
+		Collections.shuffle(empty);
 		
 		for (int l = 0; l < Math.min(empty.size(), disatisfied.size()); l++) {
 			empty.get(l).changeState2(disatisfied.get(l).getState());
