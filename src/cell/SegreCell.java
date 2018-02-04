@@ -23,7 +23,7 @@ public class SegreCell extends Cell{
 		for (Cell myNeighbor: getNeighbors()){
 			count += myNeighbor.getState() == getState() ? 1: 0;
 		}
-		return count/8.0 < probCatch ? false : true;
+		return count/getNeighbors().size() < probCatch ? false : true;
 	}
 	
 	public void changeState2(String newState){
@@ -37,6 +37,6 @@ public class SegreCell extends Cell{
 	 * @return current color of graphics
 	 */
 	protected Color colorByState(String state) {
-		return state == "EMPTY" ? Color.YELLOW : state == "X" ? Color.GREEN : Color.RED;
+		return state == "EMPTY" ? Color.WHITE : state == "X" ? Color.GREEN : Color.RED;
 	}
 }
