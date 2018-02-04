@@ -23,7 +23,7 @@ public class SegreCell extends Cell{
 		for (Cell myNeighbor: getNeighbors()){
 			count += myNeighbor.getState() == getState() ? 1: 0;
 		}
-		return count/8.0 < probCatch ? false : true;
+		return count/getNeighbors().size() < probCatch ? false : true;
 	}
 	
 	public void changeState2(String newState){
