@@ -54,23 +54,23 @@ public class practice extends Application{
    
         Scene scene = new Scene(root, width, height, background);
         rand = new Random();
-        n =  31;
-        k = 31;
+        n =  250;
+        k = 350;
 
         
-        double satisfied = .25;
+        double[] vals = {4, 20, 5};
         Map<String, double[]> keys = new HashMap<String, double[]>();
-        double[] Xprob = new double[2];
-        Xprob[0] = 0.0;
-        Xprob[1] = 0.4;
-        double[] Oprob = new double[2];
-        Oprob[0] = 0.4;
-        Oprob[1] = 0.8;
-        keys.put("X", Xprob);
-        keys.put("O", Oprob);
+        double[] fProb = new double[2];
+        fProb[0] = 0.0;
+        fProb[1] = 0.7;
+        double[] sProb = new double[2];
+        sProb[0] = 0.7;
+        sProb[1] = 0.8;
+        keys.put("FISH", fProb);
+        keys.put("SHARK", sProb);
 
                 
-       grid = new SegreGrid(n, k, satisfied, keys);
+       grid = new WatorGrid(n, k, vals, keys);
        for (int i = 0; i < n; i++) {
     	   	for (int j = 0; j < k; j++) {
     	   		root.getChildren().add(grid.get(i, j));
