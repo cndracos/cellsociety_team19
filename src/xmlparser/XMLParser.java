@@ -25,7 +25,7 @@ import cellsociety.CellSociety;
 public class XMLParser {
 	private static DocumentBuilder DOCUMENT_BUILDER;
 	// message that we want to display when the user picks a file in the incorrect format
-	private static final String ERROR_MESSAGE = "XML file does not properly represent %s";
+	public static final String ERROR_MESSAGE = "XML file does not properly represent %s";
 	// name of the root attribute that denotes the type of file we want to parse
 	private static String DATA_TYPE_ATTRIBUTE;
 	

@@ -1,10 +1,10 @@
 package xmlparser;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.HashMap;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -28,44 +28,51 @@ public class SimulationBuilder {
 			"probability",
 	});
 	public static final String INITIAL_DATA_FIELD = new String("initialStates");
+	// name of this specific simulation to build
+	private static String simulationName;
 	
+	// constructor
 	public SimulationBuilder(Stage stage) {
 		FILE_CHOOSER = buildChooser(ACCEPTABLE_EXTENSION);
 		XMLFile = FILE_CHOOSER.showOpenDialog(stage);
 	}
 	
-	// build the grid
+	/**
+	 * Build the grid specified by the XMLFile.
+	 * @return the built grid
+	 * @throws FileNotFoundException
+	 */
 	public Grid build() {
 		if (XMLFile != null) {
 			try {
 				XMLParser parser = new XMLParser("simulation");
 				Map<String, String> gridProperties = parser.getGridProperties(XMLFile);
 				// extract all of the information that we need to form the grid
-				String simulationType = gridProperties.get("model").toString();
+				simulationName = gridProperties.get("model").toString();
 				int rows = Integer.parseInt(gridProperties.get("rows").toString());
 				int cols = Integer.parseInt(gridProperties.get("columns").toString());
 				double probability = Double.parseDouble(gridProperties.get("probability").toString());
 				// extract the percentages for the initial states of the cells
 				Map<String, double[]> initialStates = parser.getInitialStates(XMLFile);
-				return generateGrid(simulationType, rows, cols, probability, initialStates);
+				return generateGrid(rows, cols, probability, initialStates);
 			} catch (XMLException e) {
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setContentText(e.getMessage());
 				alert.showAndWait();
 			}
-		}
+		} 
+		return null;
 	}
 	
 	// select which type of grid we want to initialize based upon the simulation type
-	public Grid generateGrid(String simulationType, int rows, int cols, double probability, Map<String, double[]> initialStates) {
-		switch (simulationType) {
+	public Grid generateGrid(int rows, int cols, double probability, Map<String, double[]> initialStates) {
+		switch (simulationName) {
+			default:
+				return new LifeGrid(rows, cols, initialStates);
 			case "Fire": 
 				return new FireGrid(rows, cols, probability, initialStates);
 			case "Segregation":
 				return new SegreGrid(rows, cols, probability, initialStates);
-			case "Game of Life":
-				return new LifeGrid(rows, cols, initialStates);
-			
 		}
 			
 			
@@ -79,6 +86,11 @@ public class SimulationBuilder {
 		chooser.setInitialDirectory(new File(System.getProperty("user.dir")));
 		chooser.getExtensionFilters().setAll(new ExtensionFilter("Text Files", acceptableExtension));
 		return chooser;
+	}
+	
+	// get the name of the simulation that is building
+	public String getBuildType() {
+		return simulationName;
 	}
 }
 

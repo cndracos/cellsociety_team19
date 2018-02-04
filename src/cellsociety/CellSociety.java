@@ -1,6 +1,7 @@
 package cellsociety;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javafx.animation.KeyFrame;
@@ -14,6 +15,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.Group;
 
 import xmlparser.*;
+import grid.*;
 
 public class CellSociety {
 	// title of the window
@@ -23,7 +25,7 @@ public class CellSociety {
 	private static final int X_DIMENSION = 800;
 	private static final int Y_DIMENSION = 600;
 	// color of the viewing window
-	private static final Paint BACKGROUND_COLOR = Color.LIGHTGRAY;
+	private static final Paint BACKGROUND_COLOR = Color.WHITE;
 	// for animations
 	private static final int FRAMES_PER_SECOND = 60;
 	private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
@@ -34,17 +36,23 @@ public class CellSociety {
 	// objects that aid with the GUI
 	private Timeline timeline;
 	private Group root;
+	private Grid grid;
 	
+	/**
+	 * Default constructor. Should initialize the grid and handle setting the stage, scene, and animation.
+	 * @param stage
+	 * @throws FileNotFoundException
+	 */
 	public CellSociety(Stage stage) {
+		// set up grid and cells with SimulationBuilder
 		SimulationBuilder sb = new SimulationBuilder(stage);
-		sb.build();
+		grid = sb.build();
+		initGrid(grid);
 		// stage
-		stage.setTitle(simulationType);
+		stage.setTitle(sb.getBuildType());
 		stage.setScene(setupSimulationWindow(root, X_DIMENSION, Y_DIMENSION, BACKGROUND_COLOR));
 		// set to visible
 		stage.show();
-		// test
-		
 		// animation specifics
 		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
 		timeline = new Timeline();
@@ -59,7 +67,7 @@ public class CellSociety {
 	 * and the GUI is updated.
 	 */
 	private void step(double elapsedTime) {
-		
+		grid.update();
 	}
 	
 	/**
@@ -71,10 +79,15 @@ public class CellSociety {
 	}
 	
 	/**
-	 * @return the simulation type of this specific instance
+	 * Initializes this simulation's grid by adding all of the cells to the root.
+	 * @param grid the grid object for this simulation
 	 */
-	public String getSimulationType() {
-		return simulationType;
+	private void initGrid(Grid grid) {
+		for (int i = 0; i < grid.getRows(); i++) {
+			for (int j = 0; j < grid.getCols(); j++) {
+				root.getChildren().add(grid.get(i, j));
+			}
+		}
 	}
 
 }
