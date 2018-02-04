@@ -36,12 +36,12 @@ public class practice extends Application{
     @Override
     public void start (Stage stage) {
                 
-        myScene = setupGame(320, 320, Color.BLACK);
+        myScene = setupGame(990, 720, Color.BLACK);
         stage.setScene(myScene);
         stage.setTitle("practice");
         stage.show();
        
-        KeyFrame frame = new KeyFrame(Duration.millis(100),
+        KeyFrame frame = new KeyFrame(Duration.millis(250),
                                       e -> step(60));
         animation = new Timeline();
         animation.setCycleCount(Timeline.INDEFINITE);
@@ -49,17 +49,17 @@ public class practice extends Application{
         animation.play();
     }
 
-  
+ 
     private Scene setupGame (int width, int height, Paint background) {
       
     	Group root = new Group(); 
    
         Scene scene = new Scene(root, width, height, background);
         rand = new Random();
-        n =  250;
-        k = 350;
-
         
+        
+        int n =  97;
+        int k = 70;
         double[] vals = {4, 20, 5};
         Map<String, double[]> keys = new HashMap<String, double[]>();
         double[] fProb = new double[2];
@@ -70,9 +70,30 @@ public class practice extends Application{
         sProb[1] = 0.8;
         keys.put("FISH", fProb);
         keys.put("SHARK", sProb);
+        grid = new WatorGrid(n, k, vals, keys); 
 
+        
+       /**int n =  97;
+        int k = 70;
+        double vals = .5;
+        Map<String, double[]> keys = new HashMap<String, double[]>();
+        double[] XProb = new double[2];
+        XProb[0] = 0.0;
+        XProb[1] = 0.35;
+        double[] OProb = new double[2];
+        OProb[0] = 0.35;
+        OProb[1] = 0.7;
+        keys.put("X", XProb);
+        keys.put("O", OProb);
+        grid = new SegreGrid(n, k, vals, keys); **/
+    
+       //System.out.print(root== null);
+
+<<<<<<< HEAD
                 
        grid = new WatorGrid(n, k, vals, keys);
+=======
+>>>>>>> 8ed0f247df0b210469bfcbff4c01f13649a78965
        for (int i = 0; i < n; i++) {
     	   	for (int j = 0; j < k; j++) {
     	   		root.getChildren().add(grid.get(i, j));

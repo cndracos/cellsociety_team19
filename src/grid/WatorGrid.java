@@ -26,10 +26,10 @@ public class WatorGrid extends Grid {
 		for (int i = 0; i < this.getRows(); i++) {
 			for (int j = 0; j < this.getCols(); j++) {
 				double randD = rand.nextDouble();
-				if (randD >= probF[0] && randD < probF[1]) 
-					this.add(new WatorCell("FISH", fishR, sharkR, sharkE), i, j);
-				else if (randD >= probS[0] && randD < probS[1])
-					this.add(new WatorCell("SHARK", fishR, sharkR, sharkE), i, j);
+				if (randD >= probF[0] && randD < probF[1]) {
+					this.add(new WatorCell("FISH", fishR, sharkR, sharkE), i, j); }
+				else if (randD >= probS[0] && randD < probS[1]) {
+					this.add(new WatorCell("SHARK", fishR, sharkR, sharkE), i, j); }
 				else {
 					this.add(new WatorCell("WATER", fishR, sharkR, sharkE), i, j);
 				}
