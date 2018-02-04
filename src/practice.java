@@ -8,6 +8,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import cell.*;
 
 public class practice extends Application{
@@ -50,49 +54,36 @@ public class practice extends Application{
    
         Scene scene = new Scene(root, width, height, background);
         
-        n =  31;
-                k = 31;
-                int probCatch = 1;
-                String state = "TREE";
+        n =  15;
+        k = 15;
+        double satisfied = .3;
+        Map<String, double[]> keys = new HashMap<String, double[]>();
+        double[] Xprob = new double[2];
+        Xprob[0] = 0.0;
+        Xprob[1] = 0.4;
+        double[] Oprob = new double[2];
+        Oprob[0] = 0.4;
+        Oprob[1] = 0.8;
+        keys.put("X", Xprob);
+        keys.put("O", Oprob);
                 
-                grid = new LifeGrid(n, k);
-                
-                for (int i = 0; i < n; i++) {
-                        for (int j = 0; j < k; j++) {
-                                if (i==15 && j == 15) grid.add(new FireCell("BURNING", .3), i, j);
-                                else grid.add(new FireCell(state, probCatch), i, j);
-
-                                root.getChildren().add(grid.get(i, j));
-                        }
-                }
-                grid.addNeighbors();
-                
-        
-        return scene;
+       grid = new SegreGrid(n, k, satisfied, keys);
+       
+       return scene;
     }
 
     
     private void step (double elapsedTime) {
-                boolean isfire = false;
-                for (int i = 0; i < n; i++) {
-        boolean isFire = false;
         for (int i = 0; i < n; i++) {
-                        for (int j = 0; j < k; j++) {
-                                grid.get(i, j).findState();
-                                if(grid.get(i, j).getState() == "BURNING"){
-                                        isFire = true;
-                                }
+                for (int j = 0; j < k; j++) {
+                		grid.get(i, j).findState();
                         }
                 }
-                for (int i = 0; i < n; i++) {
-                        for (int j = 0; j < k; j++) {
-                                grid.get(i, j).setState();
+        for (int i = 0; i < n; i++) {
+                for (int j = 0; j < k; j++) {
+                     grid.get(i, j).setState();
                         }
-                }
-
-                if (!isfire) System.out.println("over");
-
-                
+                }    
                 //check if states of all grids in the cell converges or not
                 //if(grid.isConverge()){
                   //      stopGame();
