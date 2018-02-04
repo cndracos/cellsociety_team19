@@ -36,7 +36,7 @@ public class FireGrid extends Grid {
 		double[] probFire = this.getKeys().get("BURNING");
 		for (int i = 0; i < this.getRows(); i++) {
 			for (int j = 0; j < this.getCols(); j++) {
-				if (i == 0 || j== 0 || i == this.getRows() || j == this.getCols()) 
+				if (i == 0 || j== 0 || i == this.getRows()-1 || j == this.getCols()-1) 
 					this.add(new FireCell("EMPTY", probCatch), i, j);
 				else {
 					double randD = rand.nextDouble();
