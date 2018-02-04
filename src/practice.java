@@ -56,8 +56,6 @@ public class practice extends Application{
         rand = new Random();
         n =  30;
         k = 30;
-
-
         
         double satisfied = .25;
         Map<String, double[]> keys = new HashMap<String, double[]>();
