@@ -56,10 +56,8 @@ public class practice extends Application{
         rand = new Random();
         
         
-
         int n =  97;
         int k = 70;
-
         double[] vals = {4, 20, 5};
         Map<String, double[]> keys = new HashMap<String, double[]>();
         double[] fProb = new double[2];
