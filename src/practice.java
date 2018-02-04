@@ -57,24 +57,7 @@ public class practice extends Application{
         n =  31;
         k = 31;
 
-        int probCatch = 1;
-        String state = "TREE";
         
-        grid = new SegreGrid(n, k,0.3, null);
-        
-        for (int i = 0; i < n; i++) {
-                for (int j = 0; j < k; j++) {
-               
-                		int key = rand.nextInt(10);
-                        if (key < 4) grid.add(new SegreCell("X", .3), i, j);
-                        else if(key < 8)grid.add(new SegreCell("O", 0.3), i, j);
-                        else grid.add(new SegreCell("EMPTY", 0.3), i, j);
-
-                        root.getChildren().add(grid.get(i, j));
-                }
-        }
-        grid.addNeighbors();
-        /**
         double satisfied = .50;
         Map<String, double[]> keys = new HashMap<String, double[]>();
         double[] Xprob = new double[2];
@@ -85,7 +68,6 @@ public class practice extends Application{
         Oprob[1] = 0.8;
         keys.put("X", Xprob);
         keys.put("O", Oprob);
-**/
                 
        grid = new SegreGrid(n, k, satisfied, keys);
        for (int i = 0; i < n; i++) {
@@ -99,15 +81,9 @@ public class practice extends Application{
 
     
     private void step (double elapsedTime) {
-    	/**
-        boolean isfire = false;
-        boolean isFire = false;
         	for (int i = 0; i < n; i++) {
         		for (int j = 0; j < k; j++) {
         			grid.get(i, j).findState();
-                    	if(grid.get(i, j).getState() == "BURNING"){
-                    		isFire = true;
-                        }
                 }
             }
         	
@@ -117,15 +93,12 @@ public class practice extends Application{
                 }
             }
 
-            if (!isfire) System.out.println("over");
-
-       grid.update();
-                //check if states of all grids in the cell converges or not
-                //if(grid.isConverge()){
-                  //      stopGame();
-                //}
- */
-    	grid.update();
+            grid.update();
+                
+            //check if states of all grids in the cell converges or not
+            //if(grid.isConverge()){
+            //      stopGame();
+            //}
     }
 
     private void stopGame(){
