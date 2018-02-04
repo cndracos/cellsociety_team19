@@ -9,22 +9,17 @@ import java.util.Map;
 import java.util.Random;
 
 public class SegreGrid extends Grid {
-	private ArrayList<Cell>[][] neighbors;
 	private double satisfied;
-	private int n;
-	private int k;
 	private Random rand;
 
 	public SegreGrid(int n, int k, double satisfied, Map<String, double[]> keys) {
 		super(n, k, keys);
-		neighbors = new ArrayList[n][k];
-		this.n = n;
-		this.k = k;
 		this.satisfied = satisfied;
 		rand = new Random();
 		init();
 	}
 	
+<<<<<<< HEAD
 	public ArrayList<Cell> getNeighbors(int n, int k){
 		return neighbors[n][k];
 	}
@@ -54,12 +49,14 @@ public class SegreGrid extends Grid {
 		}
 	}
 	
+=======
+>>>>>>> f316dc24fd45d213c88e031638235dc775e855aa
 	public void init() {
 		/**
 		double[] probX = this.getKeys().get("X");
 		double[] probO = this.getKeys().get("O");
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < k; j++) {
+		for (int i = 0; i < this.getRows(); i++) {
+			for (int j = 0; j < this.getCols(); j++) {
 				double randD = rand.nextDouble();
 				if (randD > probX[0] && randD <= probX[1]) 
 					this.add(new SegreCell("X", satisfied), i, j);
@@ -79,8 +76,8 @@ public class SegreGrid extends Grid {
 	public void update() {
 		ArrayList<SegreCell> empty = new ArrayList<SegreCell>();
 		ArrayList<SegreCell> disatisfied = new ArrayList<SegreCell>();
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < k; j++) {
+		for (int i = 0; i < this.getRows(); i++) {
+			for (int j = 0; j < this.getCols(); j++) {
 				SegreCell s = (SegreCell) this.get(i, j);
 				if (s.getState().equals("EMPTY")) {
 					empty.add(s);
@@ -96,8 +93,8 @@ public class SegreGrid extends Grid {
 			disatisfied.get(l).changeState2("EMPTY");
 		}
 		
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < k; j++) {
+		for (int i = 0; i < this.getRows(); i++) {
+			for (int j = 0; j < this.getCols(); j++) {
 				this.get(i, j).setState();
 			}
 		}

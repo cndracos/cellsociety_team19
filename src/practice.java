@@ -10,7 +10,8 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.util.Random;
-
+import java.util.HashMap;
+import java.util.Map;
 import cell.*;
 
 public class practice extends Application{
@@ -55,6 +56,7 @@ public class practice extends Application{
         rand = new Random();
         n =  31;
         k = 31;
+
         int probCatch = 1;
         String state = "TREE";
         
@@ -71,10 +73,28 @@ public class practice extends Application{
                         root.getChildren().add(grid.get(i, j));
                 }
         }
-        grid.addNeighbors();        
+        grid.addNeighbors();
+        /**
+        double satisfied = .50;
+        Map<String, double[]> keys = new HashMap<String, double[]>();
+        double[] Xprob = new double[2];
+        Xprob[0] = 0.0;
+        Xprob[1] = 0.4;
+        double[] Oprob = new double[2];
+        Oprob[0] = 0.4;
+        Oprob[1] = 0.8;
+        keys.put("X", Xprob);
+        keys.put("O", Oprob);
+**/
                 
-        
-        return scene;
+       grid = new SegreGrid(n, k, satisfied, keys);
+       for (int i = 0; i < n; i++) {
+    	   	for (int j = 0; j < k; j++) {
+    	   		root.getChildren().add(grid.get(i, j));
+    	   	}
+       }
+       
+       return scene;
     }
 
     
@@ -99,12 +119,12 @@ public class practice extends Application{
 
             if (!isfire) System.out.println("over");
 
-                
+       grid.update();
                 //check if states of all grids in the cell converges or not
                 //if(grid.isConverge()){
                   //      stopGame();
                 //}
-            */
+ */
     	grid.update();
     }
 

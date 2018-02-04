@@ -6,14 +6,16 @@ import java.util.Map;
 
 public abstract class Grid {
 	private Cell[][] population;
+	private ArrayList<Cell>[][] neighbors;
 	private Map<String, double[]> keys;
-	private int n;
-	private int k;
+	private int rows;
+	private int cols;
 	
 	public Grid (int n, int k, Map<String, double[]> keys) {
 		population = new Cell[n][k];
-		this.n = n;
-		this.k = k;
+		neighbors = new ArrayList[n][k];
+		rows = n;
+		cols = k;
 		this.keys = keys;
 	}
 	
@@ -21,8 +23,20 @@ public abstract class Grid {
 		return population[n][k];
 	}
 	
+	public ArrayList<Cell>[][] getNeighborsArray() {
+		return neighbors;
+	}
+	
 	public Map<String, double[]> getKeys() {
 		return keys;
+	}
+	
+	public int getRows() {
+		return rows;
+	}
+	
+	public int getCols() {
+		return cols;
 	}
 	
 	public void add (Cell c, int n, int k) {
@@ -31,20 +45,44 @@ public abstract class Grid {
 	}
 	
 	public void update() {
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < k; j++) {
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
 				this.get(i, j).findState();
 			}
 		}
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < k; j++) {
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
 				this.get(i, j).setState();
 			}
 		}
 	}
 	
-	public abstract ArrayList<Cell> getNeighbors(int n, int k);
+	public void addNeighbors() {
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
+				neighbors[i][j] = new ArrayList<Cell>();
+				if (i-1>=0) {
+					neighbors[i][j].add(this.get(i-1, j));
+					if (j-1>=0) {
+						neighbors[i][j].add(this.get(i-1, j-1));
+						neighbors[i][j].add(this.get(i, j-1));
+					}
+					if (j+1<cols) {
+						neighbors[i][j].add(this.get(i-1, j+1));
+						neighbors[i][j].add(this.get(i, j+1));
+					}
+				}
+				if (i+1<rows) {
+					neighbors[i][j].add(this.get(i+1, j));
+					if (j-1>=0) neighbors[i][j].add(this.get(i+1, j-1));
+					if (j+1<cols) neighbors[i][j].add(this.get(i+1, j+1));
+				}
+				this.get(i, j).setNeighbors(neighbors[i][j]);
+			}
+		}
+	}
 	
-	public abstract void addNeighbors();
+	public ArrayList<Cell> getNeighbors(int n, int k) {
+		return neighbors[n][k];
+	}
 }
-
