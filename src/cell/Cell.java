@@ -23,6 +23,7 @@ public abstract class Cell extends Rectangle{
 	public Cell(String currState){
 		this.setFill(colorByState(currState));
 		this.currState = currState;
+		this.newState = currState;
 	}
 	
 	/**
@@ -63,10 +64,6 @@ public abstract class Cell extends Rectangle{
 		this.setHeight(10);
 	}
 	
-
-	public String getState() {
-		return currState;
-	}
 	
 
 	public ArrayList<Cell> getNeighbors(){
@@ -85,4 +82,4 @@ public abstract class Cell extends Rectangle{
 	 * @return color
 	 */
 	protected abstract Color colorByState(String state);
-:}
+}
