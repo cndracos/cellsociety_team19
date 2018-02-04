@@ -34,12 +34,12 @@ public class practice extends Application{
     @Override
     public void start (Stage stage) {
                 
-        myScene = setupGame(320, 320, Color.BLACK);
+        myScene = setupGame(980, 710, Color.BLACK);
         stage.setScene(myScene);
         stage.setTitle("practice");
         stage.show();
        
-        KeyFrame frame = new KeyFrame(Duration.millis(100),
+        KeyFrame frame = new KeyFrame(Duration.millis(200),
                                       e -> step(60));
         animation = new Timeline();
         animation.setCycleCount(Timeline.INDEFINITE);
@@ -54,10 +54,10 @@ public class practice extends Application{
    
         Scene scene = new Scene(root, width, height, background);
         rand = new Random();
-        n =  250;
-        k = 350;
-
         
+        
+  /**      n =  250;
+        k = 350;
         double[] vals = {4, 20, 5};
         Map<String, double[]> keys = new HashMap<String, double[]>();
         double[] fProb = new double[2];
@@ -68,9 +68,22 @@ public class practice extends Application{
         sProb[1] = 0.8;
         keys.put("FISH", fProb);
         keys.put("SHARK", sProb);
-
-                
-       grid = new WatorGrid(n, k, vals, keys);
+        grid = new WatorGrid(n, k, vals, keys); **/
+        
+        n =  97;
+        k = 70;
+        double vals = .5;
+        Map<String, double[]> keys = new HashMap<String, double[]>();
+        double[] XProb = new double[2];
+        XProb[0] = 0.0;
+        XProb[1] = 0.4;
+        double[] OProb = new double[2];
+        OProb[0] = 0.4;
+        OProb[1] = 0.8;
+        keys.put("X", XProb);
+        keys.put("O", OProb);
+        grid = new SegreGrid(n, k, vals, keys);
+    
        System.out.print(root== null);
        for (int i = 0; i < n; i++) {
     	   	for (int j = 0; j < k; j++) {
