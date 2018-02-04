@@ -39,7 +39,7 @@ public class practice extends Application{
         stage.setTitle("practice");
         stage.show();
        
-        KeyFrame frame = new KeyFrame(Duration.millis(1000),
+        KeyFrame frame = new KeyFrame(Duration.millis(100),
                                       e -> step(60));
         animation = new Timeline();
         animation.setCycleCount(Timeline.INDEFINITE);
@@ -58,7 +58,7 @@ public class practice extends Application{
         k = 31;
 
         
-        double satisfied = .50;
+        double satisfied = .25;
         Map<String, double[]> keys = new HashMap<String, double[]>();
         double[] Xprob = new double[2];
         Xprob[0] = 0.0;
@@ -81,17 +81,6 @@ public class practice extends Application{
 
     
     private void step (double elapsedTime) {
-        	for (int i = 0; i < n; i++) {
-        		for (int j = 0; j < k; j++) {
-        			grid.get(i, j).findState();
-                }
-            }
-        	
-            for (int i = 0; i < n; i++) {
-                for (int j = 0; j < k; j++) {
-                    grid.get(i, j).setState();
-                }
-            }
 
             grid.update();
                 
