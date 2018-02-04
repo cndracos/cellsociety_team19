@@ -34,7 +34,7 @@ public class practice extends Application{
     @Override
     public void start (Stage stage) {
                 
-        myScene = setupGame(320, 320, Color.WHITE);
+        myScene = setupGame(320, 320, Color.BLACK);
         stage.setScene(myScene);
         stage.setTitle("practice");
         stage.show();
@@ -54,9 +54,9 @@ public class practice extends Application{
    
         Scene scene = new Scene(root, width, height, background);
         
-        n =  15;
-        k = 15;
-        double satisfied = .3;
+        n =  31;
+        k = 31;
+        double satisfied = .50;
         Map<String, double[]> keys = new HashMap<String, double[]>();
         double[] Xprob = new double[2];
         Xprob[0] = 0.0;
@@ -68,22 +68,18 @@ public class practice extends Application{
         keys.put("O", Oprob);
                 
        grid = new SegreGrid(n, k, satisfied, keys);
+       for (int i = 0; i < n; i++) {
+    	   	for (int j = 0; j < k; j++) {
+    	   		root.getChildren().add(grid.get(i, j));
+    	   	}
+       }
        
        return scene;
     }
 
     
     private void step (double elapsedTime) {
-        for (int i = 0; i < n; i++) {
-                for (int j = 0; j < k; j++) {
-                		grid.get(i, j).findState();
-                        }
-                }
-        for (int i = 0; i < n; i++) {
-                for (int j = 0; j < k; j++) {
-                     grid.get(i, j).setState();
-                        }
-                }    
+       grid.update();
                 //check if states of all grids in the cell converges or not
                 //if(grid.isConverge()){
                   //      stopGame();
