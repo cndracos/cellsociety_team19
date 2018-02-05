@@ -60,13 +60,13 @@ public class practice extends Application{
         
         int n =  97;
         int k = 70;
-        double[] vals = {4, 20, 5};
+        double[] vals = {4, 20, 2};
         Map<String, double[]> keys = new HashMap<String, double[]>();
         double[] fProb = new double[2];
         fProb[0] = 0.0;
-        fProb[1] = 0.7;
+        fProb[1] = 0.1;
         double[] sProb = new double[2];
-        sProb[0] = 0.7;
+        sProb[0] = 0.1;
         sProb[1] = 0.8;
         keys.put("FISH", fProb);
         keys.put("SHARK", sProb);

@@ -11,13 +11,17 @@ public class WatorCell extends Cell{
 	private double sharkR;
 	private double sharkE;
 	private Random rand;
-	private final int fishE = 7;
+	private int fishMoves;
+	private int sharkMoves;
+	private final int fishE = 1;
 	
 	public WatorCell(String currState,double fishR,double sharkR,double sharkE){
 		super(currState);
 		this.fishR = fishR;
 		this.sharkR = sharkR;
 		this.sharkE = sharkE;
+		fishMoves = 0;
+		sharkMoves = 0;
 		rand = new Random();
 	}
 	
@@ -37,42 +41,85 @@ public class WatorCell extends Cell{
 	 */
 	protected String updateByRule() {
 		if(getState().equals("FISH")){
-			//System.out.print("enter fish");
 			ArrayList<WatorCell> waters = getTypes("WATER");
+			WatorCell nextCell = null;
 			//if there is an unoccupied free cell, move to it
 			if(waters.size() > 0){
+				//System.out.println("fish moves");
 				int key = rand.nextInt(waters.size());
-				this.newState ="WATER";
-				waters.get(key).newState = "FISH";
+				nextCell = waters.get(key);
+				//this.newState ="WATER";
+				this.currState = "WATER";
+				//nextCell.newState = "FISH";
+				nextCell.currState = "FISH";
+				fishMoves += 1;
+				//reproduce fish
+				if(fishMoves == fishR){
+					//System.out.println("fish reproduces");
+					//this.newState = "FISH";
+					this.currState = "FISH";
+					fishMoves = 0;
+				}
 			}
 		}
 		
 		else if(getState().equals("SHARK")){
-			//System.out.print("enter shark");
 			ArrayList<WatorCell> fishs = getTypes("FISH");
 			ArrayList<WatorCell> waters = getTypes("WATER");
-			//if there is a fish, devour it
-			if(fishs.size() > 0){
-				int key = rand.nextInt(fishs.size());
-				this.newState ="WATER";
-				fishs.get(key).newState = "SHARK";
-				sharkE += fishE;
+			WatorCell nextCell = null;
+			//if it is eligible to move
+			if(fishs.size() > 0 || waters.size() > 0){
+				//if there is a fish, devour it
+				if(fishs.size() > 0){
+					System.out.println("shark devour fish");
+					int key = rand.nextInt(fishs.size());
+					nextCell = fishs.get(key);
+					//this.newState ="WATER";
+					this.currState = "WATER";
+					//nextCell.newState = "SHARK";
+					nextCell.currState = "SHARK";
+					sharkE += fishE;
+					
+				}
+				//if there is an unoccupied free cell, move to it
+				else if(waters.size() > 0){
+					System.out.println("shark moves");
+					int key = rand.nextInt(waters.size());
+					nextCell = waters.get(key);
+					//this.newState = "WATER";
+					this.currState = "WATER";
+					//nextCell.newState = "SHARK";
+					nextCell.currState = "SHARK";
+				}
+				
 				sharkE -= 1;
-			}
-			//if there is an unoccupied free cell, move to it
-			else if(waters.size() > 0){
-				int key = rand.nextInt(waters.size());
-				this.newState = "WATER";
-				waters.get(key).newState = "SHARK";
-				sharkE -= 1;
-			}
-			//if a shark consumed all energy, it dies
-			if(sharkE == 0){
-				this.newState = "WATER";
+				sharkMoves += 1;
+				
+				//if a shark consumed all energy, it dies
+				if(sharkE == 0){
+					System.out.println("shark dies");
+					//this.newState = "WATER";
+					this.currState = "WATER";
+				}
+				//reproduce shark
+				else if(sharkMoves == sharkR && nextCell != null){
+					System.out.println("shark reproduces");
+					//this.newState = "SHARK";
+					this.currState = "SHARK";
+					sharkMoves = 0;
+				}
 			}
 		}
 		
 		return newState;
+	}
+	
+	@Override
+	/**
+	 * update the state of the cell
+	 */
+	public void setState(){
+		this.setFill(colorByState(currState));
 	}
 	
 	private ArrayList<WatorCell> getTypes(String type){
