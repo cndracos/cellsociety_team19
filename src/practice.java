@@ -41,7 +41,7 @@ public class practice extends Application{
         stage.setTitle("practice");
         stage.show();
        
-        KeyFrame frame = new KeyFrame(Duration.millis(10000),
+        KeyFrame frame = new KeyFrame(Duration.millis(250),
                                       e -> step(60));
         animation = new Timeline();
         animation.setCycleCount(Timeline.INDEFINITE);
@@ -67,7 +67,7 @@ public class practice extends Application{
         fProb[1] = 0.1;
         double[] sProb = new double[2];
         sProb[0] = 0.1;
-        sProb[1] = 0.8;
+        sProb[1] = 0.2;
         keys.put("FISH", fProb);
         keys.put("SHARK", sProb);
         grid = new WatorGrid(n, k, vals, keys); 
