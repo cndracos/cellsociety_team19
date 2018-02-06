@@ -19,9 +19,9 @@ public abstract class Grid {
 	private int cols;
 	private int screenLength, screenWidth;
 	private double cellLength,cellWidth;
+	private Random rand;
 	private final int DEFAULT_SPACE = 10;
 	
-	public Grid (int n, int k, int length, int width, Map<String, double[]> keys) {
 	/**
 	 * Constructor of grid class
 	 * @param n number of rows in the grid
@@ -30,11 +30,34 @@ public abstract class Grid {
 	 * simulation  (e.g. probTree in Fire, probFish in Wa-Tor) to an upper
 	 * and lower bounds of the probability a cell is that type (e.g. 0.0-0.4)
 	 */
+	public Grid (int n, int k, int length, int width, Map<String, double[]> keys) {
+		rows = n;
+		cols = k;
+		getCellSize(length,width);
+		this.keys = keys;
+		rand = 
+		population = new Cell[n][k];
+		neighbors = new ArrayList[n][k];
+		init();
+	}
+	
 	private void getCellSize(int length,int width) {
 		screenLength = length - 2 * DEFAULT_SPACE;
 		screenWidth = width - 2 * DEFAULT_SPACE;
 		cellLength = screenLength / (rows * 1.0);
 		cellWidth = screenWidth / (cols * 1.0);
+	}
+	
+	private void init() {
+		for(int i = 0; i < rows; i++) {
+			for(int j = 0; j < cols; j++) {
+				k = rand.nextInt(1);
+				for(String key : keys.keySet()) {
+					double[] range = keys.get(key);
+					if()
+				}
+			}
+		}
 	}
 	/**
 	 * Returns the cell at an index
