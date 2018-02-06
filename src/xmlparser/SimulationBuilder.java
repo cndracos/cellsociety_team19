@@ -76,10 +76,10 @@ public class SimulationBuilder {
 			case "Segregation":
 				// probability[0] only b/c only one probability exists for this simulation
 				return new SegreGrid(rows, cols, probability[0], initialStates);
+			case "Wator":
+				return new WatorGrid(rows, cols, probability, initialStates);
 			default:
 				return new LifeGrid(rows, cols, initialStates);
-			//case "Wator":
-			//	return new WatorGrid(rows, cols, probability, initialStates);
 		}
 			
 			
