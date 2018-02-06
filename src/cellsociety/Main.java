@@ -7,7 +7,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
 	
 	@Override
-	public void start(Stage stage) throws InterruptedException {
+	public void start(Stage stage) {
 		CellSociety cs = new CellSociety(stage);
 	}
 	
