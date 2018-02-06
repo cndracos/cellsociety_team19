@@ -16,10 +16,14 @@ public class WatorGrid extends Grid {
 		rand = new Random();
 		init();
 	}
-	
+	/**
+	 * Initializes the grid by adding the cells to the grid, then calls addNeighbors
+	 */
 	public void init() {
+		//gets the array of probs from the key map
 		double[] probF = this.getKeys().get("FISH");
 		double[] probS = this.getKeys().get("SHARK");
+		//gets the other values for the sim from the vals array
 		double fishR = vals[0];
 		double sharkR = vals[1];
 		double sharkE = vals[2];
@@ -37,7 +41,11 @@ public class WatorGrid extends Grid {
 		}	
 		this.addNeighbors();
 	}
-	
+	/**
+	 * Only adds the four direct neighbors, and also has to link an edge cell with the 
+	 * corresponding edge cell on the other side of the screen to create the 'taurus'
+	 * that represents the Wa-Tor simulation world
+	 */
 	@Override
 	public void addNeighbors() {
 			for (int i = 0; i < this.getRows(); i++) {

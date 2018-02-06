@@ -13,7 +13,9 @@ public class LifeGrid extends Grid {
 		rand = new Random();
 		init();
 	}
-	
+	/**
+	 * Initializes grid by adding cells to the indexes, then calls addNeighbors
+	 */
 	public void init() {
 		double[] probLife = this.getKeys().get("ALIVE");
 		for (int i = 0; i < this.getRows(); i++) {

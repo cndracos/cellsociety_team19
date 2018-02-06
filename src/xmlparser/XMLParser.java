@@ -72,9 +72,7 @@ public class XMLParser {
 		NodeList nList = root.getElementsByTagName(SimulationBuilder.INITIAL_DATA_FIELD);
 		for (int i = 0; i < nList.getLength(); i++) {
 			initialStatesMap.put(nList.item(i).getAttributes().getNamedItem("type").getNodeValue(), 
-					Stream.of(nList.item(i).getTextContent().split("\\s+")).mapToDouble(Double::parseDouble).toArray());
-			System.out.println(initialStatesMap.get(nList.item(i).getAttributes().getNamedItem("type").getNodeValue())[0]);
-					
+			Stream.of(nList.item(i).getTextContent().split("\\s+")).mapToDouble(Double::parseDouble).toArray());
 		}
 		return initialStatesMap;
 		
