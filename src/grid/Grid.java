@@ -31,9 +31,9 @@ public abstract class Grid {
 	 * and lower bounds of the probability a cell is that type (e.g. 0.0-0.4)
 	 */
 	public Grid (int n, int k, int length, int width, Map<String, double[]> keys) {
+	
 		rows = n;
 		cols = k;
-		getCellSize(length,width);
 		population = new Cell[rows][cols];
 		neighbors = new ArrayList[n][k];
 		this.keys = keys;
