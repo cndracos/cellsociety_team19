@@ -30,7 +30,7 @@ public class CellSociety {
 	private static final Paint BACKGROUND_COLOR = Color.BLACK;
 	// for animations
 	private static final int MAX_MILLISECOND_DELAY = 3000;
-	private static int MILLISECOND_DELAY = 1000;
+	private static double MILLISECOND_DELAY = 1000;
 	// buttons for user control
 	private static final Button PAUSE_BUTTON = new Button("Pause");
 	private static final Button RESUME_BUTTON = new Button("Resume");
@@ -158,7 +158,7 @@ public class CellSociety {
 			@Override
 			public void changed(ObservableValue<? extends Number> ov,
 					Number oldValue, Number newValue) {
-				MILLISECOND_DELAY = newValue.intValue() * 1000;
+				MILLISECOND_DELAY = newValue.doubleValue() * 1000;
 				RATE_CAPTION.setText(String.format("Animation rate: %.2f s", newValue));
 				changeAnimationRate();
 			}
