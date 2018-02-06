@@ -32,6 +32,7 @@ public abstract class Grid {
 	 */
 	public Grid (int n, int k, int length, int width, Map<String, double[]> keys) {
 	
+	
 		rows = n;
 		cols = k;
 		population = new Cell[rows][cols];
