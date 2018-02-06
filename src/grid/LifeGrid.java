@@ -8,8 +8,8 @@ import java.util.Random;
 public class LifeGrid extends Grid {
 	private Random rand;
 
-	public LifeGrid(int n, int k, int length, int width, Map<String, double[]> keys) {
-		super(n, k, length, width, keys);
+	public LifeGrid(int n, int k, Map<String, double[]> keys) {
+		super(n, k, keys);
 		rand = new Random();
 		init();
 	}

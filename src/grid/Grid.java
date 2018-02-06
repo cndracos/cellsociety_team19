@@ -34,10 +34,9 @@ public abstract class Grid {
 		rows = n;
 		cols = k;
 		getCellSize(length,width);
-		this.keys = keys;
-		rand = 
-		population = new Cell[n][k];
+		population = new Cell[rows][cols];
 		neighbors = new ArrayList[n][k];
+		this.keys = keys;
 		init();
 	}
 	
@@ -104,14 +103,7 @@ public abstract class Grid {
 	 */
 	public void add (Cell c, int n, int k) {
 		population[n][k] = c;
-		addToScreen(c, n, k);
-	}
-	
-	private void addToScreen(Cell c, int n, int k) {
-		c.setX(n*cellLength + DEFAULT_SPACE);
-		c.setY(k*cellWidth + DEFAULT_SPACE);
-		c.setWidth(cellWidth);
-		c.setHeight(cellLength);	
+		c.addToScreen(n, k);
 	}
 	/**
 	 * Parses through the whole grid and finds the state of cell and its neighbors,

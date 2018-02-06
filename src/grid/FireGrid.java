@@ -11,8 +11,8 @@ public class FireGrid extends Grid {
 	private double probCatch;
 	private Random rand;
 
-	public FireGrid(int n, int k, int length, int width, double probCatch, Map<String, double[]> keys) {
-		super(n, k, length, width, keys);
+	public FireGrid(int n, int k, double probCatch, Map<String, double[]> keys) {
+		super(n, k, keys);
 		this.probCatch = probCatch;
 		rand = new Random();
 		init();

@@ -12,8 +12,8 @@ public class SegreGrid extends Grid {
 	private double satisfied;
 	private Random rand;
 
-	public SegreGrid(int n, int k, int length, int width, double satisfied, Map<String, double[]> keys) {
-		super(n, k, length, width, keys);
+	public SegreGrid(int n, int k, double satisfied, Map<String, double[]> keys) {
+		super(n, k, keys);
 		this.satisfied = satisfied;
 		rand = new Random();
 		init();

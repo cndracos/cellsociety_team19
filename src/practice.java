@@ -70,7 +70,7 @@ public class practice extends Application{
         sProb[1] = 0.2;
         keys.put("FISH", fProb);
         keys.put("SHARK", sProb);
-        grid = new WatorGrid(n, k, 990,720,vals, keys); 
+        grid = new WatorGrid(n, k, vals, keys); 
 
         
        /**int n =  97;
@@ -89,7 +89,7 @@ public class practice extends Application{
     
        //System.out.print(root== null);
                 
-       grid = new WatorGrid(n, k, 990, 720, vals, keys);
+       grid = new WatorGrid(n, k, vals, keys);
 
        for (int i = 0; i < n; i++) {
     	   	for (int j = 0; j < k; j++) {
