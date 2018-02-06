@@ -17,6 +17,11 @@ public abstract class Grid {
 	private Map<String, double[]> keys;
 	private int rows;
 	private int cols;
+	private int screenLength, screenWidth;
+	private double cellLength,cellWidth;
+	private final int DEFAULT_SPACE = 10;
+	
+	public Grid (int n, int k, int length, int width, Map<String, double[]> keys) {
 	/**
 	 * Constructor of grid class
 	 * @param n number of rows in the grid
@@ -25,12 +30,11 @@ public abstract class Grid {
 	 * simulation  (e.g. probTree in Fire, probFish in Wa-Tor) to an upper
 	 * and lower bounds of the probability a cell is that type (e.g. 0.0-0.4)
 	 */
-	public Grid (int n, int k, Map<String, double[]> keys) {
-		rows = n;
-		cols = k;
-		population = new Cell[rows][cols];
-		neighbors = new ArrayList[n][k];
-		this.keys = keys;
+	private void getCellSize(int length,int width) {
+		screenLength = length - 2 * DEFAULT_SPACE;
+		screenWidth = width - 2 * DEFAULT_SPACE;
+		cellLength = screenLength / (rows * 1.0);
+		cellWidth = screenWidth / (cols * 1.0);
 	}
 	/**
 	 * Returns the cell at an index
@@ -77,7 +81,14 @@ public abstract class Grid {
 	 */
 	public void add (Cell c, int n, int k) {
 		population[n][k] = c;
-		c.addToScreen(n, k);
+		addToScreen(c, n, k);
+	}
+	
+	private void addToScreen(Cell c, int n, int k) {
+		c.setX(n*cellLength + DEFAULT_SPACE);
+		c.setY(k*cellWidth + DEFAULT_SPACE);
+		c.setWidth(cellWidth);
+		c.setHeight(cellLength);	
 	}
 	/**
 	 * Parses through the whole grid and finds the state of cell and its neighbors,

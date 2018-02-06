@@ -13,6 +13,7 @@ public class WatorCell extends Cell{
 	private Random rand;
 	private int fishMoves;
 	private int sharkMoves;
+	private boolean isUpdated;
 	private final int fishE = 1;
 	
 	public WatorCell(String currState,double fishR,double sharkR,double sharkE){
@@ -22,6 +23,7 @@ public class WatorCell extends Cell{
 		this.sharkE = sharkE;
 		fishMoves = 0;
 		sharkMoves = 0;
+		isUpdated = false;
 		rand = new Random();
 	}
 	
@@ -48,18 +50,20 @@ public class WatorCell extends Cell{
 				//System.out.println("fish moves");
 				int key = rand.nextInt(waters.size());
 				nextCell = waters.get(key);
-				//this.newState ="WATER";
-				this.currState = "WATER";
-				//nextCell.newState = "FISH";
-				nextCell.currState = "FISH";
+				this.newState ="WATER";
+				//this.currState = "WATER";
+				nextCell.newState = "FISH";
+				//nextCell.currState = "FISH";
 				fishMoves += 1;
 				//reproduce fish
 				if(fishMoves == fishR){
 					//System.out.println("fish reproduces");
-					//this.newState = "FISH";
-					this.currState = "FISH";
+					this.newState = "FISH";
+					//this.currState = "FISH";
 					fishMoves = 0;
 				}
+				isUpdated = true;
+				nextCell.setUpdated(true);
 			}
 		}
 		
@@ -74,10 +78,10 @@ public class WatorCell extends Cell{
 					System.out.println("shark devour fish");
 					int key = rand.nextInt(fishs.size());
 					nextCell = fishs.get(key);
-					//this.newState ="WATER";
-					this.currState = "WATER";
-					//nextCell.newState = "SHARK";
-					nextCell.currState = "SHARK";
+					this.newState ="WATER";
+					//this.currState = "WATER";
+					nextCell.newState = "SHARK";
+					//nextCell.currState = "SHARK";
 					sharkE += fishE;
 					
 				}
@@ -86,32 +90,51 @@ public class WatorCell extends Cell{
 					System.out.println("shark moves");
 					int key = rand.nextInt(waters.size());
 					nextCell = waters.get(key);
-					//this.newState = "WATER";
-					this.currState = "WATER";
-					//nextCell.newState = "SHARK";
-					nextCell.currState = "SHARK";
+					this.newState = "WATER";
+					//this.currState = "WATER";
+					nextCell.newState = "SHARK";
+					//nextCell.currState = "SHARK";
 				}
-				
+				isUpdated = true;
+				nextCell.setUpdated(true);
 				sharkE -= 1;
 				sharkMoves += 1;
 				
 				//if a shark consumed all energy, it dies
 				if(sharkE == 0){
 					System.out.println("shark dies");
-					//this.newState = "WATER";
-					this.currState = "WATER";
+					this.newState = "WATER";
+					//this.currState = "WATER";
 				}
 				//reproduce shark
 				else if(sharkMoves == sharkR && nextCell != null){
 					System.out.println("shark reproduces");
-					//this.newState = "SHARK";
-					this.currState = "SHARK";
+					this.newState = "SHARK";
+					//this.currState = "SHARK";
 					sharkMoves = 0;
 				}
 			}
 		}
-		
 		return newState;
+	}
+	
+	
+	private ArrayList<WatorCell> getTypes(String type){
+		ArrayList<WatorCell> typeArray = new ArrayList<WatorCell>();
+		for(Cell myNeighbor : getNeighbors()){
+			if(myNeighbor.getState() == type && !((WatorCell)myNeighbor).getUpdated()){
+				typeArray.add((WatorCell)myNeighbor);
+			}
+		}
+		return typeArray;
+	}
+	
+	public boolean getUpdated() {
+		return isUpdated;
+	}
+	
+	public void setUpdated(boolean isUpdated) {
+		this.isUpdated = isUpdated;
 	}
 	
 	@Override
@@ -119,17 +142,9 @@ public class WatorCell extends Cell{
 	 * update the state of the cell
 	 */
 	public void setState(){
+		currState = newState;
 		this.setFill(colorByState(currState));
-	}
-	
-	private ArrayList<WatorCell> getTypes(String type){
-		ArrayList<WatorCell> typeArray = new ArrayList<WatorCell>();
-		for(Cell myNeighbor : getNeighbors()){
-			if(myNeighbor.getState() == type){
-				typeArray.add((WatorCell)myNeighbor);
-			}
-		}
-		return typeArray;
+		isUpdated = false;
 	}
 	
 	@Override
