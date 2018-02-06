@@ -14,12 +14,11 @@ public abstract class Cell extends Rectangle{
 	private ArrayList<Cell> myNeighbors;
 	private String currState;
 	protected String newState;
-	private final int SIZE = 10;
 	
 	/**
 	 * Constructor of Cell class
 	 * @param currState current state of cell
-	 * @param updateProb update probability at which the cell updates
+	 * @param updateProb probability at which the cell updates
 	 */
 	public Cell(String currState){
 		this.setFill(colorByState(currState));
@@ -58,6 +57,9 @@ public abstract class Cell extends Rectangle{
 		this.setFill(colorByState(currState));
 	}
 
+	/**
+	 * get neighbors list of the cell
+	 */
 	public ArrayList<Cell> getNeighbors(){
 		return myNeighbors;
 	}

@@ -53,7 +53,7 @@ public class CellSociety {
 	public CellSociety(Stage stage) {
 		// set up grid and cells with SimulationBuilder
 		SimulationBuilder sb = new SimulationBuilder(stage);
-		grid = sb.build();
+		grid = sb.build(X_DIMENSION, Y_DIMENSION - 100);
 		// stage
 		simStage = stage;
 		stage.setTitle(sb.getBuildType());
