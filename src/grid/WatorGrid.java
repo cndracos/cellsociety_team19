@@ -10,8 +10,8 @@ public class WatorGrid extends Grid {
 	private Random rand;
 	private double[] vals;
 
-	public WatorGrid(int n, int k, double[] vals, Map<String, double[]> keys) {
-		super(n, k, keys);
+	public WatorGrid(int n, int k, int length, int width, double[] vals, Map<String, double[]> keys) {
+		super(n, k, length, width, keys);
 		this.vals = vals;
 		rand = new Random();
 		init();

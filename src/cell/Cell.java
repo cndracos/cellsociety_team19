@@ -15,7 +15,7 @@ public abstract class Cell extends Rectangle{
 	private String currState;
 	protected String newState;
 	private final int SIZE = 10;
-	private final int DEFAULT_DIS = 10;
+	
 	/**
 	 * Constructor of Cell class
 	 * @param currState current state of cell
@@ -57,14 +57,6 @@ public abstract class Cell extends Rectangle{
 		currState = newState;
 		this.setFill(colorByState(currState));
 	}
-	
-	public void addToScreen(int n, int k) {
-		this.setX(n*SIZE + DEFAULT_DIS);
-		this.setY(k*SIZE + DEFAULT_DIS);
-		this.setWidth(SIZE);
-		this.setHeight(SIZE);
-	}
-	
 
 	public ArrayList<Cell> getNeighbors(){
 		return myNeighbors;
