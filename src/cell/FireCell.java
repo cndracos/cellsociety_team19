@@ -13,6 +13,12 @@ import javafx.scene.paint.Color;
 public class FireCell extends Cell{	
 	private Random rand;
 	private double probCatch;
+	
+	/**
+	 * Constructor of FireCell class
+	 * @param currState current state of cell
+	 * @param probCatch probability at which the cell catches on fire
+	 */
 	public FireCell(String currState, double probCatch) {
 		super(currState);
 		this.probCatch = probCatch;
@@ -25,13 +31,16 @@ public class FireCell extends Cell{
 	 * @return new state
 	 */
 	protected String updateByRule() {
+		//if state is "empty", do nothing
 		if(getState() == "EMPTY"){
 			return getState();
 		}
+		//if state is "burning", next state is "empty"
 		if(getState() == "BURNING"){
 			return "EMPTY";
 		}
 		
+		//check if any neighbor cell is "burning"
 		boolean isNeighborsBurned = false;
 		for(Cell myNeighbor : getNeighbors()){
 			if(myNeighbor.getState() == "BURNING"){
@@ -39,6 +48,7 @@ public class FireCell extends Cell{
 				break;
 			}
 		}
+		//if there exists "burning" neighbor, current cell catches fire following specific probability
 		if(isNeighborsBurned && rand.nextDouble() < probCatch){
 			return "BURNING";
 		}

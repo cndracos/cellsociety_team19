@@ -5,6 +5,12 @@ import java.util.Random;
 
 import javafx.scene.paint.Color;
 
+/**
+ * Class FireCell is inherited from Super class Cell,
+ * and is used for Fire Simulation.
+ * @author Yameng Liu
+ *
+ */
 public class WatorCell extends Cell{
 	private String currState;
 	private double fishR;
@@ -16,6 +22,13 @@ public class WatorCell extends Cell{
 	private boolean isUpdated;
 	private final int fishE = 1;
 	
+	/**
+	 * Constructor of WatorCell class
+	 * @param currState current state of cell
+	 * @param fishR number of cells the fish needs to survive to be able to survive
+	 * @param sharkR number of cells the shark needs to survive to be able to survive
+	 * @param sharkE initial energy amount of shark
+	 */
 	public WatorCell(String currState,double fishR,double sharkR,double sharkE){
 		super(currState);
 		this.fishR = fishR;
@@ -32,7 +45,6 @@ public class WatorCell extends Cell{
 	 * find the next state to update 
 	 */
 	public void findState(){
-		//System.out.println("enter find state");
 		updateByRule();
 	}
 	
@@ -42,59 +54,56 @@ public class WatorCell extends Cell{
 	 * @return new state
 	 */
 	protected String updateByRule() {
+		//if the cell is a fish
 		if(getState().equals("FISH")){
 			ArrayList<WatorCell> waters = getTypes("WATER");
 			WatorCell nextCell = null;
+			
 			//if there is an unoccupied free cell, move to it
 			if(waters.size() > 0){
-				//System.out.println("fish moves");
 				int key = rand.nextInt(waters.size());
 				nextCell = waters.get(key);
 				this.newState ="WATER";
-				//this.currState = "WATER";
 				nextCell.newState = "FISH";
-				//nextCell.currState = "FISH";
 				fishMoves += 1;
+				
 				//reproduce fish
 				if(fishMoves == fishR){
-					//System.out.println("fish reproduces");
 					this.newState = "FISH";
-					//this.currState = "FISH";
 					fishMoves = 0;
 				}
+				//update changed cells
 				isUpdated = true;
 				nextCell.setUpdated(true);
 			}
 		}
 		
+		//if current cell is a shark
 		else if(getState().equals("SHARK")){
 			ArrayList<WatorCell> fishs = getTypes("FISH");
 			ArrayList<WatorCell> waters = getTypes("WATER");
 			WatorCell nextCell = null;
-			//if it is eligible to move
+			
+			//if shark is eligible to move
 			if(fishs.size() > 0 || waters.size() > 0){
 				//if there is a fish, devour it
 				if(fishs.size() > 0){
-					System.out.println("shark devour fish");
 					int key = rand.nextInt(fishs.size());
 					nextCell = fishs.get(key);
 					this.newState ="WATER";
-					//this.currState = "WATER";
 					nextCell.newState = "SHARK";
-					//nextCell.currState = "SHARK";
-					sharkE += fishE;
-					
+					sharkE += fishE;	
 				}
-				//if there is an unoccupied free cell, move to it
+				
+				//otherwise if there is an unoccupied free cell, move to it
 				else if(waters.size() > 0){
-					System.out.println("shark moves");
 					int key = rand.nextInt(waters.size());
 					nextCell = waters.get(key);
 					this.newState = "WATER";
-					//this.currState = "WATER";
 					nextCell.newState = "SHARK";
-					//nextCell.currState = "SHARK";
 				}
+				
+				//change updated status of cells,reduce shark's energy
 				isUpdated = true;
 				nextCell.setUpdated(true);
 				sharkE -= 1;
@@ -102,15 +111,11 @@ public class WatorCell extends Cell{
 				
 				//if a shark consumed all energy, it dies
 				if(sharkE == 0){
-					System.out.println("shark dies");
 					this.newState = "WATER";
-					//this.currState = "WATER";
 				}
 				//reproduce shark
 				else if(sharkMoves == sharkR && nextCell != null){
-					System.out.println("shark reproduces");
 					this.newState = "SHARK";
-					//this.currState = "SHARK";
 					sharkMoves = 0;
 				}
 			}
@@ -118,7 +123,11 @@ public class WatorCell extends Cell{
 		return newState;
 	}
 	
-	
+	/**
+	 * get not updated neighbors cells of given types
+	 * @param type given type
+	 * @return found neighbor lists
+	 */
 	private ArrayList<WatorCell> getTypes(String type){
 		ArrayList<WatorCell> typeArray = new ArrayList<WatorCell>();
 		for(Cell myNeighbor : getNeighbors()){
@@ -129,17 +138,25 @@ public class WatorCell extends Cell{
 		return typeArray;
 	}
 	
+	/**
+	 * check whether or not the cell is updated
+	 * @return updated or not
+	 */
 	public boolean getUpdated() {
 		return isUpdated;
 	}
 	
+	/**
+	 * change the updated status of cell to given status
+	 * @param isUpdated given status
+	 */
 	public void setUpdated(boolean isUpdated) {
 		this.isUpdated = isUpdated;
 	}
 	
 	@Override
 	/**
-	 * update the state of the cell
+	 * update the state of the cell, change updated status
 	 */
 	public void setState(){
 		currState = newState;
@@ -148,6 +165,11 @@ public class WatorCell extends Cell{
 	}
 	
 	@Override
+	/**
+	 * decide specific color of the cell according to specific rules in fire simulation
+	 * @param state current state
+	 * @return current color of graphics
+	 */
 	protected Color colorByState(String state) {
 		return state == "WATER" ? Color.BLUE : state == "FISH" ? Color.GREEN : Color.YELLOW;
 	}

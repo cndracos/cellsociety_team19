@@ -43,7 +43,7 @@ public class SimulationBuilder {
 	 * @return the built grid
 	 * @throws FileNotFoundException
 	 */
-	public Grid build() {
+	public Grid build(int screenLength, int screenWidth) {
 		if (XMLFile != null) {
 			try {
 				XMLParser parser = new XMLParser("simulation");
@@ -55,7 +55,7 @@ public class SimulationBuilder {
 				double[] probability = Stream.of(gridProperties.get("probability").split("\\s+")).mapToDouble(Double::parseDouble).toArray();
 				// extract the percentages for the initial states of the cells
 				Map<String, double[]> initialStates = parser.getInitialStates(XMLFile);
-				return generateGrid(rows, cols, probability, initialStates);
+				return generateGrid(rows, cols, screenLength,screenWidth,probability, initialStates);
 			} catch (XMLException e) {
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setContentText(e.getMessage());
@@ -67,19 +67,19 @@ public class SimulationBuilder {
 	}
 	
 	// select which type of grid we want to initialize based upon the simulation type
-	public Grid generateGrid(int rows, int cols, double[] probability, Map<String, double[]> initialStates) {
+	public Grid generateGrid(int rows, int cols, int screenLength, int screenWidth, double[] probability, Map<String, double[]> initialStates) {
 		switch (simulationName) {
-			
 			case "Fire": 
 				// probability[0] only b/c only one probability exists for this simulation
-				return new FireGrid(rows, cols, probability[0], initialStates);
+				return new FireGrid(rows, cols, screenLength, screenWidth,probability[0], initialStates);
 			case "Segregation":
 				// probability[0] only b/c only one probability exists for this simulation
-				return new SegreGrid(rows, cols, probability[0], initialStates);
+				return new SegreGrid(rows, cols, screenLength,screenWidth,probability[0], initialStates);
+			case "Wator":
+				return new WatorGrid(rows, cols, screenLength,screenWidth,probability,initialStates);	
 			default:
-				return new LifeGrid(rows, cols, initialStates);
-			//case "Wator":
-			//	return new WatorGrid(rows, cols, probability, initialStates);
+				return new LifeGrid(rows, cols, screenLength,screenWidth,initialStates);
+			
 		}
 			
 			

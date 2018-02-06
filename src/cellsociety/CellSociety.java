@@ -25,6 +25,8 @@ public class CellSociety {
 	// dimensions of the viewing window
 	private static final int X_DIMENSION = 320;
 	private static final int Y_DIMENSION = 420;
+	private static final int SCREEN_LENGTH = 720;
+	private static final int SCREEN_WIDTH = 900;
 	private static final int BUTTON_INDENT = 20;
 	// color of the viewing window
 	private static final Paint BACKGROUND_COLOR = Color.BLACK;
@@ -53,7 +55,7 @@ public class CellSociety {
 	public CellSociety(Stage stage) {
 		// set up grid and cells with SimulationBuilder
 		SimulationBuilder sb = new SimulationBuilder(stage);
-		grid = sb.build();
+		grid = sb.build(SCREEN_LENGTH,SCREEN_WIDTH);
 		// stage
 		simStage = stage;
 		stage.setTitle(sb.getBuildType());
