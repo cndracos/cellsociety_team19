@@ -5,6 +5,7 @@ import cell.SegreCell;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
@@ -12,7 +13,7 @@ public class SegreGrid extends Grid {
 	private double satisfied;
 	private Random rand;
 
-	public SegreGrid(int n, int k, int length, int width, double satisfied, Map<String, double[]> keys) {
+	public SegreGrid(int n, int k, int length, int width, double satisfied, HashMap<String, double[]> keys) {
 		super(n, k, length, width, keys);
 		this.satisfied = satisfied;
 		rand = new Random();
