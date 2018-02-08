@@ -20,6 +20,7 @@ public class FireGrid extends Grid {
 	/**
 	 * Adds only the four direct neighbors (above, below, left, right)
 	 */
+	@Override
 	public void addNeighbors() {
 		for (int i = 0; i < this.getRows(); i++) {
 			for (int j = 0; j < this.getCols(); j++) {
