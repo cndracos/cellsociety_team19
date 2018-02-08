@@ -4,6 +4,7 @@ import cell.Cell;
 import cell.FireCell;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
@@ -11,7 +12,7 @@ public class FireGrid extends Grid {
 	private double probCatch;
 	private Random rand;
 
-	public FireGrid(int n, int k, int length, int width, double probCatch, Map<String, Object> keys) {
+	public FireGrid(int n, int k, int length, int width, double probCatch, HashMap<String, Object> keys) {
 		super(n, k, length, width, keys);
 		this.probCatch = probCatch;
 		rand = new Random();
