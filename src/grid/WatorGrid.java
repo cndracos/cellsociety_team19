@@ -10,11 +10,9 @@ import cell.*;
 public class WatorGrid extends Grid {
 	private Random rand;
 	private double[] vals;
-	private ArrayList<WatorCell>[][] neighbors;
 
 	public WatorGrid(int n, int k, int length, int width, double[] vals, HashMap<String, double[]> keys) {
 		super(n, k, length, width, keys);
-		neighbors = new ArrayList[n][k];
 		this.vals = vals;
 		rand = new Random();
 		init();
@@ -53,16 +51,16 @@ public class WatorGrid extends Grid {
 	public void addNeighbors() {
 			for (int i = 0; i < this.getRows(); i++) {
 				for (int j = 0; j < this.getCols(); j++) {
-					neighbors[i][j] = new ArrayList<WatorCell>();
-					if (i-1>=0) neighbors[i][j].add((WatorCell) this.get(i-1, j));
-						else neighbors[i][j].add((WatorCell) this.get(this.getRows() - 1, j));
-					if (j-1>=0) neighbors[i][j].add((WatorCell) this.get(i, j-1));
-						else neighbors[i][j].add((WatorCell) this.get(i, this.getCols() - 1));
-					if (j+1<this.getCols()) neighbors[i][j].add((WatorCell) this.get(i, j+1));
-						else neighbors[i][j].add((WatorCell) this.get(i, 0));
-					if (i+1<this.getRows()) neighbors[i][j].add((WatorCell) this.get(i+1, j));
-						else neighbors[i][j].add((WatorCell) this.get(0, j));
-					this.get(i, j).setNeighbors(neighbors[i][j]);
+					this.getNeighborsArray()[i][j] = new ArrayList<Cell>();
+					if (i-1>=0) this.getNeighborsArray()[i][j].add(this.get(i-1, j));
+						else this.getNeighborsArray()[i][j].add(this.get(this.getRows() - 1, j));
+					if (j-1>=0) this.getNeighborsArray()[i][j].add(this.get(i, j-1));
+						else this.getNeighborsArray()[i][j].add(this.get(i, this.getCols() - 1));
+					if (j+1<this.getCols()) this.getNeighborsArray()[i][j].add(this.get(i, j+1));
+						else this.getNeighborsArray()[i][j].add(this.get(i, 0));
+					if (i+1<this.getRows()) this.getNeighborsArray()[i][j].add(this.get(i+1, j));
+						else this.getNeighborsArray()[i][j].add(this.get(0, j));
+					this.get(i, j).setNeighbors(this.getNeighborsArray()[i][j]);
 				}
 			}
 	}
