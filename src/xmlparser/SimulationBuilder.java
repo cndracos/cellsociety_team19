@@ -3,6 +3,7 @@ package xmlparser;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -54,7 +55,7 @@ public class SimulationBuilder {
 				int cols = Integer.parseInt(gridProperties.get("columns").toString());
 				double[] probability = Stream.of(gridProperties.get("probability").split("\\s+")).mapToDouble(Double::parseDouble).toArray();
 				// extract the percentages for the initial states of the cells
-				Map<String, double[]> initialStates = parser.getInitialStates(XMLFile);
+				HashMap<String, double[]> initialStates = (HashMap<String, double[]>) parser.getInitialStates(XMLFile);
 				return generateGrid(rows, cols, screenLength,screenWidth,probability, initialStates);
 			} catch (XMLException e) {
 				Alert alert = new Alert(AlertType.ERROR);
@@ -67,7 +68,7 @@ public class SimulationBuilder {
 	}
 	
 	// select which type of grid we want to initialize based upon the simulation type
-	public Grid generateGrid(int rows, int cols, int screenLength, int screenWidth, double[] probability, Map<String, double[]> initialStates) {
+	public Grid generateGrid(int rows, int cols, int screenLength, int screenWidth, double[] probability, HashMap<String, double[]> initialStates) {
 		switch (simulationName) {
 			case "Fire": 
 				// probability[0] only b/c only one probability exists for this simulation

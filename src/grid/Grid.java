@@ -2,6 +2,7 @@ package grid;
 
 import cell.Cell;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -15,8 +16,7 @@ public abstract class Grid {
 	private Cell[][] population;
 	private ArrayList<Cell>[][] neighbors;
 	private Map<String, double[]> keys;
-	private int rows;
-	private int cols;
+	private int rows, cols;
 	private int screenLength, screenWidth;
 	private double cellLength, cellWidth;
 	private final int DEFAULT_SPACE = 10;
@@ -31,7 +31,7 @@ public abstract class Grid {
 	 * simulation  (e.g. probTree in Fire, probFish in Wa-Tor) to an upper
 	 * and lower bounds of the probability a cell is that type (e.g. 0.0-0.4)
 	 */
-	public Grid (int n, int k, int length, int width, Map<String, double[]> keys) {
+	public Grid (int n, int k, int length, int width, HashMap<String, double[]> keys) {
 		rows = n;
 		cols = k;
 		population = new Cell[rows][cols];

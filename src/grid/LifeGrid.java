@@ -2,13 +2,14 @@ package grid;
 
 import cell.LifeCell;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
 public class LifeGrid extends Grid {
 	private Random rand;
 
-	public LifeGrid(int n, int k, int length, int width, Map<String, double[]> keys) {
+	public LifeGrid(int n, int k, int length, int width, HashMap<String, double[]> keys) {
 		super(n, k, length, width, keys);
 		rand = new Random();
 		init();
