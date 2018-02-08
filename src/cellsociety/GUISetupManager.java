@@ -18,7 +18,7 @@ public class GUISetupManager {
 	// animation rates
 	private static final double MAX_RATE = 3.0;
 	private static final double MIN_RATE = 0.01;
-	private static final double ANIMATION_RATE = 1.0;
+	private static double ANIMATION_RATE = 1.0;
 	private static Slider RATE_SLIDER = new Slider(MIN_RATE, MAX_RATE, ANIMATION_RATE);
 	private static final Label RATE_CAPTION = new Label(String.format("Animation rate: %.2f s", RATE_SLIDER.getValue()));
 	private static BorderPane currentRoot;
@@ -47,7 +47,7 @@ public class GUISetupManager {
 					Number oldValue, Number newValue) {
 				ANIMATION_RATE = newValue.doubleValue();
 				RATE_CAPTION.setText(String.format("Animation rate: %.2f s", newValue));
-				changeAnimationRate();
+				//changeAnimationRate();
 			}
 		});
 		// labels
