@@ -50,6 +50,7 @@ public class WatorGrid extends Grid {
 	public void addNeighbors() {
 			for (int i = 0; i < this.getRows(); i++) {
 				for (int j = 0; j < this.getCols(); j++) {
+				    /*
 					this.getNeighborsArray()[i][j] = new ArrayList<Cell>();
 					if (i-1>=0) this.getNeighborsArray()[i][j].add(this.get(i-1, j));
 						else this.getNeighborsArray()[i][j].add(this.get(this.getRows() - 1, j));
@@ -60,6 +61,7 @@ public class WatorGrid extends Grid {
 					if (i+1<this.getRows()) this.getNeighborsArray()[i][j].add(this.get(i+1, j));
 						else this.getNeighborsArray()[i][j].add(this.get(0, j));
 					this.get(i, j).setNeighbors(this.getNeighborsArray()[i][j]);
+					*/
 				}
 			}
 	}
