@@ -23,8 +23,8 @@ import grid.*;
 public class CellSociety {
 	public static final String DATA_TYPE = "CA";
 	// dimensions of the viewing window
-	private static final int X_DIMENSION = 320;
-	private static final int Y_DIMENSION = 420;
+	private static final int X_DIMENSION = 420;
+	private static final int Y_DIMENSION = 520;
 	private static final int BUTTON_INDENT = 20;
 	// color of the viewing window
 	private static final Paint BACKGROUND_COLOR = Color.BLACK;
@@ -62,7 +62,6 @@ public class CellSociety {
 		// set to visible
 		stage.show();
 		initButtons();
-		initSlider();
 		// animation specifics
 		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step());
 		timeline = new Timeline();
@@ -140,35 +139,6 @@ public class CellSociety {
 		//NEW_BUTTON.setLayoutX(BUTTON_SEPARATION + STEP_BUTTON.getLayoutX() + STEP_BUTTON.getWidth());
 		placeButton(NEW_BUTTON, BUTTON_INDENT, Y_DIMENSION - 25);
 		root.getChildren().addAll(PAUSE_BUTTON, RESUME_BUTTON, STEP_BUTTON, NEW_BUTTON);
-	}
-	
-	/**
-	 * Initializes the slider that will concurrently change the rate of animation.
-	 */
-	private void initSlider() {
-		// slider itself
-		RATE_SLIDER.setMajorTickUnit(0.5);
-		RATE_SLIDER.setMinorTickCount(2);
-		RATE_SLIDER.setBlockIncrement(0.25);
-		RATE_SLIDER.setShowTickLabels(true);
-		RATE_SLIDER.setShowTickMarks(true);
-		RATE_SLIDER.setLayoutX(X_DIMENSION / 2);
-		RATE_SLIDER.setLayoutY(Y_DIMENSION - 70);
-		RATE_SLIDER.valueProperty().addListener(new ChangeListener<Number>() {
-			@Override
-			public void changed(ObservableValue<? extends Number> ov,
-					Number oldValue, Number newValue) {
-				MILLISECOND_DELAY = newValue.doubleValue() * 1000;
-				RATE_CAPTION.setText(String.format("Animation rate: %.2f s", newValue));
-				changeAnimationRate();
-			}
-		});
-		// labels
-		RATE_CAPTION.setLayoutX(X_DIMENSION / 2);
-		RATE_CAPTION.setLayoutY(Y_DIMENSION - 30);
-		RATE_CAPTION.setTextFill(Color.WHITE);
-		// add to scene
-		root.getChildren().addAll(RATE_SLIDER, RATE_CAPTION);
 	}
 	
 	/**
