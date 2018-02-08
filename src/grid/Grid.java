@@ -16,8 +16,7 @@ public abstract class Grid {
 	private Cell[][] population;
 	private ArrayList<Cell>[][] neighbors;
 	private Map<String, double[]> keys;
-	private int rows;
-	private int cols;
+	private int rows, cols;
 	private int screenLength, screenWidth;
 	private double cellLength, cellWidth;
 	private final int DEFAULT_SPACE = 10;

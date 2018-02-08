@@ -12,7 +12,7 @@ public class FireGrid extends Grid {
 	private double probCatch;
 	private Random rand;
 
-	public FireGrid(int n, int k, int length, int width, double probCatch, HashMap<String, Object> keys) {
+	public FireGrid(int n, int k, int length, int width, double probCatch, HashMap<String, double[]> keys) {
 		super(n, k, length, width, keys);
 		this.probCatch = probCatch;
 		rand = new Random();

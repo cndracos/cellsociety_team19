@@ -1,6 +1,7 @@
 package grid;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
@@ -11,7 +12,7 @@ public class WatorGrid extends Grid {
 	private double[] vals;
 	private ArrayList<WatorCell>[][] neighbors;
 
-	public WatorGrid(int n, int k, int length, int width, double[] vals, Map<String, double[]> keys) {
+	public WatorGrid(int n, int k, int length, int width, double[] vals, HashMap<String, double[]> keys) {
 		super(n, k, length, width, keys);
 		neighbors = new ArrayList[n][k];
 		this.vals = vals;
