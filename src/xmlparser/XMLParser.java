@@ -46,10 +46,12 @@ public class XMLParser {
 			throw new XMLException(ERROR_MESSAGE, CellSociety.DATA_TYPE);
 		}
 		// read data in in the correct order
-		Map<String, String> gridProperties = new HashMap<String, String>();
+		Map<String, String> gridProperties = new HashMap<>();
 		for (String field : SimulationBuilder.DATA_FIELDS) {
 			// this is handled elsewhere since it generates a map of its own
-			if (field.equals(SimulationBuilder.INITIAL_DATA_FIELD)) break;
+			if (field.equals(SimulationBuilder.INITIAL_DATA_FIELD)) {
+				break;
+			}
 			String value = getTextValue(root, field);
 			gridProperties.put(field,  value);
 		}
@@ -63,13 +65,13 @@ public class XMLParser {
 	 */
 	public Map<String, double[]> getInitialStates(File XMLFile) {
 		Element root = getRootElement(XMLFile);
-		Map<String, double[]> initialStatesMap = new HashMap<String, double[]>();
 		// check that we are dealing with a CA file
 		if (!isCAFile(root, CellSociety.DATA_TYPE)) {
 			throw new XMLException(ERROR_MESSAGE, CellSociety.DATA_TYPE);
 		}
 		// read only the data from the "initialStates" field
 		NodeList nList = root.getElementsByTagName(SimulationBuilder.INITIAL_DATA_FIELD);
+		Map<String, double[]> initialStatesMap = new HashMap<>();
 		for (int i = 0; i < nList.getLength(); i++) {
 			initialStatesMap.put(nList.item(i).getAttributes().getNamedItem("type").getNodeValue(), 
 			Stream.of(nList.item(i).getTextContent().split("\\s+")).mapToDouble(Double::parseDouble).toArray());

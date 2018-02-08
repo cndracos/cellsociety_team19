@@ -22,13 +22,13 @@ public class SimulationBuilder {
 	// the specific file that builds this simulation
 	private static File XMLFile;
 	// fields of the XML file that the class XMLParser will need to access
-	public static final List<String> DATA_FIELDS = Arrays.asList(new String[] {
+	protected static final List<String> DATA_FIELDS = Arrays.asList(new String[] {
 			"model",
 			"rows", 
 			"columns", 
 			"probability",
 	});
-	public static final String INITIAL_DATA_FIELD = new String("initialStates");
+	protected static final String INITIAL_DATA_FIELD = new String("initialStates");
 	// name of this specific simulation to build
 	private static String simulationName;
 	

@@ -4,8 +4,6 @@ import java.io.FileNotFoundException;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -29,15 +27,12 @@ public class CellSociety {
 	// color of the viewing window
 	private static final Paint BACKGROUND_COLOR = Color.BLACK;
 	// for animations
-	private static final int MAX_MILLISECOND_DELAY = 3000;
 	private static double MILLISECOND_DELAY = 1000;
 	// buttons for user control
 	private static final Button PAUSE_BUTTON = new Button("Pause");
 	private static final Button RESUME_BUTTON = new Button("Resume");
 	private static final Button STEP_BUTTON = new Button("Step");
 	private static final Button NEW_BUTTON = new Button("New");
-	private static final Slider RATE_SLIDER = new Slider(0, MAX_MILLISECOND_DELAY/1000, MILLISECOND_DELAY/1000);
-	private static final Label RATE_CAPTION = new Label(String.format("Animation rate: %.2f s", RATE_SLIDER.getValue()));
 	// objects that aid with the GUI
 	private Timeline timeline;
 	private Group root = new Group();
@@ -144,7 +139,7 @@ public class CellSociety {
 	/**
 	 * Initializes the animation and plays it.
 	 */
-	private void changeAnimationRate() {
+	public void changeAnimationRate() {
 		timeline.stop();
 		timeline.getKeyFrames().setAll(new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step()));
 		timeline.play();
