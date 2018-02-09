@@ -18,24 +18,7 @@ public class FireGrid extends Grid {
 		rand = new Random();
 		init();
 	}
-	/**
-	 * Adds only the four direct neighbors (above, below, left, right)
-	 */
-	@Override
-	public void addNeighbors() {
-		for (int i = 0; i < this.getRows(); i++) {
-			for (int j = 0; j < this.getCols(); j++) {
-			    /*
-				this.getNeighborsArray()[i][j] = new ArrayList<Cell>();
-				if (i-1>=0) this.getNeighborsArray()[i][j].add(this.get(i-1, j));
-				if (j-1>=0) this.getNeighborsArray()[i][j].add(this.get(i, j-1));
-				if (j+1<this.getCols()) this.getNeighborsArray()[i][j].add(this.get(i, j+1));
-				if (i+1<this.getRows()) this.getNeighborsArray()[i][j].add(this.get(i+1, j));
-				this.get(i, j).setNeighbors(this.getNeighborsArray()[i][j]);
-				*/
-			}
-		}
-	}
+	
 	/**
 	 * Initializes by adding the cells to the grid index and then calls addNeighbors, 
 	 * also gives the simulation a border of empty cells, as specified by the 
@@ -43,19 +26,32 @@ public class FireGrid extends Grid {
 	 */
 	public void init() {
 		double[] probFire = this.getKeys().get("BURNING");
+		ArrayList<Cell>[][] neighbors = this.getNeighborsArray();
 		for (int i = 0; i < this.getRows(); i++) {
 			for (int j = 0; j < this.getCols(); j++) {
 				//if you are on the border, auto-make an empty cell
-				if (i == 0 || j== 0 || i == this.getRows()-1 || j == this.getCols()-1) 
-					this.add(new FireCell("EMPTY", probCatch), i, j);
+				FireCell f;
+				if (i == 0 || j== 0 || i == this.getRows()-1 || j == this.getCols()-1) {
+					f = new FireCell("EMPTY", probCatch);
+					this.add(f, i, j);	
+				}
 				else {
 					double randD = rand.nextDouble();
-					if (randD >= probFire[0] && randD < probFire[1]) 
-						this.add(new FireCell("BURNING", probCatch), i, j);
-					else this.add(new FireCell("TREE", probCatch), i, j);
+					if (randD >= probFire[0] && randD < probFire[1]) {
+						f = new FireCell("BURNING", probCatch);
+						this.add(f, i, j);
+					}
+					else {
+						f = new FireCell("TREE", probCatch);
+						this.add(f, i, j);
+					}
 				}
+				if (i-1>=0) neighbors[i-1][j].add(f);
+				if (j-1>=0) neighbors[i][j-1].add(f);
+				if (j+1<this.getCols()) neighbors[i][j+1].add(f);
+				if (i+1<this.getRows()) neighbors[i+1][j].add(f);	
 			}
 		}
-		this.addNeighbors();
+	    this.setNeighbors();
 	}
 }

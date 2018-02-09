@@ -25,20 +25,38 @@ public class SegreGrid extends Grid {
 	public void init() {
 		double[] probX = this.getKeys().get("X");
 		double[] probO = this.getKeys().get("O");
+		ArrayList<Cell>[][] neighbors = this.getNeighborsArray();
 		for (int i = 0; i < this.getRows(); i++) {
 			for (int j = 0; j < this.getCols(); j++) {
+				SegreCell s;
 				double randD = rand.nextDouble();
-				if (randD >= probX[0] && randD < probX[1]) 
-					this.add(new SegreCell("X", satisfied), i, j);
-				else if (randD >= probO[0] && randD < probO[1])
-					this.add(new SegreCell("O", satisfied), i, j);
-				else {
-					this.add(new SegreCell("EMPTY", satisfied), i, j);
+				if (randD >= probX[0] && randD < probX[1]) {
+					s = new SegreCell("X", satisfied);
+					this.add(s, i, j);
 				}
+				else if (randD >= probO[0] && randD < probO[1]) {
+					s = new SegreCell("O", satisfied);
+					this.add(s, i, j);
+				}
+				else {
+					s = new SegreCell("EMPTY", satisfied);
+					this.add(s, i, j);
+				}
+				if (i-1>=0) {
+					neighbors[i-1][j].add(s);
+					if (j-1>=0) 	neighbors[i-1][j-1].add(s);
+					if (j+1<this.getCols()) neighbors[i-1][j+1].add(s);
+				}
+				if (i+1<this.getRows()) {
+					neighbors[i+1][j].add(s);
+					if (j-1>=0) neighbors[i+1][j-1].add(s);
+					if (j+1<this.getCols()) neighbors[i+1][j+1].add(s);
+				}
+				if (j-1>=0) neighbors[i][j-1].add(s);
+				if (j+1<this.getCols()) neighbors[i][j+1].add(s);
 			}
 		}
-		
-		this.addNeighbors();
+		this.setNeighbors();
     }
 	/**
 	 * Updates the cells on screen, but only looks for disatisfied cells and empty cells, 

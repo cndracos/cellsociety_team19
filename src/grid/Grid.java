@@ -133,37 +133,11 @@ public abstract class Grid {
 	 * Get all eight neighbors of a cell and add to a 2d ArrayList<Cell>
 	 * at the same index of of the cell whose neighbors are being polled
 	 */
-	public void addNeighbors() {
+	public void setNeighbors() {
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < cols; j++) {
-				neighbors[i][j] = new ArrayList<Cell>();
-				if (i-1>=0) {
-					neighbors[i][j].add(this.get(i-1, j));
-					if (j-1>=0) {
-						neighbors[i][j].add(this.get(i-1, j-1));
-						neighbors[i][j].add(this.get(i, j-1));
-					}
-					if (j+1<cols) {
-						neighbors[i][j].add(this.get(i-1, j+1));
-						neighbors[i][j].add(this.get(i, j+1));
-					}
-				}
-				if (i+1<rows) {
-					neighbors[i][j].add(this.get(i+1, j));
-					if (j-1>=0) neighbors[i][j].add(this.get(i+1, j-1));
-					if (j+1<cols) neighbors[i][j].add(this.get(i+1, j+1));
-				}
 				this.get(i, j).setNeighbors(neighbors[i][j]);
 			}
 		}
-	}
-	/**
-	 * Returns the neighbors at a specific index in the grid
-	 * @param n row index
-	 * @param k column index
-	 * @return ArrayList<Cell> neighbors of a cell at index n, k
-	 */
-	public ArrayList<Cell> getNeighbors(int n, int k) {
-		return neighbors[n][k];
 	}
 }
