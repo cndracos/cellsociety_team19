@@ -35,7 +35,12 @@ public abstract class Grid {
 		rows = n;
 		cols = k;
 		population = new Cell[rows][cols];
-		neighbors = new ArrayList[n][k];
+		neighbors = new ArrayList[rows][cols];
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
+				neighbors[i][j] = new ArrayList<Cell>();
+			}
+		}
 		getCellSize(length, width);
 		this.keys = keys;
 	}
@@ -130,8 +135,8 @@ public abstract class Grid {
 		}
 	}
 	/**
-	 * Get all eight neighbors of a cell and add to a 2d ArrayList<Cell>
-	 * at the same index of of the cell whose neighbors are being polled
+	 * Goes through all the cells when all are finally added to the grid, 
+	 * then gives to them their ArrayList<Cell> neighbors
 	 */
 	public void setNeighbors() {
 		for (int i = 0; i < rows; i++) {

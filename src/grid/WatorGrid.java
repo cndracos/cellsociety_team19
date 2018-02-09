@@ -18,7 +18,9 @@ public class WatorGrid extends Grid {
 		init();
 	}
 	/**
-	 * Initializes the grid by adding the cells to the grid, then calls addNeighbors
+	 * Initializes the grid by adding the cells to the grid, then calls add 
+	 * cell to ArrayList<Cell> neighbors around it, then sets neighbors when all
+	 * cells are added
 	 */
 	public void init() {
 		//gets the array of probs from the key map
@@ -31,6 +33,7 @@ public class WatorGrid extends Grid {
 		ArrayList<Cell>[][] neighbors = this.getNeighborsArray();
 		for (int i = 0; i < this.getRows(); i++) {
 			for (int j = 0; j < this.getCols(); j++) {
+				//creates arbitrary WatorCell to be added
 				WatorCell w;
 				double randD = rand.nextDouble();
 				if (randD >= probF[0] && randD < probF[1]) {
@@ -45,6 +48,8 @@ public class WatorGrid extends Grid {
 					w = new WatorCell("WATER", fishR, sharkR, sharkE);
 					this.add(w, i, j);
 				}
+				//now tests if there are neighbors cells and 
+				//adds to their neighbor arraylists
 				if (i-1>=0) neighbors[i-1][j].add(w);
 					else neighbors[this.getRows() - 1][j].add(w);
 				if (j-1>=0) neighbors[i][j-1].add(w);

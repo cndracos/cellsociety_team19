@@ -20,7 +20,9 @@ public class SegreGrid extends Grid {
 		init();
 	}
 	/**
-	 * Initializes grid by adding cells to indexes, the calls addNeighbors
+	 * Initializes grid by adding cells to indexes, the calls adds the cell to
+	 * its surrounding neighbor ArrayLists, then sets neighbors when all
+	 * cells are added
 	 */
 	public void init() {
 		double[] probX = this.getKeys().get("X");
@@ -28,6 +30,7 @@ public class SegreGrid extends Grid {
 		ArrayList<Cell>[][] neighbors = this.getNeighborsArray();
 		for (int i = 0; i < this.getRows(); i++) {
 			for (int j = 0; j < this.getCols(); j++) {
+				//makes an arbitrary SegreCell
 				SegreCell s;
 				double randD = rand.nextDouble();
 				if (randD >= probX[0] && randD < probX[1]) {
@@ -42,8 +45,9 @@ public class SegreGrid extends Grid {
 					s = new SegreCell("EMPTY", satisfied);
 					this.add(s, i, j);
 				}
+				//now tests if there are neighbors cells and 
+				//adds to their neighbor arraylists
 				if (i-1>=0) {
-					neighbors[i-1][j].add(s);
 					if (j-1>=0) 	neighbors[i-1][j-1].add(s);
 					if (j+1<this.getCols()) neighbors[i-1][j+1].add(s);
 				}
