@@ -1,7 +1,9 @@
 package grid;
 
+import cell.Cell;
 import cell.LifeCell;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -19,15 +21,34 @@ public class LifeGrid extends Grid {
 	 */
 	public void init() {
 		double[] probLife = this.getKeys().get("ALIVE");
+		ArrayList<Cell>[][] neighbors = this.getNeighborsArray();
 		for (int i = 0; i < this.getRows(); i++) {
 			for (int j = 0; j < this.getCols(); j++) {
 					double randD = rand.nextDouble();
-					if (randD >= probLife[0] && randD < probLife[1]) 
-						this.add(new LifeCell("ALIVE", 0), i, j);
-					else this.add(new LifeCell("DEAD", 0), i, j);
+					LifeCell l;
+					if (randD >= probLife[0] && randD < probLife[1]) {
+						l = new LifeCell("ALIVE", 0);
+						this.add(l, i, j);
+					}
+					else {
+						l = new LifeCell("DEAD", 0);
+						this.add(l, i, j);
+					}
+					if (i-1>=0) {
+						neighbors[i-1][j].add(l);
+						if (j-1>=0) 	neighbors[i-1][j-1].add(l);
+						if (j+1<this.getCols()) neighbors[i-1][j+1].add(l);
+					}
+					if (i+1<this.getRows()) {
+						neighbors[i+1][j].add(l);
+						if (j-1>=0) neighbors[i+1][j-1].add(l);
+						if (j+1<this.getCols()) neighbors[i+1][j+1].add(l);
+					}
+					if (j-1>=0) neighbors[i][j-1].add(l);
+					if (j+1<this.getCols()) neighbors[i][j+1].add(l);
 				}
 			}
-		this.addNeighbors();
+		this.setNeighbors();
 	}
 }
 
