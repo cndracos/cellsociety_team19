@@ -10,9 +10,8 @@ import java.util.stream.Stream;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.stage.Stage;
 
-import grid.*;
+import sim.*;
 
 public class SimulationBuilder {
 	// the specific file that builds this simulation
@@ -27,6 +26,7 @@ public class SimulationBuilder {
 	protected static final String INITIAL_DATA_FIELD = new String("initialStates");
 	// name of this specific simulation to build
 	private static String simulationName;
+	private static final String DEFAULT_SHAPE = "SQUARE";
 	
 	// constructor
 	public SimulationBuilder(String filePath) {
@@ -38,7 +38,7 @@ public class SimulationBuilder {
 	 * @return the built grid
 	 * @throws FileNotFoundException
 	 */
-	public Grid build(int screenLength, int screenWidth) {
+	public Sim build(int screenLength, int screenWidth) {
 		if (XMLFile != null) {
 			try {
 				XMLParser parser = new XMLParser("simulation");
@@ -62,18 +62,18 @@ public class SimulationBuilder {
 	}
 	
 	// select which type of grid we want to initialize based upon the simulation type
-	public Grid generateGrid(int rows, int cols, int screenLength, int screenWidth, double[] probability, HashMap<String, double[]> initialStates) {
+	public Sim generateGrid(int rows, int cols, int screenLength, int screenWidth, double[] probability, HashMap<String, double[]> initialStates) {
 		switch (simulationName) {
 			case "Fire": 
 				// probability[0] only b/c only one probability exists for this simulation
-				return new FireGrid(rows, cols, screenLength, screenWidth,probability[0], initialStates);
+				return new FireSim(rows, cols, screenLength, screenWidth,probability[0], initialStates, DEFAULT_SHAPE);
 			case "Segregation":
 				// probability[0] only b/c only one probability exists for this simulation
-				return new SegreGrid(rows, cols, screenLength, screenWidth,probability[0], initialStates);
+				return new SegreSim(rows, cols, screenLength, screenWidth,probability[0], initialStates, DEFAULT_SHAPE);
 			case "Wator":
-				return new WatorGrid(rows, cols, screenLength, screenWidth,probability,initialStates);	
+				return new WatorSim(rows, cols, screenLength, screenWidth,probability,initialStates, DEFAULT_SHAPE);	
 			default:
-				return new LifeGrid(rows, cols, screenLength, screenWidth,initialStates);
+				return new LifeSim(rows, cols, screenLength, screenWidth, initialStates , DEFAULT_SHAPE);
 		}
 			
 			

@@ -10,7 +10,7 @@ import javafx.util.Duration;
 import javafx.scene.layout.BorderPane;
 
 import xmlparser.*;
-import grid.*;
+import sim.*;
 
 /**
  * Class containing all of the necessary data to run a simulation and have the user interact with it.
@@ -36,7 +36,7 @@ public class CellSociety {
 	// objects that aid with the GUI
 	private Timeline timeline;
 	private BorderPane root = new BorderPane();
-	private ArrayList<Grid> grids = null;
+	private ArrayList<Sim> sims = new ArrayList<Sim>();
 	private Stage simStage;
 	private GUISetupManager GSM;
 	
@@ -70,8 +70,9 @@ public class CellSociety {
 	 * and the GUI is updated.
 	 */
 	public void step() {
-		for (Grid gr : grids)
-			gr.update();
+		for (Sim sim : sims) {
+			sim.update();
+		}
 	}
 	
 	/**
@@ -92,12 +93,12 @@ public class CellSociety {
 	}
 	
 	// returns the grid for this simulation
-	public ArrayList<Grid> grid() {
-		return grids;
+	public ArrayList<Sim> sim() {
+		return sims;
 	}
 	
-	public void setGrid(Grid newGrid) {
-		grids.add(newGrid);
+	public void setSim(Sim newSim) {
+		sims.add(newSim);
 	}
 	
 	public Timeline getTimeline() {

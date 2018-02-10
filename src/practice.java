@@ -59,7 +59,6 @@ public class practice extends Application{
         Scene scene = new Scene(root, width, height, background);
         rand = new Random();
         
-        
         /**int n =  97;
         int k = 70;
         double[] vals = {4, 20, 2};
