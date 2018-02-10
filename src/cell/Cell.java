@@ -12,7 +12,7 @@ import javafx.scene.shape.Rectangle;
  */
 public abstract class Cell extends Rectangle{
 	private ArrayList<Cell> myNeighbors;
-	private String currState;
+	protected String currState;
 	protected String newState;
 	
 	/**

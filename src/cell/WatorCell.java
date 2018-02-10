@@ -12,16 +12,16 @@ import javafx.scene.paint.Color;
  *
  */
 public class WatorCell extends Cell{
-	private String currState;
-	private double fishR;
-	private double sharkR;
-	private double sharkE;
+	private final double FISH_R;
+	private final double SHARK_R;
+	private final double SHARK_E;
 	private Random rand;
-	private int fishMoves;
-	private int sharkMoves;
+	public double fishMoves;
+	public double sharkMoves;
+	public double sharkE;
 	private boolean isUpdated;
 	private final int fishE = 1;
-	
+
 	/**
 	 * Constructor of WatorCell class
 	 * @param currState current state of cell
@@ -31,12 +31,11 @@ public class WatorCell extends Cell{
 	 */
 	public WatorCell(String currState,double fishR,double sharkR,double sharkE){
 		super(currState);
-		this.fishR = fishR;
-		this.sharkR = sharkR;
-		this.sharkE = sharkE;
-		fishMoves = 0;
-		sharkMoves = 0;
+		FISH_R = fishR;
+		SHARK_R = sharkR;
+		SHARK_E = sharkE;
 		isUpdated = false;
+		setParam(currState);
 		rand = new Random();
 	}
 	
@@ -61,20 +60,25 @@ public class WatorCell extends Cell{
 			
 			//if there is an unoccupied free cell, move to it
 			if(waters.size() > 0){
+				fishMoves += 1;
 				int key = rand.nextInt(waters.size());
 				nextCell = waters.get(key);
+				
+				//else just swim to the free water
 				this.newState ="WATER";
 				nextCell.newState = "FISH";
-				fishMoves += 1;
+				nextCell.fishMoves = this.fishMoves;
 				
 				//reproduce fish
-				if(fishMoves == fishR){
+				if(fishMoves == FISH_R){
 					this.newState = "FISH";
-					fishMoves = 0;
+					nextCell.fishMoves = 0;
 				}
+				
 				//update changed cells
 				isUpdated = true;
 				nextCell.setUpdated(true);
+				this.fishMoves = 0;
 			}
 		}
 		
@@ -84,15 +88,31 @@ public class WatorCell extends Cell{
 			ArrayList<WatorCell> waters = getTypes("WATER");
 			WatorCell nextCell = null;
 			
+			//if a shark consumed all energy, it dies
+			sharkE -= 1;
+			
+			if(sharkE <= 0){
+				this.newState = "WATER";
+				this.sharkMoves = 0;
+				this.sharkE = 0;
+
+				isUpdated = true;
+				System.out.println("energy after: "+sharkE);
+				return newState;
+			}
+			
 			//if shark is eligible to move
 			if(fishs.size() > 0 || waters.size() > 0){
+				sharkMoves += 1;
 				//if there is a fish, devour it
 				if(fishs.size() > 0){
+					sharkE += fishE;	
 					int key = rand.nextInt(fishs.size());
 					nextCell = fishs.get(key);
 					this.newState ="WATER";
 					nextCell.newState = "SHARK";
-					sharkE += fishE;	
+					nextCell.sharkE = this.sharkE;
+					nextCell.sharkMoves = this.sharkMoves;
 				}
 				
 				//otherwise if there is an unoccupied free cell, move to it
@@ -101,23 +121,25 @@ public class WatorCell extends Cell{
 					nextCell = waters.get(key);
 					this.newState = "WATER";
 					nextCell.newState = "SHARK";
+					nextCell.sharkE = this.sharkE;
+					nextCell.sharkMoves = this.sharkMoves;
 				}
 				
 				//change updated status of cells,reduce shark's energy
 				isUpdated = true;
 				nextCell.setUpdated(true);
-				sharkE -= 1;
-				sharkMoves += 1;
 				
-				//if a shark consumed all energy, it dies
-				if(sharkE == 0){
-					this.newState = "WATER";
-				}
 				//reproduce shark
-				else if(sharkMoves == sharkR && nextCell != null){
+				if(sharkMoves == SHARK_R && nextCell != null){
 					this.newState = "SHARK";
-					sharkMoves = 0;
+					this.sharkE = SHARK_E;
+					nextCell.sharkMoves = 0;
 				}
+				else {
+					this.sharkE = 0;
+				}
+				
+				this.sharkMoves = 0;
 			}
 		}
 		return newState;
@@ -136,6 +158,16 @@ public class WatorCell extends Cell{
 			}
 		}
 		return typeArray;
+	}
+	
+	private void setParam(String currState) {
+		if(currState == "FISH") {
+			this.fishMoves = 0;
+		}
+		else if(currState == "SHARK") {
+			this.sharkMoves = 0;
+			this.sharkE = SHARK_E;
+		}
 	}
 	
 	/**
@@ -163,7 +195,7 @@ public class WatorCell extends Cell{
 		this.setFill(colorByState(currState));
 		isUpdated = false;
 	}
-	
+
 	@Override
 	/**
 	 * decide specific color of the cell according to specific rules in fire simulation

@@ -57,20 +57,19 @@ public class practice extends Application{
         Scene scene = new Scene(root, width, height, background);
         rand = new Random();
         
-        
-        int n =  97;
-        int k = 70;
-        double[] vals = {4, 20, 2};
-        Map<String, double[]> keys = new HashMap<String, double[]>();
+        int n =  100;
+        int k = 100;
+        double[] vals = {5, 20, 10};
+        HashMap<String, double[]> keys = new HashMap<String, double[]>();
         double[] fProb = new double[2];
         fProb[0] = 0.0;
-        fProb[1] = 0.1;
+        fProb[1] = 0.5;
         double[] sProb = new double[2];
-        sProb[0] = 0.1;
-        sProb[1] = 0.2;
+        sProb[0] = 0.5;
+        sProb[1] = 0.6;
         keys.put("FISH", fProb);
         keys.put("SHARK", sProb);
-        grid = new WatorGrid(n, k, vals, keys); 
+        grid = new WatorGrid(n, k, 990, 720, vals, keys); 
 
         
        /**int n =  97;
@@ -89,7 +88,7 @@ public class practice extends Application{
     
        //System.out.print(root== null);
                 
-       grid = new WatorGrid(n, k, vals, keys);
+       //grid = new WatorGrid(n, k, vals, keys);
 
        for (int i = 0; i < n; i++) {
     	   	for (int j = 0; j < k; j++) {
