@@ -1,6 +1,5 @@
 package cellsociety;
 
-import grid.Grid;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -21,6 +20,8 @@ import xmlparser.SimulationBuilder;
 import java.util.Arrays;
 
 import cellsociety.CellSociety;
+import grid.Grid;
+import sim.Sim;
 /**
  * Class that sets up the GUI to prepare for running simulations.
  * @author dylanpowers
@@ -50,6 +51,7 @@ public class GUISetupManager {
 	private static BorderPane currentRoot;
 	private static CellSociety simulation;
 	private static HBox allGrids = new HBox(GRID_SEPARATION);
+	private static HBox BOTTOM = new HBox(GRID_SEPARATION);
 	
 	// default constructor
 	public GUISetupManager(CellSociety CS) {
@@ -66,16 +68,17 @@ public class GUISetupManager {
 		return new Scene(currentRoot, DEFAULT_WIDTH, DEFAULT_HEIGHT, BACKGROUND_COLOR);
 	}
 	
-	// initialize all necessary GUI components
+	/**
+	 * Initialize all necessary GUI components. This is done only once (on initialization).
+	 */
 	private void init() {
 		initSlider();
 		initButtonPlacement();
 		initButtonActions();
 		initComboBox();
+		// initialize grid to null because user must pick the grid type to begin with
 		initGrid(null);
-		currentRoot.setBottom(CHOOSER);
 	}
-	
 	
 	/**
 	 * Initializes the slider that will concurrently change the rate of animation.
@@ -99,8 +102,13 @@ public class GUISetupManager {
 				simulation.changeAnimationRate();
 			}
 		});
-		// add to scene
-		currentRoot.getChildren().addAll(RATE_SLIDER, RATE_CAPTION);
+		// add to scene, use a VBox so that the caption can stay with the slider
+		VBox sliderGroup = new VBox(BUTTON_SPACING);
+		sliderGroup.getChildren().addAll(RATE_SLIDER, RATE_CAPTION);
+		BOTTOM.getChildren().add(sliderGroup);
+		// set to center alignment on bottom of screen
+		BOTTOM.setAlignment(Pos.CENTER);
+		currentRoot.setBottom(BOTTOM);
 	}
 	
 	
@@ -161,23 +169,24 @@ public class GUISetupManager {
 			@Override
 			public void changed(ObservableValue<? extends String> ov, String oldValue, String newValue) {
 				String filePath = new String("data/" + newValue + ".xml");
-				addGrid(filePath, true);
+				addGrid(filePath, false);
 			}
 		});
+		BOTTOM.getChildren().add(CHOOSER);
 	}
 	
 	/**
 	 * Initializes this simulation's grid by adding all of the cells to the root.
 	 * @param grid the grid object for this simulation
 	 */
-	private void initGrid(Grid grid) {
+	private void initGrid(Sim sim) {
 		// if grid is null, do nothing
-		if (grid != null) {
+		if (sim != null) {
         		Pane gridPane = new Pane();
         		gridPane.setPrefSize(CellSociety.GRID_WIDTH, CellSociety.GRID_HEIGHT);
-        		for (int i = 0; i < grid.getRows(); i++) {
-        			for (int j = 0; j < grid.getCols(); j++) {
-        				gridPane.getChildren().add(grid.get(i, j));
+        		for (int i = 0; i < sim.getGrid().getRows(); i++) {
+        			for (int j = 0; j < sim.getGrid().getCols(); j++) {
+        				gridPane.getChildren().add(sim.getGrid().get(i, j));
         			}
         		}
         		allGrids.getChildren().add(gridPane);
@@ -190,15 +199,14 @@ public class GUISetupManager {
 	private void addGrid(String filePath, boolean flag) {
 		if (!flag) {
         		allGrids = new HBox(GRID_SEPARATION);
-        		Grid newGrid = (new SimulationBuilder(filePath)).build(CellSociety.GRID_WIDTH,  CellSociety.GRID_HEIGHT);
-        		simulation.setGrid(newGrid);
-        		initGrid(newGrid);
+        		Sim newSim = (new SimulationBuilder(filePath)).build(CellSociety.GRID_WIDTH,  CellSociety.GRID_HEIGHT);
+        		simulation.setSim(newSim);
+        		initGrid(newSim);
         		currentRoot.setCenter(allGrids);
 		} else {
-			Grid newGrid = (new SimulationBuilder(filePath)).build(CellSociety.GRID_WIDTH,  CellSociety.GRID_HEIGHT);
-    			simulation.setGrid(newGrid);
-    			initGrid(newGrid);
+			Sim newSim = (new SimulationBuilder(filePath)).build(CellSociety.GRID_WIDTH,  CellSociety.GRID_HEIGHT);
+    			simulation.setSim(newSim);
+    			initGrid(newSim);
 		}
 	}
-	
 }

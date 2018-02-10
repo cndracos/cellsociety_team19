@@ -59,7 +59,6 @@ public class practice extends Application{
         Scene scene = new Scene(root, width, height, background);
         rand = new Random();
         
-        
         /**int n =  97;
         int k = 70;
         double[] vals = {4, 20, 2};
@@ -91,7 +90,7 @@ public class practice extends Application{
     
        //System.out.print(root== null);
                 
-      // grid = new WatorGrid(n, k, vals, keys);
+      //grid = new SegreGrid(n, k, 970, 700, vals, keys);
 
        for (int i = 0; i < n; i++) {
     	   	for (int j = 0; j < k; j++) {
