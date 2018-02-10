@@ -81,13 +81,6 @@ public abstract class Grid {
 		return population[n][k];
 	}
 	/**
-	 * returns the neighbor array of the grid
-	 * @return neighbors array
-	 */
-	public ArrayList<Cell>[][] getNeighborsArray() {
-		return neighbors;
-	}
-	/**
 	 * returns the map of cell types and probabilities
 	 * @return keys map
 	 */
@@ -143,6 +136,38 @@ public abstract class Grid {
 			for (int j = 0; j < cols; j++) {
 				this.get(i, j).setNeighbors(neighbors[i][j]);
 			}
+		}
+	}
+	
+	public void updateNeighbors (int n, int k, Cell c, String sim) {
+		if (sim.equals("Fire")) {
+			if (n-1>=0) neighbors[n-1][k].add(c);
+			if (k-1>=0) neighbors[n][k-1].add(c);
+			if (k+1<cols) neighbors[n][k+1].add(c);
+			if (n+1<rows) neighbors[n+1][k].add(c);	
+		}
+		else if (sim.equals("Wator")) {
+			if (n-1>=0) neighbors[n-1][k].add(c);
+				else neighbors[rows - 1][k].add(c);
+			if (k-1>=0) neighbors[n][k-1].add(c);
+				else neighbors[n][cols - 1].add(c);
+			if (k+1<cols) neighbors[n][k+1].add(c);
+				else neighbors[n][0].add(c);
+			if (n+1<rows) neighbors[n+1][k].add(c);
+				else neighbors[0][k].add(c);
+		}
+		else {
+			if (n-1>=0) {
+				if (k-1>=0) 	neighbors[n-1][k-1].add(c);
+				if (k+1<cols) neighbors[n-1][k+1].add(c);
+			}
+			if (n+1<rows) {
+				neighbors[n+1][k].add(c);
+				if (k-1>=0) neighbors[n+1][k-1].add(c);
+				if (k+1<cols) neighbors[n+1][k+1].add(c);
+			}
+			if (k-1>=0) neighbors[n][k-1].add(c);
+			if (k+1<cols) neighbors[n][k+1].add(c);
 		}
 	}
 }
