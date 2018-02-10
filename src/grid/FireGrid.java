@@ -28,7 +28,6 @@ public class FireGrid extends Grid {
 	 */
 	public void init() {
 		double[] probFire = this.getKeys().get("BURNING");
-		ArrayList<Cell>[][] neighbors = this.getNeighborsArray();
 		for (int i = 0; i < this.getRows(); i++) {
 			for (int j = 0; j < this.getCols(); j++) {
 				//makes an arbitrary FireCell
@@ -49,12 +48,7 @@ public class FireGrid extends Grid {
 						this.add(f, i, j);
 					}
 				}
-				//now tests if there are neighbors cells and 
-				//adds to their neighbor arraylists
-				if (i-1>=0) neighbors[i-1][j].add(f);
-				if (j-1>=0) neighbors[i][j-1].add(f);
-				if (j+1<this.getCols()) neighbors[i][j+1].add(f);
-				if (i+1<this.getRows()) neighbors[i+1][j].add(f);	
+				this.updateNeighbors(i, j, f, "Fire");
 			}
 		}
 	    this.setNeighbors();

@@ -22,7 +22,6 @@ public class LifeGrid extends Grid {
 	 */
 	public void init() {
 		double[] probLife = this.getKeys().get("ALIVE");
-		ArrayList<Cell>[][] neighbors = this.getNeighborsArray();
 		for (int i = 0; i < this.getRows(); i++) {
 			for (int j = 0; j < this.getCols(); j++) {
 					double randD = rand.nextDouble();
@@ -36,20 +35,7 @@ public class LifeGrid extends Grid {
 						l = new LifeCell("DEAD", 0);
 						this.add(l, i, j);
 					}
-					//now tests if there are neighbors cells and 
-					//adds to their neighbor arraylists
-					if (i-1>=0) {
-						neighbors[i-1][j].add(l);
-						if (j-1>=0) 	neighbors[i-1][j-1].add(l);
-						if (j+1<this.getCols()) neighbors[i-1][j+1].add(l);
-					}
-					if (i+1<this.getRows()) {
-						neighbors[i+1][j].add(l);
-						if (j-1>=0) neighbors[i+1][j-1].add(l);
-						if (j+1<this.getCols()) neighbors[i+1][j+1].add(l);
-					}
-					if (j-1>=0) neighbors[i][j-1].add(l);
-					if (j+1<this.getCols()) neighbors[i][j+1].add(l);
+					this.updateNeighbors(i, j, l, "Life");
 				}
 			}
 		this.setNeighbors();

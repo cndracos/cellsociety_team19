@@ -27,7 +27,6 @@ public class SegreGrid extends Grid {
 	public void init() {
 		double[] probX = this.getKeys().get("X");
 		double[] probO = this.getKeys().get("O");
-		ArrayList<Cell>[][] neighbors = this.getNeighborsArray();
 		for (int i = 0; i < this.getRows(); i++) {
 			for (int j = 0; j < this.getCols(); j++) {
 				//makes an arbitrary SegreCell
@@ -45,19 +44,7 @@ public class SegreGrid extends Grid {
 					s = new SegreCell("EMPTY", satisfied);
 					this.add(s, i, j);
 				}
-				//now tests if there are neighbors cells and 
-				//adds to their neighbor arraylists
-				if (i-1>=0) {
-					if (j-1>=0) 	neighbors[i-1][j-1].add(s);
-					if (j+1<this.getCols()) neighbors[i-1][j+1].add(s);
-				}
-				if (i+1<this.getRows()) {
-					neighbors[i+1][j].add(s);
-					if (j-1>=0) neighbors[i+1][j-1].add(s);
-					if (j+1<this.getCols()) neighbors[i+1][j+1].add(s);
-				}
-				if (j-1>=0) neighbors[i][j-1].add(s);
-				if (j+1<this.getCols()) neighbors[i][j+1].add(s);
+				this.updateNeighbors(i, j, s, "Segre");
 			}
 		}
 		this.setNeighbors();

@@ -30,7 +30,6 @@ public class WatorGrid extends Grid {
 		double fishR = vals[0];
 		double sharkR = vals[1];
 		double sharkE = vals[2];
-		ArrayList<Cell>[][] neighbors = this.getNeighborsArray();
 		for (int i = 0; i < this.getRows(); i++) {
 			for (int j = 0; j < this.getCols(); j++) {
 				//creates arbitrary WatorCell to be added
@@ -48,16 +47,7 @@ public class WatorGrid extends Grid {
 					w = new WatorCell("WATER", fishR, sharkR, sharkE);
 					this.add(w, i, j);
 				}
-				//now tests if there are neighbors cells and 
-				//adds to their neighbor arraylists
-				if (i-1>=0) neighbors[i-1][j].add(w);
-					else neighbors[this.getRows() - 1][j].add(w);
-				if (j-1>=0) neighbors[i][j-1].add(w);
-					else neighbors[i][this.getCols() - 1].add(w);
-				if (j+1<this.getCols()) neighbors[i][j+1].add(w);
-					else neighbors[i][0].add(w);
-				if (i+1<this.getRows()) neighbors[i+1][j].add(w);
-					else neighbors[0][j].add(w);
+				this.updateNeighbors(i, j, w, "Wator");
 			}
 		}
 		this.setNeighbors();
