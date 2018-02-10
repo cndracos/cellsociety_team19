@@ -15,11 +15,7 @@ import java.util.Map;
 public abstract class Grid {
 	private Cell[][] population;
 	private ArrayList<Cell>[][] neighbors;
-	private Map<String, double[]> keys;
 	private int rows, cols;
-	private int screenLength, screenWidth;
-	private double cellLength, cellWidth;
-	private final int DEFAULT_SPACE = 10;
 	
 	/**
 	 * Constructor of grid class
@@ -31,7 +27,7 @@ public abstract class Grid {
 	 * simulation  (e.g. probTree in Fire, probFish in Wa-Tor) to an upper
 	 * and lower bounds of the probability a cell is that type (e.g. 0.0-0.4)
 	 */
-	public Grid (int n, int k, int length, int width, HashMap<String, double[]> keys) {
+	public Grid (int n, int k) {
 		rows = n;
 		cols = k;
 		population = new Cell[rows][cols];
@@ -41,8 +37,6 @@ public abstract class Grid {
 				neighbors[i][j] = new ArrayList<Cell>();
 			}
 		}
-		getCellSize(length, width);
-		this.keys = keys;
 	}
 	
 	/**
@@ -50,12 +44,7 @@ public abstract class Grid {
 	 * @param length screen length
 	 * @param width screen width
 	 */
-	private void getCellSize(int length,int width) {
-		screenLength = length - 2 * DEFAULT_SPACE;
-		screenWidth = width - 2 * DEFAULT_SPACE;
-		cellLength = screenLength / (rows * 1.0);
-		cellWidth = screenWidth / (cols * 1.0);
-	}
+	public abstract void getCellSize(int length,int width);
 	
 	/**
 	 * add the cell to specific position on screen according to its coordinate
@@ -63,12 +52,7 @@ public abstract class Grid {
 	 * @param n coordinate on x axis
 	 * @param k coordinate on y axis
 	 */
-	private void addToScreen(Cell c, int n, int k) {
-		c.setX(n*cellLength + DEFAULT_SPACE);
-		c.setY(k*cellWidth + DEFAULT_SPACE);
-		c.setWidth(cellWidth);
-		c.setHeight(cellLength);
-	}
+	public abstract void addToScreen(Cell c, int n, int k);
 	
 	
 	/**
@@ -79,13 +63,6 @@ public abstract class Grid {
 	 */
 	public Cell get(int n, int k) {
 		return population[n][k];
-	}
-	/**
-	 * returns the map of cell types and probabilities
-	 * @return keys map
-	 */
-	public Map<String, double[]> getKeys() {
-		return keys;
 	}
 	/**
 	 * returns number of rows
@@ -112,22 +89,6 @@ public abstract class Grid {
 		addToScreen(c, n, k);
 	}
 	/**
-	 * Parses through the whole grid and finds the state of cell and its neighbors,
-	 * then parses again using those values to set the new states
-	 */
-	public void update() {
-		for (int i = 0; i < rows; i++) {
-			for (int j = 0; j < cols; j++) {
-				this.get(i, j).findState();
-			}
-		}
-		for (int i = 0; i < rows; i++) {
-			for (int j = 0; j < cols; j++) {
-				this.get(i, j).setState();
-			}
-		}
-	}
-	/**
 	 * Goes through all the cells when all are finally added to the grid, 
 	 * then gives to them their ArrayList<Cell> neighbors
 	 */
@@ -139,35 +100,9 @@ public abstract class Grid {
 		}
 	}
 	
-	public void updateNeighbors (int n, int k, Cell c, String sim) {
-		if (sim.equals("Fire")) {
-			if (n-1>=0) neighbors[n-1][k].add(c);
-			if (k-1>=0) neighbors[n][k-1].add(c);
-			if (k+1<cols) neighbors[n][k+1].add(c);
-			if (n+1<rows) neighbors[n+1][k].add(c);	
-		}
-		else if (sim.equals("Wator")) {
-			if (n-1>=0) neighbors[n-1][k].add(c);
-				else neighbors[rows - 1][k].add(c);
-			if (k-1>=0) neighbors[n][k-1].add(c);
-				else neighbors[n][cols - 1].add(c);
-			if (k+1<cols) neighbors[n][k+1].add(c);
-				else neighbors[n][0].add(c);
-			if (n+1<rows) neighbors[n+1][k].add(c);
-				else neighbors[0][k].add(c);
-		}
-		else {
-			if (n-1>=0) {
-				if (k-1>=0) 	neighbors[n-1][k-1].add(c);
-				if (k+1<cols) neighbors[n-1][k+1].add(c);
-			}
-			if (n+1<rows) {
-				neighbors[n+1][k].add(c);
-				if (k-1>=0) neighbors[n+1][k-1].add(c);
-				if (k+1<cols) neighbors[n+1][k+1].add(c);
-			}
-			if (k-1>=0) neighbors[n][k-1].add(c);
-			if (k+1<cols) neighbors[n][k+1].add(c);
-		}
+	public ArrayList<Cell>[][] getNeighborsArray() {
+		return neighbors;
 	}
+	
+	public abstract void updateNeighbors(int n, int k, Cell c, String sim);
 }
