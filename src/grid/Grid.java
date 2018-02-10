@@ -15,11 +15,7 @@ import java.util.Map;
 public abstract class Grid {
 	private Cell[][] population;
 	private ArrayList<Cell>[][] neighbors;
-	private Map<String, double[]> keys;
 	private int rows, cols;
-	private int screenLength, screenWidth;
-	private double cellLength, cellWidth;
-	private final int DEFAULT_SPACE = 10;
 	
 	/**
 	 * Constructor of grid class
@@ -31,13 +27,16 @@ public abstract class Grid {
 	 * simulation  (e.g. probTree in Fire, probFish in Wa-Tor) to an upper
 	 * and lower bounds of the probability a cell is that type (e.g. 0.0-0.4)
 	 */
-	public Grid (int n, int k, int length, int width, HashMap<String, double[]> keys) {
+	public Grid (int n, int k) {
 		rows = n;
 		cols = k;
 		population = new Cell[rows][cols];
-		neighbors = new ArrayList[n][k];
-		getCellSize(length, width);
-		this.keys = keys;
+		neighbors = new ArrayList[rows][cols];
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
+				neighbors[i][j] = new ArrayList<Cell>();
+			}
+		}
 	}
 	
 	/**
@@ -45,12 +44,7 @@ public abstract class Grid {
 	 * @param length screen length
 	 * @param width screen width
 	 */
-	private void getCellSize(int length,int width) {
-		screenLength = length - 2 * DEFAULT_SPACE;
-		screenWidth = width - 2 * DEFAULT_SPACE;
-		cellLength = screenLength / (rows * 1.0);
-		cellWidth = screenWidth / (cols * 1.0);
-	}
+	public abstract void getCellSize(int length,int width);
 	
 	/**
 	 * add the cell to specific position on screen according to its coordinate
@@ -58,12 +52,7 @@ public abstract class Grid {
 	 * @param n coordinate on x axis
 	 * @param k coordinate on y axis
 	 */
-	private void addToScreen(Cell c, int n, int k) {
-		c.setX(n*cellLength + DEFAULT_SPACE);
-		c.setY(k*cellWidth + DEFAULT_SPACE);
-		c.setWidth(cellWidth);
-		c.setHeight(cellLength);
-	}
+	public abstract void addToScreen(Cell c, int n, int k);
 	
 	
 	/**
@@ -74,20 +63,6 @@ public abstract class Grid {
 	 */
 	public Cell get(int n, int k) {
 		return population[n][k];
-	}
-	/**
-	 * returns the neighbor array of the grid
-	 * @return neighbors array
-	 */
-	public ArrayList<Cell>[][] getNeighborsArray() {
-		return neighbors;
-	}
-	/**
-	 * returns the map of cell types and probabilities
-	 * @return keys map
-	 */
-	public Map<String, double[]> getKeys() {
-		return keys;
 	}
 	/**
 	 * returns number of rows
@@ -114,56 +89,20 @@ public abstract class Grid {
 		addToScreen(c, n, k);
 	}
 	/**
-	 * Parses through the whole grid and finds the state of cell and its neighbors,
-	 * then parses again using those values to set the new states
+	 * Goes through all the cells when all are finally added to the grid, 
+	 * then gives to them their ArrayList<Cell> neighbors
 	 */
-	public void update() {
+	public void setNeighbors() {
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < cols; j++) {
-				this.get(i, j).findState();
-			}
-		}
-		for (int i = 0; i < rows; i++) {
-			for (int j = 0; j < cols; j++) {
-				this.get(i, j).setState();
-			}
-		}
-	}
-	/**
-	 * Get all eight neighbors of a cell and add to a 2d ArrayList<Cell>
-	 * at the same index of of the cell whose neighbors are being polled
-	 */
-	public void addNeighbors() {
-		for (int i = 0; i < rows; i++) {
-			for (int j = 0; j < cols; j++) {
-				neighbors[i][j] = new ArrayList<Cell>();
-				if (i-1>=0) {
-					neighbors[i][j].add(this.get(i-1, j));
-					if (j-1>=0) {
-						neighbors[i][j].add(this.get(i-1, j-1));
-						neighbors[i][j].add(this.get(i, j-1));
-					}
-					if (j+1<cols) {
-						neighbors[i][j].add(this.get(i-1, j+1));
-						neighbors[i][j].add(this.get(i, j+1));
-					}
-				}
-				if (i+1<rows) {
-					neighbors[i][j].add(this.get(i+1, j));
-					if (j-1>=0) neighbors[i][j].add(this.get(i+1, j-1));
-					if (j+1<cols) neighbors[i][j].add(this.get(i+1, j+1));
-				}
 				this.get(i, j).setNeighbors(neighbors[i][j]);
 			}
 		}
 	}
-	/**
-	 * Returns the neighbors at a specific index in the grid
-	 * @param n row index
-	 * @param k column index
-	 * @return ArrayList<Cell> neighbors of a cell at index n, k
-	 */
-	public ArrayList<Cell> getNeighbors(int n, int k) {
-		return neighbors[n][k];
+	
+	public ArrayList<Cell>[][] getNeighborsArray() {
+		return neighbors;
 	}
+	
+	public abstract void updateNeighbors(int n, int k, Cell c, String sim);
 }

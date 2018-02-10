@@ -10,16 +10,11 @@ import java.util.stream.Stream;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
 import grid.*;
 
 public class SimulationBuilder {
-	
-	private static final String ACCEPTABLE_EXTENSION = "*.xml";
-	private static FileChooser FILE_CHOOSER;
 	// the specific file that builds this simulation
 	private static File XMLFile;
 	// fields of the XML file that the class XMLParser will need to access
@@ -34,9 +29,8 @@ public class SimulationBuilder {
 	private static String simulationName;
 	
 	// constructor
-	public SimulationBuilder(Stage stage) {
-		FILE_CHOOSER = buildChooser(ACCEPTABLE_EXTENSION);
-		XMLFile = FILE_CHOOSER.showOpenDialog(stage);
+	public SimulationBuilder(String filePath) {
+		XMLFile = new File(filePath);
 	}
 	
 	/**
@@ -83,16 +77,6 @@ public class SimulationBuilder {
 		}
 			
 			
-	}
-	
-	// make the file chooser that will be displayed to the user
-	private FileChooser buildChooser(String acceptableExtension) {
-		FileChooser chooser = new FileChooser();
-		chooser.setTitle("Choose a simulation setup file");
-		// only start searching in the directory containing the files
-		chooser.setInitialDirectory(new File(System.getProperty("user.dir")));
-		chooser.getExtensionFilters().setAll(new ExtensionFilter("Text Files", acceptableExtension));
-		return chooser;
 	}
 	
 	// get the name of the simulation that is building

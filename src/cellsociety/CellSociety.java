@@ -1,43 +1,44 @@
 package cellsociety;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.geometry.Insets;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.scene.Group;
+import javafx.scene.layout.BorderPane;
 
 import xmlparser.*;
 import grid.*;
 
+/**
+ * Class containing all of the necessary data to run a simulation and have the user interact with it.
+ * @author dylanpowers
+ *
+ */
 public class CellSociety {
 	public static final String DATA_TYPE = "CA";
+	protected static final String[] SIMULATIONS = {
+			"Wator",
+			"Fire",
+			"GameOfLife",
+			"Segregation"
+	};
 	// dimensions of the viewing window
-	private static final int X_DIMENSION = 420;
-	private static final int Y_DIMENSION = 520;
-	private static final int BUTTON_INDENT = 20;
-	// color of the viewing window
-	private static final Paint BACKGROUND_COLOR = Color.BLACK;
+	protected static final int X_DIMENSION = 420;
+	protected static final int Y_DIMENSION = 520;
+	protected static final int GRID_WIDTH = X_DIMENSION - 100;
+	protected static final int GRID_HEIGHT = Y_DIMENSION - 50;
+	// the offset when the user would like to add multiple simulations at once
 	// for animations
-	private static double MILLISECOND_DELAY = 1000;
-	// buttons for user control
-	private static final Button PAUSE_BUTTON = new Button("Pause");
-	private static final Button RESUME_BUTTON = new Button("Resume");
-	private static final Button STEP_BUTTON = new Button("Step");
-	private static final Button NEW_BUTTON = new Button("New");
+	protected static double ANIMATION_RATE = 1.0;
 	// objects that aid with the GUI
 	private Timeline timeline;
-	private Group root = new Group();
-	private Grid grid;
+	private BorderPane root = new BorderPane();
+	private ArrayList<Grid> grids = null;
 	private Stage simStage;
+	private GUISetupManager GSM;
 	
 	/**
 	 * Default constructor. Should initialize the grid and handle setting the stage, scene, and animation.
@@ -46,19 +47,17 @@ public class CellSociety {
 	 * @throws FileNotFoundException
 	 */
 	public CellSociety(Stage stage) {
+	
 		// set up grid and cells with SimulationBuilder
-		SimulationBuilder sb = new SimulationBuilder(stage);
-		grid = sb.build(X_DIMENSION, Y_DIMENSION - 100);
+		GSM = new GUISetupManager(this);
 		// stage
 		simStage = stage;
-		stage.setTitle(sb.getBuildType());
-		stage.setScene(setupSimulationWindow(root, X_DIMENSION, Y_DIMENSION, BACKGROUND_COLOR));
-		initGrid(grid);
+		stage.setTitle(DATA_TYPE);
+		stage.setScene(GSM.getScene());
 		// set to visible
 		stage.show();
-		initButtons();
 		// animation specifics
-		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step());
+		KeyFrame frame = new KeyFrame(Duration.millis(ANIMATION_RATE * 1000), e -> step());
 		timeline = new Timeline();
 		timeline.getKeyFrames().add(frame);
 		timeline.setCycleCount(Timeline.INDEFINITE);
@@ -70,70 +69,17 @@ public class CellSociety {
 	 * Each frame, cells and grid are updated in their respective classes,
 	 * and the GUI is updated.
 	 */
-	private void step() {
-		grid.update();
-	}
-	
-	/**
-	 * Create the Scene for the simulation (effectively the GUI)
-	 */
-	private Scene setupSimulationWindow(Group root, int height, int width, Paint background) {
-		return new Scene(root, height, width, background);
-	}
-	
-	/**
-	 * Initializes this simulation's grid by adding all of the cells to the root.
-	 * @param grid the grid object for this simulation
-	 */
-	private void initGrid(Grid grid) {
-		for (int i = 0; i < grid.getRows(); i++) {
-			for (int j = 0; j < grid.getCols(); j++) {
-				root.getChildren().add(grid.get(i, j));
-			}
-		}
+	public void step() {
+		for (Grid gr : grids)
+			gr.update();
 	}
 	
 	/**
 	 * Resets the simulation to the beginning.
 	 */
-	private void newSimulation() {
+	public void newSimulation() {
 		simStage.close();
 		new CellSociety(new Stage());
-	}
-	
-	/**
-	 * Set up the buttons for user control.
-	 */
-	private void initButtons() {
-		// to pause the simulation
-		PAUSE_BUTTON.setOnAction(__ -> {
-			timeline.pause();
-		});
-		placeButton(PAUSE_BUTTON, BUTTON_INDENT, Y_DIMENSION - 100);
-		
-		// to resume the simulation
-		RESUME_BUTTON.setOnAction(__ -> {
-			timeline.play();
-		});
-		placeButton(RESUME_BUTTON, BUTTON_INDENT, Y_DIMENSION - 75); 
-		
-		// to switch the simulation to step mode (on first press)
-		// subsequent presses will step throught the simulation
-		STEP_BUTTON.setOnAction(__ -> {
-			timeline.pause();
-			step();
-		});
-		//STEP_BUTTON.setLayoutX(BUTTON_SEPARATION + RESUME_BUTTON.getLayoutX() + RESUME_BUTTON.getWidth());
-		placeButton(STEP_BUTTON, BUTTON_INDENT, Y_DIMENSION - 50);
-		
-		// to change the simulation to a different one
-		NEW_BUTTON.setOnAction(__ -> {
-			newSimulation();
-		});
-		
-		//NEW_BUTTON.setLayoutX(BUTTON_SEPARATION + STEP_BUTTON.getLayoutX() + STEP_BUTTON.getWidth());
-		placeButton(NEW_BUTTON, BUTTON_INDENT, Y_DIMENSION - 25);
-		root.getChildren().addAll(PAUSE_BUTTON, RESUME_BUTTON, STEP_BUTTON, NEW_BUTTON);
 	}
 	
 	/**
@@ -141,21 +87,30 @@ public class CellSociety {
 	 */
 	public void changeAnimationRate() {
 		timeline.stop();
-		timeline.getKeyFrames().setAll(new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step()));
+		timeline.getKeyFrames().setAll(new KeyFrame(Duration.millis(ANIMATION_RATE * 1000), e -> step()));
 		timeline.play();
 	}
 	
-	/**
-	 * Formats the button to be placed at a proper location and sized correctly.
-	 */
-	private void placeButton(Button button, int xCoord, int yCoord) {
-		button.setPadding(new Insets(0, 0, 0, 0));
-		button.setPrefSize(20, 100);
-		button.setMinWidth(100);
-		button.setMaxHeight(25);
-		button.setMinHeight(20);
-		button.relocate(xCoord,  yCoord);
+	// returns the grid for this simulation
+	public ArrayList<Grid> grid() {
+		return grids;
 	}
-
+	
+	public void setGrid(Grid newGrid) {
+		grids.add(newGrid);
+	}
+	
+	public Timeline getTimeline() {
+		return timeline;
+	}
+	
+	public BorderPane getRoot() {
+		return root;
+	}
+	
+	// set a new animation rate
+	public void setRate(double newRate) {
+		ANIMATION_RATE = newRate;
+	}
 }
 
