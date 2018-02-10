@@ -8,6 +8,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import sim.SegreSim;
+import sim.Sim;
 
 import java.util.Random;
 
@@ -26,7 +28,7 @@ public class practice extends Application{
     private Scene myScene;
     private int n;
     private int k;
-    private Grid grid;
+    private Sim sim;
     private Timeline animation;
     private Random rand;
     private int count = 0;
@@ -41,7 +43,7 @@ public class practice extends Application{
         stage.setTitle("practice");
         stage.show();
        
-        KeyFrame frame = new KeyFrame(Duration.millis(250),
+        KeyFrame frame = new KeyFrame(Duration.millis(500),
                                       e -> step(60));
         animation = new Timeline();
         animation.setCycleCount(Timeline.INDEFINITE);
@@ -57,24 +59,25 @@ public class practice extends Application{
         Scene scene = new Scene(root, width, height, background);
         rand = new Random();
         
-        int n =  100;
-        int k = 100;
-        double[] vals = {5, 20, 10};
-        HashMap<String, double[]> keys = new HashMap<String, double[]>();
+        
+        /**int n =  97;
+        int k = 70;
+        double[] vals = {4, 20, 2};
+        Map<String, double[]> keys = new HashMap<String, double[]>();
         double[] fProb = new double[2];
         fProb[0] = 0.0;
-        fProb[1] = 0.5;
+        fProb[1] = 0.3;
         double[] sProb = new double[2];
-        sProb[0] = 0.5;
-        sProb[1] = 0.6;
+        sProb[0] = 0.0;
+        sProb[1] = 0.0;
         keys.put("FISH", fProb);
         keys.put("SHARK", sProb);
-        grid = new WatorGrid(n, k, 990, 720, vals, keys); 
+        grid = new WatorGrid(n, k, 970, 700, vals, (HashMap<String, double[]>) keys); **/
 
         
-       /**int n =  97;
+       int n =  97;
         int k = 70;
-        double vals = .5;
+        double vals = .25;
         Map<String, double[]> keys = new HashMap<String, double[]>();
         double[] XProb = new double[2];
         XProb[0] = 0.0;
@@ -84,15 +87,15 @@ public class practice extends Application{
         OProb[1] = 0.7;
         keys.put("X", XProb);
         keys.put("O", OProb);
-        grid = new SegreGrid(n, k, vals, keys); **/
+        sim = new SegreSim(n, k, 970, 700, vals, (HashMap<String, double[]>) keys, "SQUARE"); 
     
        //System.out.print(root== null);
                 
-       //grid = new WatorGrid(n, k, vals, keys);
+      // grid = new WatorGrid(n, k, vals, keys);
 
        for (int i = 0; i < n; i++) {
     	   	for (int j = 0; j < k; j++) {
-    	   		root.getChildren().add(grid.get(i, j));
+    	   		root.getChildren().add(sim.getGrid().get(i, j));
     	   	}
        }
        
@@ -101,7 +104,7 @@ public class practice extends Application{
 
     
     private void step (double elapsedTime) {
-            grid.update();
+            sim.update();
             count += 1;
             //check if states of all grids in the cell converges or not
             
