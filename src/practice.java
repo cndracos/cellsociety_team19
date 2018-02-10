@@ -91,7 +91,7 @@ public class practice extends Application{
     
        //System.out.print(root== null);
                 
-      // grid = new WatorGrid(n, k, vals, keys);
+      //grid = new SegreGrid(n, k, 970, 700, vals, keys);
 
        for (int i = 0; i < n; i++) {
     	   	for (int j = 0; j < k; j++) {
