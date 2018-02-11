@@ -11,7 +11,16 @@ import grid.Grid;
 
 public class SegreSim extends Sim{
 	private double satisfied;
-	
+	/**
+	 * Constructor for SegreSim
+	 * @param n number of rows
+	 * @param k number of cols
+	 * @param length of screen
+	 * @param width of screen
+	 * @param satisfied percentage of similar neighbors needed to satisfy a cells
+	 * @param keys values for making random cells
+	 * @param grid type of grid
+	 */
 	public SegreSim(int n, int k, int length, int width, 
 			double satisfied, HashMap<String, double[]> keys, String grid) {
 		super(n, k, length, width, keys, grid);
