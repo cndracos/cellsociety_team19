@@ -8,7 +8,16 @@ import grid.Grid;
 
 public class WatorSim extends Sim{
 	private double[] vals;
-	
+	/**
+	 * Constructor for watorsim
+	 * @param n number of rows
+	 * @param k number of cols
+	 * @param length of screen
+	 * @param width of screen
+	 * @param vals values of cells attributes to be used during simulation
+	 * @param keys values of how to randomly make different cell types
+	 * @param grid type of grid
+	 */
 	public WatorSim(int n, int k, int length, int width, 
 			double[] vals, HashMap<String, double[]> keys, String grid) {
 		super(n, k, length, width, keys, grid);
@@ -49,7 +58,7 @@ public class WatorSim extends Sim{
 		}
 		wgrid.setNeighbors();
 	}	
-	
+
 	public String name() {
 		return "Wator";
 	}
