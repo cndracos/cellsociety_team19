@@ -76,7 +76,8 @@ public class practice extends Application{
         //grid = new WatorGrid(n, k, 970, 700, vals, (HashMap<String, double[]>) keys);**/
 
         
-/**       int n =  97;
+/**    
+       int n =  97;
         int k = 70;
         double vals = .625;
         Map<String, double[]> keys = new HashMap<String, double[]>();
@@ -107,7 +108,7 @@ public class practice extends Application{
         keys.put("PAPER", PProb);
         keys.put("SCISSOR",SProb);
         sim = new RPSSim(n, k, 970, 700, vals, (HashMap<String, double[]>) keys, "SQUARE"); 
-        
+
        //System.out.print(root== null);
                 
       //grid = new SegreGrid(n, k, 970, 700, vals, keys);
