@@ -62,7 +62,6 @@ public class SegreSim extends Sim{
 					empty.add(s);
 				}
 				else if (!s.isSatisfied()) {
-					System.out.println("not happy");
 					disatisfied.add(s);
 				}
 			}
