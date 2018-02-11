@@ -20,7 +20,7 @@ public class SquareGrid extends Grid {
 	}
 	
 	public void addToScreen(Cell c, int n, int k) {
-		double[] coordinates = new double[8];
+		Double[] coordinates = new Double[8];
 		coordinates[0] = n*cellLength + DEFAULT_SPACE;
 		coordinates[1] = k*cellWidth + DEFAULT_SPACE;
 		coordinates[2] = n*cellLength + cellLength + DEFAULT_SPACE;
