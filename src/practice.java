@@ -8,8 +8,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import sim.RPSSim;
 import sim.SegreSim;
 import sim.Sim;
+import sim.WatorSim;
 
 import java.util.Random;
 
@@ -43,7 +45,7 @@ public class practice extends Application{
         stage.setTitle("practice");
         stage.show();
        
-        KeyFrame frame = new KeyFrame(Duration.millis(1000),
+        KeyFrame frame = new KeyFrame(Duration.millis(250),
                                       e -> step(60));
         animation = new Timeline();
         animation.setCycleCount(Timeline.INDEFINITE);
@@ -58,36 +60,55 @@ public class practice extends Application{
    
         Scene scene = new Scene(root, width, height, background);
         rand = new Random();
-        
-        /**int n =  97;
+        /*
+        int n =  97;
         int k = 70;
-        double[] vals = {4, 20, 2};
+        double[] vals = {4, 20, 10};
         Map<String, double[]> keys = new HashMap<String, double[]>();
         double[] fProb = new double[2];
         fProb[0] = 0.0;
         fProb[1] = 0.3;
         double[] sProb = new double[2];
-        sProb[0] = 0.0;
-        sProb[1] = 0.0;
+        sProb[0] = 0.4;
+        sProb[1] = 0.5;
         keys.put("FISH", fProb);
         keys.put("SHARK", sProb);
-        grid = new WatorGrid(n, k, 970, 700, vals, (HashMap<String, double[]>) keys); **/
+        //grid = new WatorGrid(n, k, 970, 700, vals, (HashMap<String, double[]>) keys);**/
 
         
+/**    
        int n =  97;
         int k = 70;
-        double vals = .5;
+        double vals = .625;
         Map<String, double[]> keys = new HashMap<String, double[]>();
         double[] XProb = new double[2];
         XProb[0] = 0.0;
-        XProb[1] = 0.35;
+        XProb[1] = 0.0;
         double[] OProb = new double[2];
-        OProb[0] = 0.35;
-        OProb[1] = 0.7;
+        OProb[0] = 0.3;
+        OProb[1] = 0.9;
         keys.put("X", XProb);
         keys.put("O", OProb);
-        sim = new SegreSim(n, k, 970, 700, vals, (HashMap<String, double[]>) keys, "TRIANGLE"); 
-    
+        sim = new SegreSim(n, k, 970, 700, vals, (HashMap<String, double[]>) keys, "TRIANGLE", true); 
+    **/
+        int n =  97;
+        int k = 70;
+        int vals = 10;
+        Map<String, double[]> keys = new HashMap<String, double[]>();
+        double[] RProb = new double[2];
+        RProb[0] = 0.0;
+        RProb[1] = 0.3;
+        double[] PProb = new double[2];
+        PProb[0] = 0.3;
+        PProb[1] = 0.7;
+        double[] SProb = new double[2];
+        SProb[0] = 0.7;
+        SProb[1] = 1.0;
+        keys.put("ROCK", RProb);
+        keys.put("PAPER", PProb);
+        keys.put("SCISSOR",SProb);
+        sim = new RPSSim(n, k, 970, 700, vals, (HashMap<String, double[]>) keys, "SQUARE"); 
+
        //System.out.print(root== null);
                 
       //grid = new SegreGrid(n, k, 970, 700, vals, keys);

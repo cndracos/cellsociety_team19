@@ -1,6 +1,6 @@
 package sim;
 
-import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import cell.WatorCell;
@@ -8,6 +8,9 @@ import grid.Grid;
 
 public class WatorSim extends Sim{
 	private double[] vals;
+
+	private final String[] statesNames = {"WATER","FISH","SHARK"};
+	
 	/**
 	 * Constructor for watorsim
 	 * @param n number of rows
@@ -18,13 +21,18 @@ public class WatorSim extends Sim{
 	 * @param keys values of how to randomly make different cell types
 	 * @param grid type of grid
 	 */
+
 	public WatorSim(int n, int k, int length, int width, 
-			double[] vals, HashMap<String, double[]> keys, String grid) {
-		super(n, k, length, width, keys, grid);
+			double[] vals, Map<String, double[]> keys, String grid, boolean torus) {
+		super(n, k, length, width, keys, grid, torus);
 		this.vals = vals;
 		init();
 	}
 
+	public String[] getStateNames() {
+		return statesNames;
+	}
+	
 	@Override
 	public void init() {
 		//gets the array of probs from the key map
@@ -53,7 +61,7 @@ public class WatorSim extends Sim{
 					w = new WatorCell("WATER", fishR, sharkR, sharkE);
 					wgrid.add(w, i, j);
 				}
-				wgrid.updateNeighbors(i, j, w, "Wator");
+				wgrid.updateNeighbors(i, j, w, name(), this.getTorus());
 			}
 		}
 		wgrid.setNeighbors();
@@ -62,4 +70,5 @@ public class WatorSim extends Sim{
 	public String name() {
 		return "Wator";
 	}
+
 }

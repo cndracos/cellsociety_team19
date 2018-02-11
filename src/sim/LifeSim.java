@@ -1,12 +1,16 @@
 package sim;
 
-import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import cell.LifeCell;
 import grid.Grid;
 
 public class LifeSim extends Sim{
+
+	private final String[] statesNames = {"ALIVE","DEAD"};
+	
+
 	/**
 	 * Constructs the lifesim
 	 * @param n number of rows
@@ -16,9 +20,14 @@ public class LifeSim extends Sim{
 	 * @param keys values to be used when making cells
 	 * @param grid type of grid to be used
 	 */
-	public LifeSim(int n, int k, int length, int width, HashMap<String, double[]> keys, String grid) {
-		super(n, k, length, width, keys, grid);
+	public LifeSim(int n, int k, int length, int width, Map<String, double[]> keys, 
+			String grid, boolean torus) {
+		super(n, k, length, width, keys, grid, torus);
 		init();
+	}
+	
+	public String[] getStateNames() {
+		return statesNames;
 	}
 	
 	@Override
@@ -39,7 +48,7 @@ public class LifeSim extends Sim{
 						l = new LifeCell("DEAD", 0);
 						lgrid.add(l, i, j);
 					}
-					lgrid.updateNeighbors(i, j, l, "Life");
+					lgrid.updateNeighbors(i, j, l, name(), this.getTorus());
 				}
 			}
 		lgrid.setNeighbors();

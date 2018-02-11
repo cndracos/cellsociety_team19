@@ -69,14 +69,14 @@ public class SimulationBuilder {
 		switch (simulationName) {
 			case "Fire": 
 				// probability[0] only b/c only one probability exists for this simulation
-				return new FireSim(rows, cols, screenLength, screenWidth,probability[0], initialStates, DEFAULT_SHAPE);
+				return new FireSim(rows, cols, screenLength, screenWidth,probability[0], initialStates, DEFAULT_SHAPE, false);
 			case "Segregation":
 				// probability[0] only b/c only one probability exists for this simulation
-				return new SegreSim(rows, cols, screenLength, screenWidth, probability[0], initialStates, DEFAULT_SHAPE);
+				return new SegreSim(rows, cols, screenLength, screenWidth, probability[0], initialStates, DEFAULT_SHAPE, false);
 			case "Wator":
-				return new WatorSim(rows, cols, screenLength, screenWidth, probability, initialStates, DEFAULT_SHAPE);	
+				return new WatorSim(rows, cols, screenLength, screenWidth, probability, initialStates, DEFAULT_SHAPE, true);	
 			case "Game of Life":
-				return new LifeSim(rows, cols, screenLength, screenWidth, initialStates , DEFAULT_SHAPE);
+				return new LifeSim(rows, cols, screenLength, screenWidth, initialStates , DEFAULT_SHAPE, false);
 		}
 		// if none of the cases were returned, then there is an issue
 		throw new SimulationInputException(ERROR_MESSAGE, "model");
