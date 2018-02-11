@@ -45,9 +45,13 @@ public abstract class Sim {
 			this.grid = new HexGrid(n, k, length, width);
 		}
 	}
+	
+	public abstract String[] getStateNames();
+	
 	/**
 	 * @return the grid in the simulation
 	 */
+
 	public Grid getGrid() {
 		return grid;
 	}

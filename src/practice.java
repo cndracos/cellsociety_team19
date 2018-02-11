@@ -8,6 +8,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import sim.RPSSim;
 import sim.SegreSim;
 import sim.Sim;
 import sim.WatorSim;
@@ -59,10 +60,10 @@ public class practice extends Application{
    
         Scene scene = new Scene(root, width, height, background);
         rand = new Random();
-        
-        /**int n =  97;
+        /*
+        int n =  97;
         int k = 70;
-        double[] vals = {4, 20, 2};
+        double[] vals = {4, 20, 10};
         Map<String, double[]> keys = new HashMap<String, double[]>();
         double[] fProb = new double[2];
         fProb[0] = 0.0;

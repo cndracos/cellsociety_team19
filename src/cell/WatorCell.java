@@ -130,7 +130,7 @@ public class WatorCell extends Cell{
 				nextCell.setUpdated(true);
 				
 				//reproduce shark
-				if(sharkMoves == SHARK_R && nextCell != null){
+				if(sharkMoves == SHARK_R && nextCell != null && sharkE >= SHARK_E / 2.0){
 					this.newState = "SHARK";
 					this.sharkE = SHARK_E;
 					nextCell.sharkMoves = 0;

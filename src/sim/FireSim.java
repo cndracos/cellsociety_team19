@@ -8,6 +8,8 @@ import grid.Grid;
 
 public class FireSim extends Sim {
 	private double probCatch;
+	private final String[] statesNames = {"EMPTY","BURNING","TREE"};
+	
 	/**
 	 * Constructor for a firesim
 	 * @param n number of rows
@@ -25,6 +27,11 @@ public class FireSim extends Sim {
 		init();
 	}
 
+	public String[] getStateNames() {
+		return statesNames;
+	}
+	
+	
 	@Override
 	public void init() {
 		double[] probFire = this.getKeys().get("BURNING");
