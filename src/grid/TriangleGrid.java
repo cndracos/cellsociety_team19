@@ -50,7 +50,7 @@ public class TriangleGrid extends Grid {
 		if (sim.equals("Fire")) {
 			if (k-1>=0) neighbors[n][k-1].add(c);
 			if (k+1<cols) neighbors[n][k+1].add(c);
-			if ((n+k%2==0) && n+1<rows) neighbors[n+1][k].add(c);
+			if ((n+k)%2==0 && n+1<rows) neighbors[n+1][k].add(c);
 			else if (n-1>=0) neighbors[n-1][k].add(c);
 		}
 		else if (sim.equals("Wator")) {
@@ -58,7 +58,7 @@ public class TriangleGrid extends Grid {
 				else neighbors[n][cols-1].add(c);
 			if (k+1<cols) neighbors[n][k+1].add(c);
 				else neighbors[n][0].add(c);
-			if ((n+k%2==0)) { 
+			if ((n+k)%2==0) { 
 				if (n+1<rows) neighbors[n+1][k].add(c);
 					else neighbors[0][k].add(c);
 			}
@@ -68,7 +68,42 @@ public class TriangleGrid extends Grid {
 			}
 		}
 		else {
-			
+			if ((n+k)%2==0) {
+				if (n-1>=0) {
+					neighbors[n-1][k].add(c);
+					if (k-1>=0) neighbors[n-1][k-1].add(c);
+					if (k+1<cols) neighbors[n-1][k+1].add(c);
+				}
+				if (n+1<rows) {
+					neighbors[n+1][k].add(c);
+					if (k-1>=0) neighbors[n+1][k-1].add(c);
+					if (k+1<cols) neighbors[n+1][k+1].add(c);
+					if (k-2>=0) neighbors[n+1][k-2].add(c);
+					if (k+2<cols) neighbors[n+1][k+2].add(c);
+				}
+				if (k-1>=0) neighbors[n][k-1].add(c);
+				if (k+1<cols) neighbors[n][k+1].add(c);
+				if (k-2>=0) neighbors[n][k-2].add(c);
+				if (k+2<cols) neighbors[n][k+2].add(c);
+			}
+			else {
+				if (n+1<rows) {
+					neighbors[n+1][k].add(c);
+					if (k-1>=0) neighbors[n+1][k-1].add(c);
+					if (k+1<cols) neighbors[n+1][k+1].add(c);
+				}
+				if (n-1>=0) {
+					neighbors[n-1][k].add(c);
+					if (k-1>=0) neighbors[n-1][k-1].add(c);
+					if (k+1<cols) neighbors[n-1][k+1].add(c);
+					if (k-2>=0) neighbors[n-1][k-2].add(c);
+					if (k+2<cols) neighbors[n-1][k+2].add(c);
+				}
+				if (k-1>=0) neighbors[n][k-1].add(c);
+				if (k+1<cols) neighbors[n][k+1].add(c);
+				if (k-2>=0) neighbors[n][k-2].add(c);
+				if (k+2<cols) neighbors[n][k+2].add(c);
+			}
 		}
 	}
 
