@@ -16,6 +16,7 @@ public class SegreSim extends Sim{
 			double satisfied, HashMap<String, double[]> keys, String grid) {
 		super(n, k, length, width, keys, grid);
 		this.satisfied = satisfied;
+		init();
 	}
 
 	@Override
