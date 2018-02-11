@@ -57,7 +57,7 @@ public class SquareGrid extends Grid {
 		else if (torus) neighbors[0][k].add(c);
 		//both segre and life use diagonal neighbors, 
 		//so add diagonal neighbors just for those sim types
-		if (sim.equals("Segre")||sim.equals("Life")) {
+		if (sim.equals("Segregation")||sim.equals("GameOfLife")) {
 			if (n-1>=0) {
 				if (k-1>=0) 	neighbors[n-1][k-1].add(c);
 				else if (torus) neighbors[n-1][cols-1].add(c);

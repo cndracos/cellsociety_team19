@@ -31,8 +31,8 @@ public class TriangleGrid extends Grid {
 		Double[] coordinates = new Double[6];
 		boolean facingUp = (n+k)%2==0;
 		coordinates[0] = k*cellWidth + cellWidth/2 + DEFAULT_SPACE;
-		coordinates[2] = k*cellWidth + DEFAULT_SPACE;
-		coordinates[4] = k*cellWidth + cellWidth + DEFAULT_SPACE;
+		coordinates[2] = k*cellWidth + DEFAULT_SPACE - cellWidth/2;
+		coordinates[4] = k*cellWidth + cellWidth + DEFAULT_SPACE + cellWidth/2;
 		if (facingUp) {
 			coordinates[1] = n*cellHeight + DEFAULT_SPACE;
 			coordinates[3] = n*cellHeight + cellHeight + DEFAULT_SPACE;
@@ -53,7 +53,7 @@ public class TriangleGrid extends Grid {
 	public void updateNeighbors(int n, int k, Cell c, String sim, boolean torus) {
 		ArrayList<Cell>[][] neighbors = this.getNeighborsArray();
 		//triangles have different direct neighbors based on their directions
-		boolean facingUp = n+k%2==0;
+		boolean facingUp = (n+k)%2==0;
 		int cols = this.getCols();
 		int rows = this.getRows();
 		//once again always get the direct neighbors
@@ -70,7 +70,7 @@ public class TriangleGrid extends Grid {
 			else if (torus) neighbors[rows-1][k].add(c);
 		}
 		//if segre or life, go ahead and get all twelve neighbors
-		if (sim.equals("Segre") || sim.equals("GameOfLife")){
+		if (sim.equals("Segregation") || sim.equals("GameOfLife")){
 			if (k-2>=0) neighbors[n][k-2].add(c);
 			else if (torus) {
 				if (k-1>=0) neighbors[n][cols-1].add(c);

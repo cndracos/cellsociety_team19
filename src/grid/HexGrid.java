@@ -25,8 +25,8 @@ public class HexGrid extends Grid {
 	@Override
 	public double[] getCellSize(int length,int height, double DEFAULT_SPACE) {
 		double[] size = new double[2];
-		size[0] = (length - 2 * DEFAULT_SPACE) / (this.getCols() + 0.5);//cell width
-		size[1] = (height - 2 * DEFAULT_SPACE) / (3 * this.getRows() / 4.0 + 0.25);//cell height
+		size[0] = (length - 2 * DEFAULT_SPACE) / (this.getCols());//cell width
+		size[1] = (height - 2 * DEFAULT_SPACE) / (this.getRows());//cell height
 		return size;
 	}
 	
@@ -39,31 +39,31 @@ public class HexGrid extends Grid {
 		Double[] coordinates = new Double[12];
 		if (n % 2 == 0) {
 			coordinates[0] = k*cellWidth + cellWidth/2 + DEFAULT_SPACE;
-			coordinates[1] = n*cellHeight + DEFAULT_SPACE;
+			coordinates[1] = n*cellHeight + DEFAULT_SPACE - cellHeight/4;
 			coordinates[2] = k*cellWidth + cellWidth + DEFAULT_SPACE;
 			coordinates[3] = n*cellHeight + cellHeight/4 + DEFAULT_SPACE;
 			coordinates[4] = k*cellWidth + cellWidth + DEFAULT_SPACE;
 			coordinates[5] = n*cellHeight + 3*cellHeight/4 + DEFAULT_SPACE;
 			coordinates[6] = k*cellWidth + cellWidth/2 + DEFAULT_SPACE;
-			coordinates[7] = (n + 1)*cellHeight + DEFAULT_SPACE;
-			coordinates[8] = k*cellWidth - cellWidth/2 + DEFAULT_SPACE;
+			coordinates[7] = (n + 1)*cellHeight + DEFAULT_SPACE + cellHeight/4;
+			coordinates[8] = k*cellWidth + DEFAULT_SPACE;
 			coordinates[9] = n*cellHeight + 3*cellHeight/4 + DEFAULT_SPACE;
-			coordinates[10] = k*cellWidth - cellWidth/2 + DEFAULT_SPACE;
+			coordinates[10] = k*cellWidth  + DEFAULT_SPACE;
 			coordinates[11] = n*cellHeight + cellHeight/4 + DEFAULT_SPACE;
 		}
 		else {
 			coordinates[0] = k*cellWidth + cellWidth + DEFAULT_SPACE;
 			coordinates[1] = n*cellHeight - cellHeight/4 + DEFAULT_SPACE;
 			coordinates[2] = k*cellWidth + 3 * cellWidth/2 + DEFAULT_SPACE;
-			coordinates[3] = n*cellHeight + DEFAULT_SPACE;
+			coordinates[3] = n*cellHeight + DEFAULT_SPACE+ cellHeight/4;
 			coordinates[4] = k*cellWidth + 3 * cellWidth/2 + DEFAULT_SPACE;
-			coordinates[5] = n*cellHeight + cellHeight/2 + DEFAULT_SPACE;
+			coordinates[5] = n*cellHeight + cellHeight/2 + DEFAULT_SPACE+ cellHeight/4;
 			coordinates[6] = k*cellWidth + cellWidth + DEFAULT_SPACE;
-			coordinates[7] = (n + 1)*cellHeight - cellHeight/4 + DEFAULT_SPACE;
-			coordinates[8] = k*cellWidth + DEFAULT_SPACE;
-			coordinates[9] = n*cellHeight + cellHeight/2 + DEFAULT_SPACE;
-			coordinates[10] = k*cellWidth + DEFAULT_SPACE;
-			coordinates[11] = n*cellHeight + DEFAULT_SPACE;
+			coordinates[7] = (n + 1)*cellHeight + DEFAULT_SPACE+ cellHeight/4;
+			coordinates[8] = k*cellWidth + DEFAULT_SPACE + cellWidth/2;
+			coordinates[9] = n*cellHeight + cellHeight/2 + DEFAULT_SPACE+ cellHeight/4;
+			coordinates[10] = k*cellWidth + DEFAULT_SPACE + cellWidth/2;
+			coordinates[11] = n*cellHeight + DEFAULT_SPACE+ cellHeight/4;
 		}
 		c.setPosition(coordinates);
 	}
