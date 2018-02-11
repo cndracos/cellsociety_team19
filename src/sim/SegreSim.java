@@ -54,7 +54,7 @@ public class SegreSim extends Sim{
 					s = new SegreCell("EMPTY", satisfied);
 					sgrid.add(s, i, j);
 				}
-				sgrid.updateNeighbors(i, j, s, "Segre", this.getTorus());
+				sgrid.updateNeighbors(i, j, s, name(), this.getTorus());
 			}
 		}
 		sgrid.setNeighbors();	

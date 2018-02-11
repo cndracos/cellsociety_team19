@@ -50,7 +50,7 @@ public class FireSim extends Sim {
 						fgrid.add(f, i, j);
 					}
 				}
-				fgrid.updateNeighbors(i, j, f, "Fire", this.getTorus());
+				fgrid.updateNeighbors(i, j, f, name(), this.getTorus());
 			}
 		}
 	    fgrid.setNeighbors();	

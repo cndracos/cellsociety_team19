@@ -40,7 +40,7 @@ public class LifeSim extends Sim{
 						l = new LifeCell("DEAD", 0);
 						lgrid.add(l, i, j);
 					}
-					lgrid.updateNeighbors(i, j, l, "Life", this.getTorus());
+					lgrid.updateNeighbors(i, j, l, name(), this.getTorus());
 				}
 			}
 		lgrid.setNeighbors();
