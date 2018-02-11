@@ -54,4 +54,6 @@ public abstract class Sim {
 	}
 	
 	public abstract void init();
+	
+	public abstract String name();
 }
