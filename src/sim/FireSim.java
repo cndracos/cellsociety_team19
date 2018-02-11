@@ -8,7 +8,8 @@ import grid.Grid;
 
 public class FireSim extends Sim {
 	private double probCatch;
-
+	private final String[] statesNames = {"EMPTY","BURNING","TREE"};
+	
 	public FireSim(int n, int k, int length, int width, 
 			double probCatch, HashMap<String, double[]> keys, String grid) {
 		super(n, k, length, width, keys, grid);
@@ -16,6 +17,11 @@ public class FireSim extends Sim {
 		init();
 	}
 
+	public String[] getStateNames() {
+		return statesNames;
+	}
+	
+	
 	@Override
 	public void init() {
 		double[] probFire = this.getKeys().get("BURNING");

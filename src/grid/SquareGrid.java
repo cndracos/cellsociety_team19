@@ -42,7 +42,7 @@ public class SquareGrid extends Grid {
 			if (k+1<cols) neighbors[n][k+1].add(c);
 			if (n+1<rows) neighbors[n+1][k].add(c);	
 		}
-		else if (sim.equals("Wator")) {
+		else if (sim.equals("Wator") || sim.equals("RPS")) {
 			if (n-1>=0) neighbors[n-1][k].add(c);
 				else neighbors[rows - 1][k].add(c);
 			if (k-1>=0) neighbors[n][k-1].add(c);

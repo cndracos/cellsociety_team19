@@ -27,6 +27,8 @@ public abstract class Sim {
 		}
 	}
 	
+	public abstract String[] getStateNames();
+	
 	public Grid getGrid() {
 		return grid;
 	}
