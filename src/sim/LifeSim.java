@@ -7,6 +7,10 @@ import cell.LifeCell;
 import grid.Grid;
 
 public class LifeSim extends Sim{
+
+	private final String[] statesNames = {"ALIVE","DEAD"};
+	
+
 	/**
 	 * Constructs the lifesim
 	 * @param n number of rows
@@ -20,6 +24,10 @@ public class LifeSim extends Sim{
 			String grid, boolean torus) {
 		super(n, k, length, width, keys, grid, torus);
 		init();
+	}
+	
+	public String[] getStateNames() {
+		return statesNames;
 	}
 	
 	@Override

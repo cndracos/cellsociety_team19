@@ -14,6 +14,8 @@ import grid.Grid;
 
 public class SegreSim extends Sim{
 	private double satisfied;
+	private final String[] statesNames = {"EMPTY","X","O"};
+	
 	/**
 	 * Constructor for SegreSim
 	 * @param n number of rows
@@ -24,6 +26,7 @@ public class SegreSim extends Sim{
 	 * @param keys values for making random cells
 	 * @param grid type of grid
 	 */
+
 	public SegreSim(int n, int k, int length, int width, 
 			double satisfied, Map<String, double[]> keys, String grid, boolean torus) {
 		super(n, k, length, width, keys, grid, torus);
@@ -31,6 +34,10 @@ public class SegreSim extends Sim{
 		init();
 	}
 
+	public String[] getStateNames() {
+		return statesNames;
+	}
+	
 	@Override
 	public void init() {
 		double[] probX = this.getKeys().get("X");

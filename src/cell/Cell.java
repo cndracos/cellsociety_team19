@@ -35,6 +35,7 @@ public abstract class Cell extends Polygon{
 		this.getPoints().addAll(coordinates);
 	}
 	
+	
 	/**
 	 * set neighbors array of the cell 
 	 * @param neighbors neighbors passed in by grid 

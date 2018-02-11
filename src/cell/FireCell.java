@@ -14,6 +14,7 @@ public class FireCell extends Cell{
 	private Random rand;
 	private double probCatch;
 	
+	
 	/**
 	 * Constructor of FireCell class
 	 * @param currState current state of cell

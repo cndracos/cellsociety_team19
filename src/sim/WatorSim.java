@@ -8,6 +8,9 @@ import grid.Grid;
 
 public class WatorSim extends Sim{
 	private double[] vals;
+
+	private final String[] statesNames = {"WATER","FISH","SHARK"};
+	
 	/**
 	 * Constructor for watorsim
 	 * @param n number of rows
@@ -18,6 +21,7 @@ public class WatorSim extends Sim{
 	 * @param keys values of how to randomly make different cell types
 	 * @param grid type of grid
 	 */
+
 	public WatorSim(int n, int k, int length, int width, 
 			double[] vals, Map<String, double[]> keys, String grid, boolean torus) {
 		super(n, k, length, width, keys, grid, torus);
@@ -25,6 +29,10 @@ public class WatorSim extends Sim{
 		init();
 	}
 
+	public String[] getStateNames() {
+		return statesNames;
+	}
+	
 	@Override
 	public void init() {
 		//gets the array of probs from the key map
@@ -62,4 +70,5 @@ public class WatorSim extends Sim{
 	public String name() {
 		return "Wator";
 	}
+
 }
