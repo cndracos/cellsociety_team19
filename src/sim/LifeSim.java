@@ -36,4 +36,8 @@ public class LifeSim extends Sim{
 			}
 		lgrid.setNeighbors();
 	}
+	
+	public String name() {
+		return "GameofLife";
+	}
 }
