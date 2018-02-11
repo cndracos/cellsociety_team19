@@ -46,38 +46,23 @@ public class SquareGrid extends Grid {
 		ArrayList<Cell>[][] neighbors = this.getNeighborsArray();
 		int cols = this.getCols();
 		int rows = this.getRows();
-		//gives four direct neighbors for the fire sim
-		if (sim.equals("Fire")) {
-			if (n-1>=0) neighbors[n-1][k].add(c);
-			if (k-1>=0) neighbors[n][k-1].add(c);
-			if (k+1<cols) neighbors[n][k+1].add(c);
-			if (n+1<rows) neighbors[n+1][k].add(c);	
-		}
-		//gives four direct neighbors and uses tauros grid if wator sim
-		else if (sim.equals("Wator")) {
-			if (n-1>=0) neighbors[n-1][k].add(c);
-				else neighbors[rows - 1][k].add(c);
-			if (k-1>=0) neighbors[n][k-1].add(c);
-				else neighbors[n][cols - 1].add(c);
-			if (k+1<cols) neighbors[n][k+1].add(c);
-				else neighbors[n][0].add(c);
-			if (n+1<rows) neighbors[n+1][k].add(c);
-				else neighbors[0][k].add(c);
-		}
-		//otherwise get all eight neighbors for the other sims
-		else {
+		if (n-1>=0) neighbors[n-1][k].add(c);
+		else if (sim.equals("Wator")) neighbors[rows - 1][k].add(c);
+		if (k-1>=0) neighbors[n][k-1].add(c);
+		else if (sim.equals("Wator")) neighbors[n][cols - 1].add(c);
+		if (k+1<cols) neighbors[n][k+1].add(c);
+		else if (sim.equals("Wator")) neighbors[n][0].add(c);
+		if (n+1<rows) neighbors[n+1][k].add(c);
+		else if (sim.equals("Wator")) neighbors[0][k].add(c);
+		if (sim.equals("Segre")||sim.equals("Life")) {
 			if (n-1>=0) {
 				if (k-1>=0) 	neighbors[n-1][k-1].add(c);
 				if (k+1<cols) neighbors[n-1][k+1].add(c);
 			}
 			if (n+1<rows) {
-				neighbors[n+1][k].add(c);
 				if (k-1>=0) neighbors[n+1][k-1].add(c);
 				if (k+1<cols) neighbors[n+1][k+1].add(c);
 			}
-			if (k-1>=0) neighbors[n][k-1].add(c);
-			if (k+1<cols) neighbors[n][k+1].add(c);
 		}
 	}
-
 }
