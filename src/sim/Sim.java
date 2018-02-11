@@ -25,7 +25,6 @@ public abstract class Sim {
 		else {
 			
 		}
-		init();
 	}
 	
 	public Grid getGrid() {

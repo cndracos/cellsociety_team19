@@ -13,6 +13,7 @@ public class FireSim extends Sim {
 			double probCatch, HashMap<String, double[]> keys, String grid) {
 		super(n, k, length, width, keys, grid);
 		this.probCatch = probCatch;
+		init();
 	}
 
 	@Override
