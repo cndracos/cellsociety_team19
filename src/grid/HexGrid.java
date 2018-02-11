@@ -59,16 +59,85 @@ public class HexGrid extends Grid {
 		ArrayList<Cell>[][] neighbors = this.getNeighborsArray();
 		int cols = this.getCols();
 		int rows = this.getRows();
-		if (sim.equals("Fire")) {
-			
-		}
-		else if (sim.equals("Wator")) {
-			
+		if (sim.equals("Wator")) {
+			if (n%2==0) {
+				if (n-1>=0) {
+					neighbors[n-1][k].add(c);
+					if (k-1>=0) neighbors[n-1][k-1].add(c);
+						else neighbors[n-1][cols-1].add(c);
+				}
+				else {
+					neighbors[rows-1][k].add(c);
+					if (k-1>=0) neighbors[rows-1][k-1].add(c);
+						else neighbors[rows-1][cols-1].add(c);
+				}
+				if (n+1<rows) {
+					neighbors[n+1][k].add(c);
+					if (k-1>=0) neighbors[n+1][k-1].add(c);
+						else neighbors[n+1][cols-1].add(c);
+				}
+				else {
+					neighbors[0][k].add(c);
+					if (k-1>=0) neighbors[0][k-1].add(c);
+						else neighbors[0][cols-1].add(c);
+				}
+				if (k-1>=0) neighbors[n][k-1].add(c);
+					else neighbors[n][cols-1].add(c);
+				if (k+1<cols) neighbors[n][k+1].add(c);
+					else neighbors[n][0].add(c);
+			}
+			else {
+				if (n-1>=0) {
+					neighbors[n-1][k].add(c);
+					if (k+1<cols) neighbors[n-1][k+1].add(c);
+						else neighbors[n-1][0].add(c);
+				}
+				else {
+					neighbors[rows-1][k].add(c);
+					if (k+1<cols) neighbors[rows-1][k+1].add(c);
+						else neighbors[rows-1][0].add(c);
+				}
+				if (n+1<rows) {
+					neighbors[n+1][k].add(c);
+					if (k+1<cols) neighbors[n+1][k+1].add(c);
+						else neighbors[n+1][0].add(c);
+				}
+				else {
+					neighbors[0][k].add(c);
+					if (k+1<cols) neighbors[0][k+1].add(c);
+						else neighbors[0][0].add(c);
+				}
+				if (k-1>=0) neighbors[n][k-1].add(c);
+					else neighbors[n][cols-1].add(c);
+				if (k+1<cols) neighbors[n][k+1].add(c);
+					else neighbors[n][0].add(c);
+			}
 		}
 		else {
-			
-		}
-		
-	}
-	
+			if (n%2==0) {
+				if (n-1>=0) {
+					neighbors[n-1][k].add(c);
+					if (k-1>=0) neighbors[n-1][k-1].add(c);
+				}
+				if (n+1<rows) {
+					neighbors[n+1][k].add(c);
+					if (k-1>=0) neighbors[n+1][k-1].add(c);
+				}
+				if (k-1>=0) neighbors[n][k-1].add(c);
+				if (k+1<cols) neighbors[n][k+1].add(c);
+			}
+			else {
+				if (n-1>=0) {
+					neighbors[n-1][k].add(c);
+					if (k+1<cols) neighbors[n-1][k+1].add(c);
+				}
+				if (n+1<rows) {
+					neighbors[n+1][k].add(c);
+					if (k+1<cols) neighbors[n+1][k+1].add(c);
+				}
+				if (k-1>=0) neighbors[n][k-1].add(c);
+				if (k+1<cols) neighbors[n][k+1].add(c);
+			}
+		}		
+	}	
 }
