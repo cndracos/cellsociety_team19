@@ -104,7 +104,7 @@ public class practice extends Application{
     
     private void step (double elapsedTime) {
             sim.update();
-            count += 1;
+            //count += 1;
             //check if states of all grids in the cell converges or not
             
     }
