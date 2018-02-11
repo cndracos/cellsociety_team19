@@ -46,4 +46,8 @@ public class FireSim extends Sim {
 		}
 	    fgrid.setNeighbors();	
 	}
+	
+	public String name() {
+		return "Fire";
+	}
 }

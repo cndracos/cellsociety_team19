@@ -85,4 +85,8 @@ public class SegreSim extends Sim{
 			}
 		}
 	}
+	
+	public String name () {
+		return "Segregation";
+	}
 }
