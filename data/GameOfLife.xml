@@ -3,6 +3,6 @@
 	<model>Game of Life</model>
 	<rows>31</rows>
 	<columns>31</columns>
-	<probability>1.5</probability>
+	<probability>0</probability>
 	<initialStates type="ALIVE">0.0 0.9</initialStates>
 </data>

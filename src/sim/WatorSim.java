@@ -61,7 +61,7 @@ public class WatorSim extends Sim{
 					w = new WatorCell("WATER", fishR, sharkR, sharkE);
 					wgrid.add(w, i, j);
 				}
-				wgrid.updateNeighbors(i, j, w, "Wator", this.getTorus());
+				wgrid.updateNeighbors(i, j, w, name(), this.getTorus());
 			}
 		}
 		wgrid.setNeighbors();

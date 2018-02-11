@@ -1,7 +1,6 @@
 package xmlparser;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -61,12 +60,7 @@ public class SimulationBuilder {
 				alert.setContentText(e.getMessage());
 				alert.showAndWait();
 			}
-		} 
-		// if we have gotten this far, the file has not been found
-		FileNotFoundException e = new FileNotFoundException();
-		Alert alert = new Alert(AlertType.ERROR);
-		alert.setContentText(e.getMessage());
-		alert.showAndWait();
+		}
 		return null;
 	}
 	

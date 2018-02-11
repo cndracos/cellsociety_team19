@@ -69,12 +69,28 @@ public class practice extends Application{
         fProb[0] = 0.0;
         fProb[1] = 0.3;
         double[] sProb = new double[2];
-        sProb[0] = 0.3;
+        sProb[0] = 0.4;
         sProb[1] = 0.5;
         keys.put("FISH", fProb);
         keys.put("SHARK", sProb);
-        sim = new WatorSim(n, k, 970, 700, vals, (HashMap<String, double[]>) keys,"TRIANGLE"); 
-		*/
+        //grid = new WatorGrid(n, k, 970, 700, vals, (HashMap<String, double[]>) keys);**/
+
+        
+/**    
+       int n =  97;
+        int k = 70;
+        double vals = .625;
+        Map<String, double[]> keys = new HashMap<String, double[]>();
+        double[] XProb = new double[2];
+        XProb[0] = 0.0;
+        XProb[1] = 0.0;
+        double[] OProb = new double[2];
+        OProb[0] = 0.3;
+        OProb[1] = 0.9;
+        keys.put("X", XProb);
+        keys.put("O", OProb);
+        sim = new SegreSim(n, k, 970, 700, vals, (HashMap<String, double[]>) keys, "TRIANGLE", true); 
+    **/
         int n =  97;
         int k = 70;
         int vals = 10;
@@ -92,7 +108,8 @@ public class practice extends Application{
         keys.put("PAPER", PProb);
         keys.put("SCISSOR",SProb);
         sim = new RPSSim(n, k, 970, 700, vals, (HashMap<String, double[]>) keys, "HEX"); 
-        
+        sim = new RPSSim(n, k, 970, 700, vals, (HashMap<String, double[]>) keys, "SQUARE"); 
+
        //System.out.print(root== null);
                 
       //grid = new SegreGrid(n, k, 970, 700, vals, keys);
