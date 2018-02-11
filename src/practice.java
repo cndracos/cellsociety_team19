@@ -38,12 +38,12 @@ public class practice extends Application{
     @Override
     public void start (Stage stage) {
                 
-        myScene = setupGame(990, 720, Color.BLACK);
+        myScene = setupGame(970, 700, Color.BLACK);
         stage.setScene(myScene);
         stage.setTitle("practice");
         stage.show();
        
-        KeyFrame frame = new KeyFrame(Duration.millis(500),
+        KeyFrame frame = new KeyFrame(Duration.millis(1000),
                                       e -> step(60));
         animation = new Timeline();
         animation.setCycleCount(Timeline.INDEFINITE);
@@ -76,7 +76,7 @@ public class practice extends Application{
         
        int n =  97;
         int k = 70;
-        double vals = .25;
+        double vals = .5;
         Map<String, double[]> keys = new HashMap<String, double[]>();
         double[] XProb = new double[2];
         XProb[0] = 0.0;
