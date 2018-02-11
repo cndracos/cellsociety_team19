@@ -2,6 +2,8 @@ package cellsociety;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -24,7 +26,8 @@ public class CellSociety {
 			"Wator",
 			"Fire",
 			"GameOfLife",
-			"Segregation"
+			"Segregation",
+			"RPS"
 	};
 	protected static final String[] SHAPES = {
 			"Square",
@@ -36,6 +39,7 @@ public class CellSociety {
 	protected static final int Y_DIMENSION =840;
 	protected static final int GRID_WIDTH = 300;
 	protected static final int GRID_HEIGHT = 300;
+	private static final Map<String, Double> cellData = new HashMap<String, Double>();
 	// the offset when the user would like to add multiple simulations at once
 	// for animations
 	protected static double ANIMATION_RATE = 1.0;
@@ -73,7 +77,7 @@ public class CellSociety {
 	 */
 	public void step() {
 		for (Sim sim : sims) {
-			sim.update();
+			cellData = sim.update();
 		}
 	}
 	
@@ -112,6 +116,14 @@ public class CellSociety {
 	// set a new animation rate
 	public void setRate(double newRate) {
 		ANIMATION_RATE = newRate;
+	}
+	
+	public String[] getCellNames(int index) {
+		return sims.get(index).getStateNames();
+	}
+	
+	public Map<String, Double> getCellData() {
+		return cellData;
 	}
 }
 
