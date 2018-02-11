@@ -14,16 +14,16 @@ import javafx.scene.paint.Color;
  */
 public class RPSCell extends Cell{	
 	private Random rand;
-	private int health;
+	private double health;
 	private boolean isUpdated;
-	private final int HEALTH;
+	private final double HEALTH;
 	
 	/**
 	 * Constructor of FireCell class
 	 * @param currState current state of cell
 	 * @param probCatch probability at which the cell catches on fire
 	 */
-	public RPSCell(String currState, int HEALTH) {
+	public RPSCell(String currState, double HEALTH) {
 		super(currState);
 		if(currState.equals("WHITE")) {
 			System.out.println("WHITE");
@@ -112,9 +112,6 @@ public class RPSCell extends Cell{
 		return isWin ? 1 : -1;
 	}
 	
-	private String replaceByState(String state) {
-		return state.equals("ROCK") ? "PAPER" : state.equals("PAPER") ? "SCISSOR" : "ROCK";
-	}
 	/**
 	 * check whether or not the cell is updated
 	 * @return updated or not
@@ -135,7 +132,7 @@ public class RPSCell extends Cell{
 	 * check whether or not the cell is updated
 	 * @return updated or not
 	 */
-	public int getHealth() {
+	public double getHealth() {
 		return health;
 	}
 	
@@ -143,7 +140,7 @@ public class RPSCell extends Cell{
 	 * change the updated status of cell to given status
 	 * @param isUpdated given status
 	 */
-	public void setHealth(int health) {
+	public void setHealth(double health) {
 		this.health = health;
 	}
 	

@@ -34,13 +34,7 @@ public abstract class Grid {
 			}
 		}
 	}
-	
-	/**
-	 * compute the width and length of each cell according to cell numbers and screen size
-	 * @param length screen length
-	 * @param width screen width
-	 */
-	public abstract void getCellSize(int length,int width);
+
 	
 	/**
 	 * add the cell to specific position on screen according to its coordinate
@@ -67,6 +61,15 @@ public abstract class Grid {
 	public int getRows() {
 		return rows;
 	}
+	
+	public double[] getCellSize(int length,int height, double DEFAULT_SPACE) {
+		System.out.println("enter again:");
+		double[] size = new double[2];
+		size[0] = (length - 2 * DEFAULT_SPACE) / (this.getCols() * 1.0);//cell width
+		size[1] = (height - 2 * DEFAULT_SPACE) / (this.getRows() * 1.0);//cell height
+		return size;
+	}
+	
 	/**
 	 * returns number of columns
 	 * @return cols

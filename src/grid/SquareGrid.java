@@ -17,26 +17,25 @@ public class SquareGrid extends Grid {
 	 */
 	public SquareGrid(int n, int k, int length, int width) {
 		super(n, k);
-		getCellSize(length, width);
+		double[] size = getCellSize(length, width, DEFAULT_SPACE);
+		cellWidth = size[0];
+		cellLength = size[1];
 	}
 
-	public void getCellSize(int length,int width) {
-		cellLength = (length - 2 * DEFAULT_SPACE) / (this.getRows() * 1.0);
-		cellWidth = (width - 2 * DEFAULT_SPACE) / (this.getCols() * 1.0);
-	}
+	
 	/**
 	 * adds the four ordered pairs to the cell object
 	 */
 	public void addToScreen(Cell c, int n, int k) {
 		Double[] coordinates = new Double[8];
-		coordinates[0] = n*cellLength + DEFAULT_SPACE;
-		coordinates[1] = k*cellWidth + DEFAULT_SPACE;
-		coordinates[2] = n*cellLength + DEFAULT_SPACE;
-		coordinates[3] = k*cellWidth + + cellWidth + DEFAULT_SPACE;
-		coordinates[4] = n*cellLength + cellLength + DEFAULT_SPACE;
-		coordinates[5] = k*cellWidth + cellWidth + DEFAULT_SPACE;
-		coordinates[6] = n*cellLength +  cellLength + DEFAULT_SPACE;
-		coordinates[7] = k*cellWidth + DEFAULT_SPACE;
+		coordinates[0] = k*cellWidth + DEFAULT_SPACE;
+		coordinates[1] = n*cellLength + DEFAULT_SPACE;
+		coordinates[2] = k*cellWidth + DEFAULT_SPACE;
+		coordinates[3] = n*cellLength + + cellLength + DEFAULT_SPACE;
+		coordinates[4] = k*cellWidth + cellWidth + DEFAULT_SPACE;
+		coordinates[5] = n*cellLength + cellLength + DEFAULT_SPACE;
+		coordinates[6] = k*cellWidth +  cellWidth + DEFAULT_SPACE;
+		coordinates[7] = n*cellLength + DEFAULT_SPACE;
 		c.setPosition(coordinates);
 	}
 	/**

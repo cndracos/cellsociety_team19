@@ -17,14 +17,20 @@ public class HexGrid extends Grid {
 	 */
 	public HexGrid(int n, int k, int length, int width) {
 		super(n, k);
-		getCellSize(length, width);
+		double[] size = getCellSize(length, width, DEFAULT_SPACE);
+		cellWidth = size[0];
+		cellHeight = size[1];
 	}
 
 	@Override
-	public void getCellSize(int length, int width) {
-		cellHeight = (length - 2 * DEFAULT_SPACE) / (this.getRows() * 3.0 / 4 + 0.25);
-		cellWidth = (width - 2 * DEFAULT_SPACE) / (this.getCols() * 1.0 + 0.5);
+	public double[] getCellSize(int length,int height, double DEFAULT_SPACE) {
+		System.out.println("enter");
+		double[] size = new double[2];
+		size[0] = (length - 2 * DEFAULT_SPACE) / (this.getCols() + 0.5);//cell width
+		size[1] = (height - 2 * DEFAULT_SPACE) / (3 * this.getRows() / 4 + 0.25);//cell height
+		return size;
 	}
+	
 	/**
 	 * add a hexagon cell to the screen, uses six points, with 
 	 * a coordinate pair to tell the cell where on the screen to go
@@ -33,17 +39,17 @@ public class HexGrid extends Grid {
 	public void addToScreen(Cell c, int n, int k) {
 		Double[] coordinates = new Double[12];
 		if (n % 2 == 0) {
-			coordinates[0] = k*cellWidth + cellWidth + DEFAULT_SPACE + 10;
+			coordinates[0] = k*cellWidth + cellWidth/2 + DEFAULT_SPACE;
 			coordinates[1] = n*cellHeight + DEFAULT_SPACE;
-			coordinates[2] = k*cellWidth + 3 * cellWidth/2 + DEFAULT_SPACE + 10;
+			coordinates[2] = k*cellWidth + cellWidth + DEFAULT_SPACE;
 			coordinates[3] = n*cellHeight + cellHeight/4 + DEFAULT_SPACE;
-			coordinates[4] = k*cellWidth + 3 * cellWidth/2 + DEFAULT_SPACE + 10;
+			coordinates[4] = k*cellWidth + cellWidth + DEFAULT_SPACE;
 			coordinates[5] = n*cellHeight + 3*cellHeight/4 + DEFAULT_SPACE;
-			coordinates[6] = k*cellWidth + cellWidth + DEFAULT_SPACE + 10;
+			coordinates[6] = k*cellWidth + cellWidth/2 + DEFAULT_SPACE;
 			coordinates[7] = (n + 1)*cellHeight + DEFAULT_SPACE;
-			coordinates[8] = k*cellWidth + DEFAULT_SPACE + 10;
+			coordinates[8] = k*cellWidth - cellWidth/2 + DEFAULT_SPACE;
 			coordinates[9] = n*cellHeight + 3*cellHeight/4 + DEFAULT_SPACE;
-			coordinates[10] = k*cellWidth + DEFAULT_SPACE + 10;
+			coordinates[10] = k*cellWidth - cellWidth/2 + DEFAULT_SPACE;
 			coordinates[11] = n*cellHeight + cellHeight/4 + DEFAULT_SPACE;
 		}
 		else {

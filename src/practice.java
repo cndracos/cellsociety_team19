@@ -91,7 +91,7 @@ public class practice extends Application{
         keys.put("ROCK", RProb);
         keys.put("PAPER", PProb);
         keys.put("SCISSOR",SProb);
-        sim = new RPSSim(n, k, 970, 700, vals, (HashMap<String, double[]>) keys, "SQUARE"); 
+        sim = new RPSSim(n, k, 970, 700, vals, (HashMap<String, double[]>) keys, "HEX"); 
         
        //System.out.print(root== null);
                 

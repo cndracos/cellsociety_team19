@@ -17,14 +17,11 @@ public class TriangleGrid extends Grid {
 	 */
 	public TriangleGrid(int n, int k, int length, int width) {
 		super(n, k);
-		getCellSize(length, width);
+		double[] size = getCellSize(length, width, DEFAULT_SPACE);
+		cellWidth = size[0];
+		cellHeight = size[1];
 	}
 
-	@Override
-	public void getCellSize(int length, int width) {
-		cellWidth = (length - 2 * DEFAULT_SPACE) / (this.getRows() * 1.0);
-		cellHeight = (width - 2 * DEFAULT_SPACE) / (this.getCols() * 1.0);	
-	}
 	/**
 	 * Adds the three ordered pairs of coordinates for the corners of the 
 	 * triangle, and has two cases for whether a triangle is facing up or down
@@ -162,4 +159,5 @@ public class TriangleGrid extends Grid {
 			}
 		}
 	}
+
 }
