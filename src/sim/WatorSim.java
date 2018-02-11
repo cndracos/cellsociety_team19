@@ -19,8 +19,8 @@ public class WatorSim extends Sim{
 	 * @param grid type of grid
 	 */
 	public WatorSim(int n, int k, int length, int width, 
-			double[] vals, Map<String, double[]> keys, String grid) {
-		super(n, k, length, width, keys, grid);
+			double[] vals, Map<String, double[]> keys, String grid, boolean torus) {
+		super(n, k, length, width, keys, grid, torus);
 		this.vals = vals;
 		init();
 	}
@@ -53,7 +53,7 @@ public class WatorSim extends Sim{
 					w = new WatorCell("WATER", fishR, sharkR, sharkE);
 					wgrid.add(w, i, j);
 				}
-				wgrid.updateNeighbors(i, j, w, "Wator");
+				wgrid.updateNeighbors(i, j, w, "Wator", this.getTorus());
 			}
 		}
 		wgrid.setNeighbors();

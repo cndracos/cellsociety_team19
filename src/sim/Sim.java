@@ -20,6 +20,7 @@ public abstract class Sim {
 	private HashMap<String, double[]> keys;
 	private Grid grid;
 	private Random rand;
+	private boolean torus;
 	/**
 	 * Constructor for the sim superclass
 	 * @param n number of rows
@@ -30,9 +31,10 @@ public abstract class Sim {
 	 * @param grid the type of grid to be created
 	 */
 	public Sim (int n, int k, int length, int width, 
-		Map<String, double[]> keys, String grid) {
+		Map<String, double[]> keys, String grid, boolean torus) {
 		this.keys = (HashMap<String, double[]>) keys;
 		rand = new Random();
+		this.torus = torus;
 		if (grid.equals("SQUARE")) {
 			this.grid = new SquareGrid(n, k, length, width);
 		}
@@ -60,6 +62,12 @@ public abstract class Sim {
 	 */
 	public Random getRand() {
 		return rand;
+	}
+	/**
+	 * @return the boolean if there is a torus simulation
+	 */
+	public boolean getTorus() {
+		return torus;
 	}
 	/**
 	 * Iterates twice through the grid, once using the states to
@@ -93,6 +101,8 @@ public abstract class Sim {
 	 * initializer for any  simulation
 	 */
 	public abstract void init();
-	
+	/**
+	 * @return name of the sim being run
+	 */
 	public abstract String name();
 }

@@ -25,8 +25,8 @@ public class SegreSim extends Sim{
 	 * @param grid type of grid
 	 */
 	public SegreSim(int n, int k, int length, int width, 
-			double satisfied, Map<String, double[]> keys, String grid) {
-		super(n, k, length, width, keys, grid);
+			double satisfied, Map<String, double[]> keys, String grid, boolean torus) {
+		super(n, k, length, width, keys, grid, torus);
 		this.satisfied = satisfied;
 		init();
 	}
@@ -54,7 +54,7 @@ public class SegreSim extends Sim{
 					s = new SegreCell("EMPTY", satisfied);
 					sgrid.add(s, i, j);
 				}
-				sgrid.updateNeighbors(i, j, s, "Segre");
+				sgrid.updateNeighbors(i, j, s, "Segre", this.getTorus());
 			}
 		}
 		sgrid.setNeighbors();	
