@@ -12,7 +12,7 @@ public class RPSSim extends Sim{
 	
 	public RPSSim(int n, int k, int length, int width, 
 			int vals, HashMap<String, double[]> keys, String grid) {
-		super(n, k, length, width, keys, grid);
+		super(n, k, length, width, keys, grid, true);
 		this.vals = vals;
 		init();
 	}
@@ -48,7 +48,7 @@ public class RPSSim extends Sim{
 					c = new RPSCell("SCISSOR", health);
 					RPSgrid.add(c, i, j);
 				}
-				RPSgrid.updateNeighbors(i, j, c, "RPS");
+				RPSgrid.updateNeighbors(i, j, c, "RPS", true);
 			}
 		}
 		RPSgrid.setNeighbors();
