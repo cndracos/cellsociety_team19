@@ -13,6 +13,7 @@ public class WatorSim extends Sim{
 			double[] vals, HashMap<String, double[]> keys, String grid) {
 		super(n, k, length, width, keys, grid);
 		this.vals = vals;
+		init();
 	}
 
 	@Override

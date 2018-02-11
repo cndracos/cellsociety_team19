@@ -10,6 +10,7 @@ public class LifeSim extends Sim{
 
 	public LifeSim(int n, int k, int length, int width, HashMap<String, double[]> keys, String grid) {
 		super(n, k, length, width, keys, grid);
+		init();
 	}
 	
 	@Override
