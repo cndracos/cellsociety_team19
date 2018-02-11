@@ -8,7 +8,16 @@ import grid.Grid;
 
 public class FireSim extends Sim {
 	private double probCatch;
-
+	/**
+	 * Constructor for a firesim
+	 * @param n number of rows
+	 * @param k number of cols
+	 * @param length of screen
+	 * @param width of screen
+	 * @param probCatch probability of a tree catching fire
+	 * @param keys values for making random cells
+	 * @param grid type of grid
+	 */
 	public FireSim(int n, int k, int length, int width, 
 			double probCatch, HashMap<String, double[]> keys, String grid) {
 		super(n, k, length, width, keys, grid);
@@ -46,7 +55,7 @@ public class FireSim extends Sim {
 		}
 	    fgrid.setNeighbors();	
 	}
-	
+
 	public String name() {
 		return "Fire";
 	}

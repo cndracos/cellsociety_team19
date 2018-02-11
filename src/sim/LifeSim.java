@@ -7,7 +7,15 @@ import cell.LifeCell;
 import grid.Grid;
 
 public class LifeSim extends Sim{
-
+	/**
+	 * Constructs the lifesim
+	 * @param n number of rows
+	 * @param k number of cols
+	 * @param length of screen
+	 * @param width of screen
+	 * @param keys values to be used when making cells
+	 * @param grid type of grid to be used
+	 */
 	public LifeSim(int n, int k, int length, int width, HashMap<String, double[]> keys, String grid) {
 		super(n, k, length, width, keys, grid);
 		init();
@@ -36,7 +44,7 @@ public class LifeSim extends Sim{
 			}
 		lgrid.setNeighbors();
 	}
-	
+
 	public String name() {
 		return "GameofLife";
 	}
