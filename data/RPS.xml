@@ -1,0 +1,10 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<data simulation = "CA">
+	<model>RPS</model>
+	<rows>31</rows>
+	<columns>31</columns>
+	<probability>10.0</probability>
+	<initialStates type="ROCK">0.0 0.3</initialStates>
+	<initialStates type="SCISSOR">0.3 0.6</initialStates>
+	<initialStates type="PAPER">0.6 1.0</initialStates>
+</data>
