@@ -1,12 +1,11 @@
 package sim;
 
 import java.util.HashMap;
+
 import java.util.Map;
 import java.util.Random;
 
-import grid.Grid;
-import grid.SquareGrid;
-import grid.TriangleGrid;
+import grid.*;
 
 public abstract class Sim {
 	private Map<String, double[]> keys;
@@ -24,7 +23,7 @@ public abstract class Sim {
 			this.grid = new TriangleGrid(n, k, length, width);
 		}
 		else {
-			
+			this.grid = new HexGrid(n, k, length, width);
 		}
 	}
 	
