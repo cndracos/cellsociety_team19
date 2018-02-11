@@ -26,7 +26,6 @@ public class RPSSim extends Sim{
 		//gets the array of probs from the key map
 		double[] probR = this.getKeys().get("ROCK");
 		double[] probP = this.getKeys().get("PAPER");
-		double[] probS = this.getKeys().get("SCISSOR");
 		//gets the other values for the sim from the vals array
 		int health = vals;
 		Grid RPSgrid = this.getGrid();
