@@ -46,6 +46,6 @@ public class LifeSim extends Sim{
 	}
 
 	public String name() {
-		return "GameofLife";
+		return "GameOfLife";
 	}
 }

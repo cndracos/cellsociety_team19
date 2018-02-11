@@ -81,5 +81,6 @@ public abstract class Sim {
 	 * initializer for any  simulation
 	 */
 	public abstract void init();
-
+	
+	public abstract String name();
 }

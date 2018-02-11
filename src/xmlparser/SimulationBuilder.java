@@ -24,6 +24,7 @@ public class SimulationBuilder {
 			"probability",
 	});
 	protected static final String INITIAL_DATA_FIELD = new String("initialStates");
+	private static final String ERROR_MESSAGE = new String("Incorrect input of type %s. Please refer to documentation for correct format.\n");
 	// name of this specific simulation to build
 	private static String simulationName;
 	private static final String DEFAULT_SHAPE = "SQUARE";
@@ -31,14 +32,14 @@ public class SimulationBuilder {
 	// constructor
 	public SimulationBuilder(String filePath) {
 		XMLFile = new File(filePath);
+
 	}
 	
 	/**
 	 * Build the grid specified by the XMLFile.
-	 * @return the built grid
-	 * @throws FileNotFoundException
+	 * @return the built simulation
 	 */
-	public Sim build(int screenLength, int screenWidth) {
+	public Sim build(int screenLength, int screenWidth)  {
 		if (XMLFile != null) {
 			try {
 				XMLParser parser = new XMLParser("simulation");
@@ -50,15 +51,23 @@ public class SimulationBuilder {
 				double[] probability = Stream.of(gridProperties.get("probability").split("\\s+")).mapToDouble(Double::parseDouble).toArray();
 				// extract the percentages for the initial states of the cells
 				HashMap<String, double[]> initialStates = (HashMap<String, double[]>) parser.getInitialStates(XMLFile);
+				// check for correctness
+				if (badProbabilities(probability, initialStates)) {
+					throw new SimulationInputException(ERROR_MESSAGE, "probability");
+				}
 				return generateGrid(rows, cols, screenLength,screenWidth,probability, initialStates);
-			} catch (XMLException e) {
+			} catch (XMLException | SimulationInputException e) {
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setContentText(e.getMessage());
 				alert.showAndWait();
 			}
-		}
+		} 
+		// if we have gotten this far, the file has not been found
+		FileNotFoundException e = new FileNotFoundException();
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setContentText(e.getMessage());
+		alert.showAndWait();
 		return null;
-		
 	}
 	
 	// select which type of grid we want to initialize based upon the simulation type
@@ -69,14 +78,33 @@ public class SimulationBuilder {
 				return new FireSim(rows, cols, screenLength, screenWidth,probability[0], initialStates, DEFAULT_SHAPE);
 			case "Segregation":
 				// probability[0] only b/c only one probability exists for this simulation
-				return new SegreSim(rows, cols, screenLength, screenWidth,probability[0], initialStates, DEFAULT_SHAPE);
+				return new SegreSim(rows, cols, screenLength, screenWidth, probability[0], initialStates, DEFAULT_SHAPE);
 			case "Wator":
-				return new WatorSim(rows, cols, screenLength, screenWidth,probability,initialStates, DEFAULT_SHAPE);	
-			default:
+				return new WatorSim(rows, cols, screenLength, screenWidth, probability, initialStates, DEFAULT_SHAPE);	
+			case "Game of Life":
 				return new LifeSim(rows, cols, screenLength, screenWidth, initialStates , DEFAULT_SHAPE);
 		}
-			
-			
+		// if none of the cases were returned, then there is an issue
+		throw new SimulationInputException(ERROR_MESSAGE, "model");
+	}
+	
+	// check if any of the given probabilities are greater than 1 or less than 0
+	private boolean badProbabilities(double[] probability, HashMap<String, double[]> initialStates) {
+		// "update" probabilities
+		for (double prob : probability) {
+			if (prob > 1 || prob < 0) {
+				return true;
+			}
+		}
+		// initial states
+		for (double[] probs : initialStates.values()) {
+			for (double prob : probs) {
+				if (prob > 1 || prob < 0) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 	
 	// get the name of the simulation that is building
