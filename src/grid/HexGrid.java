@@ -69,7 +69,7 @@ public class HexGrid extends Grid {
 	 * updates the neighbors around a given cell c according to hexagon rules
 	 */
 	@Override
-	public void updateNeighbors(int n, int k, Cell c, String sim) {
+	public void updateNeighbors(int n, int k, Cell c, String sim, boolean torus) {
 		ArrayList<Cell>[][] neighbors = this.getNeighborsArray();
 		int cols = this.getCols();
 		int rows = this.getRows();
@@ -81,21 +81,21 @@ public class HexGrid extends Grid {
 		//look for all six neighbors
 		if (k-1>=0) neighbors[n][k-1].add(c);
 		//and per usual, loop the screen if wator sim
-		else if (sim.equals("Wator")) neighbors[n][cols-1].add(c);
+		else if (sim.equals("Wator")||torus) neighbors[n][cols-1].add(c);
 		if (k+1<cols) neighbors[n][k+1].add(c);
-		else if (sim.equals("Wator")) neighbors[n][0].add(c);
+		else if (sim.equals("Wator")||torus) neighbors[n][0].add(c);
 		if (n-1>=0) {
 			neighbors[n-1][k].add(c);
 			if (even) {
 				if (k-1>=0) neighbors[n-1][k-1].add(c);
-				else if (sim.equals("Wator")) neighbors[n-1][cols-1].add(c);
+				else if (sim.equals("Wator")||torus) neighbors[n-1][cols-1].add(c);
 			}
 			else {
 				if (k+1<cols) neighbors[n-1][k+1].add(c);
-				else if (sim.equals("Wator")) neighbors[n-1][0].add(c);
+				else if (sim.equals("Wator")||torus) neighbors[n-1][0].add(c);
 			}
 		}
-		else if (sim.equals("Wator")){
+		else if (sim.equals("Wator")||torus){
 			neighbors[rows-1][k].add(c);
 			if (even) {
 				if (k-1>=0) neighbors[rows-1][k-1].add(c);
@@ -110,14 +110,14 @@ public class HexGrid extends Grid {
 			neighbors[n+1][k].add(c);
 			if (even) {
 				if (k-1>=0) neighbors[n+1][k-1].add(c);
-				else if (sim.equals("Wator")) neighbors[n+1][cols-1].add(c);
+				else if (sim.equals("Wator")||torus) neighbors[n+1][cols-1].add(c);
 			}
 			else {
 				if (k+1<cols) neighbors[n+1][k+1].add(c);
-				else if (sim.equals("Wator")) neighbors[n+1][0].add(c);
+				else if (sim.equals("Wator")||torus) neighbors[n+1][0].add(c);
 			}
 		}
-		else if (sim.equals("Wator")){
+		else if (sim.equals("Wator")||torus){
 			neighbors[0][k].add(c);
 			if (even) {
 				if (k-1>=0) neighbors[0][k-1].add(c);

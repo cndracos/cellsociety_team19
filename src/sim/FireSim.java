@@ -19,8 +19,8 @@ public class FireSim extends Sim {
 	 * @param grid type of grid
 	 */
 	public FireSim(int n, int k, int length, int width, 
-			double probCatch, Map<String, double[]> keys, String grid) {
-		super(n, k, length, width, keys, grid);
+			double probCatch, Map<String, double[]> keys, String grid, boolean torus) {
+		super(n, k, length, width, keys, grid, torus);
 		this.probCatch = probCatch;
 		init();
 	}
@@ -50,7 +50,7 @@ public class FireSim extends Sim {
 						fgrid.add(f, i, j);
 					}
 				}
-				fgrid.updateNeighbors(i, j, f, "Fire");
+				fgrid.updateNeighbors(i, j, f, "Fire", this.getTorus());
 			}
 		}
 	    fgrid.setNeighbors();	

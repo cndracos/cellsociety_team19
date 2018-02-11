@@ -109,5 +109,5 @@ public abstract class Grid {
 	 * @param c cell to be added to neighbor arrays
 	 * @param sim type of simulation
 	 */
-	public abstract void updateNeighbors(int n, int k, Cell c, String sim);
+	public abstract void updateNeighbors(int n, int k, Cell c, String sim, boolean torus);
 }

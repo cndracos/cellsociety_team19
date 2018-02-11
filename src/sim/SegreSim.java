@@ -4,9 +4,11 @@ import java.util.ArrayList;
 
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import cell.Cell;
 import cell.SegreCell;
 import grid.Grid;
 
@@ -23,8 +25,8 @@ public class SegreSim extends Sim{
 	 * @param grid type of grid
 	 */
 	public SegreSim(int n, int k, int length, int width, 
-			double satisfied, Map<String, double[]> keys, String grid) {
-		super(n, k, length, width, keys, grid);
+			double satisfied, Map<String, double[]> keys, String grid, boolean torus) {
+		super(n, k, length, width, keys, grid, torus);
 		this.satisfied = satisfied;
 		init();
 	}
@@ -52,14 +54,15 @@ public class SegreSim extends Sim{
 					s = new SegreCell("EMPTY", satisfied);
 					sgrid.add(s, i, j);
 				}
-				sgrid.updateNeighbors(i, j, s, "Segre");
+				sgrid.updateNeighbors(i, j, s, "Segre", this.getTorus());
 			}
 		}
 		sgrid.setNeighbors();	
 	}
 	
 	@Override
-	public void update() {
+	public Map<String, Double> update() {
+		HashMap<String, Double> percentages = new HashMap<String, Double>();
 		//creates two ArrayList<SegreCell> to store empty and disatisfied cells
 		ArrayList<SegreCell> empty = new ArrayList<SegreCell>();
 		ArrayList<SegreCell> disatisfied = new ArrayList<SegreCell>();
@@ -90,9 +93,19 @@ public class SegreSim extends Sim{
 				
 		for (int i = 0; i < sgrid.getRows(); i++) {
 			for (int j = 0; j < sgrid.getCols(); j++) {
-				sgrid.get(i, j).setState();
+				Cell c = sgrid.get(i, j);
+				c.setState();
+				if (!percentages.containsKey(c.getState())) {
+					percentages.put(c.getState(), 1.0/sgrid.getCols()*sgrid.getRows());
+				}
+				else {
+					percentages.put(c.getState(), 
+							(1.0/sgrid.getCols()*sgrid.getRows()) 
+							+ percentages.get(c.getState()));
+				}
 			}
 		}
+		return percentages;
 	}
 	
 	public String name () {

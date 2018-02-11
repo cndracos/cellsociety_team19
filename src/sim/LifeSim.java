@@ -16,8 +16,9 @@ public class LifeSim extends Sim{
 	 * @param keys values to be used when making cells
 	 * @param grid type of grid to be used
 	 */
-	public LifeSim(int n, int k, int length, int width, Map<String, double[]> keys, String grid) {
-		super(n, k, length, width, keys, grid);
+	public LifeSim(int n, int k, int length, int width, Map<String, double[]> keys, 
+			String grid, boolean torus) {
+		super(n, k, length, width, keys, grid, torus);
 		init();
 	}
 	
@@ -39,7 +40,7 @@ public class LifeSim extends Sim{
 						l = new LifeCell("DEAD", 0);
 						lgrid.add(l, i, j);
 					}
-					lgrid.updateNeighbors(i, j, l, "Life");
+					lgrid.updateNeighbors(i, j, l, "Life", this.getTorus());
 				}
 			}
 		lgrid.setNeighbors();
