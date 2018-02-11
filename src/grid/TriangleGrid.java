@@ -39,7 +39,6 @@ public class TriangleGrid extends Grid {
 		if (facingUp) {
 			coordinates[1] = k*cellHeight + DEFAULT_SPACE;
 			coordinates[3] = k*cellHeight + cellHeight + DEFAULT_SPACE;
-			coordinates[4] = n*cellWidth + cellWidth + DEFAULT_SPACE;
 			coordinates[5] = k*cellHeight + cellHeight + DEFAULT_SPACE;
 		}
 		else {
@@ -56,10 +55,13 @@ public class TriangleGrid extends Grid {
 	@Override
 	public void updateNeighbors(int n, int k, Cell c, String sim) {
 		ArrayList<Cell>[][] neighbors = this.getNeighborsArray();
+		//triangles have different direct neighbors based on their directions
 		boolean facingUp = n+k%2==0;
 		int cols = this.getCols();
 		int rows = this.getRows();
+		//once again always get the direct neighbors
 		if (k-1>=0) neighbors[n][k-1].add(c);
+		//and loop if it is a wator sim
 		else if (sim.equals("Wator"))neighbors[n][cols-1].add(c);
 		if (k+1<cols) neighbors[n][k+1].add(c);
 		else if (sim.equals("Wator")) neighbors[n][0].add(c);
@@ -70,7 +72,7 @@ public class TriangleGrid extends Grid {
 			if (n-1>=0) neighbors[n-1][k].add(c);
 			else if (sim.equals("Wator")) neighbors[rows-1][k].add(c);
 		}
-		//otherwise find all twelve potential neighbors
+		//if segre or life, go ahead and get all twelve neighbors
 		if (sim.equals("Segre") || sim.equals("Life")){
 			if (k-2>=0) neighbors[n][k-2].add(c);
 			if (k+2<cols) neighbors[n][k+2].add(c);

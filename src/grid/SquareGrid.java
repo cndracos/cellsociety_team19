@@ -46,7 +46,9 @@ public class SquareGrid extends Grid {
 		ArrayList<Cell>[][] neighbors = this.getNeighborsArray();
 		int cols = this.getCols();
 		int rows = this.getRows();
+		//regardless of sim type, will always have direct neighbors
 		if (n-1>=0) neighbors[n-1][k].add(c);
+		//only wator needs to loop around the screen
 		else if (sim.equals("Wator")) neighbors[rows - 1][k].add(c);
 		if (k-1>=0) neighbors[n][k-1].add(c);
 		else if (sim.equals("Wator")) neighbors[n][cols - 1].add(c);
@@ -54,6 +56,8 @@ public class SquareGrid extends Grid {
 		else if (sim.equals("Wator")) neighbors[n][0].add(c);
 		if (n+1<rows) neighbors[n+1][k].add(c);
 		else if (sim.equals("Wator")) neighbors[0][k].add(c);
+		//both segre and life use diagonal neighbors, 
+		//so add diagonal neighbors just for those sim types
 		if (sim.equals("Segre")||sim.equals("Life")) {
 			if (n-1>=0) {
 				if (k-1>=0) 	neighbors[n-1][k-1].add(c);

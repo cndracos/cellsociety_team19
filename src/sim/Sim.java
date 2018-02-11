@@ -16,7 +16,7 @@ import grid.*;
  */
 
 public abstract class Sim {
-	private Map<String, double[]> keys;
+	private HashMap<String, double[]> keys;
 	private Grid grid;
 	private Random rand;
 	/**
@@ -29,8 +29,8 @@ public abstract class Sim {
 	 * @param grid the type of grid to be created
 	 */
 	public Sim (int n, int k, int length, int width, 
-		HashMap<String, double[]> keys, String grid) {
-		this.keys = keys;
+		Map<String, double[]> keys, String grid) {
+		this.keys = (HashMap<String, double[]>) keys;
 		rand = new Random();
 		if (grid.equals("SQUARE")) {
 			this.grid = new SquareGrid(n, k, length, width);

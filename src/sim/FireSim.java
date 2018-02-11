@@ -1,6 +1,6 @@
 package sim;
 
-import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import cell.FireCell;
@@ -19,7 +19,7 @@ public class FireSim extends Sim {
 	 * @param grid type of grid
 	 */
 	public FireSim(int n, int k, int length, int width, 
-			double probCatch, HashMap<String, double[]> keys, String grid) {
+			double probCatch, Map<String, double[]> keys, String grid) {
 		super(n, k, length, width, keys, grid);
 		this.probCatch = probCatch;
 		init();

@@ -73,8 +73,14 @@ public class HexGrid extends Grid {
 		ArrayList<Cell>[][] neighbors = this.getNeighborsArray();
 		int cols = this.getCols();
 		int rows = this.getRows();
+		//if it is an even row, the index directly above it is
+		//actually its top left neighbors, and top right of odd row,
+		//so we have to account for this
 		boolean even = n%2==0;
+		//here all neighbors are direct neighbors, so we always
+		//look for all six neighbors
 		if (k-1>=0) neighbors[n][k-1].add(c);
+		//and per usual, loop the screen if wator sim
 		else if (sim.equals("Wator")) neighbors[n][cols-1].add(c);
 		if (k+1<cols) neighbors[n][k+1].add(c);
 		else if (sim.equals("Wator")) neighbors[n][0].add(c);
