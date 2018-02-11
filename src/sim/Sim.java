@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import cell.Cell;
 import grid.*;
 
 /**
@@ -65,7 +66,8 @@ public abstract class Sim {
 	 * update all cells, then setting the cells to that state
 	 * once all have been updated
 	 */
-	public void update() {
+	public Map<String, Double> update() {
+		HashMap<String, Double> percentages = new HashMap<String, Double>();
 		for (int i = 0; i < grid.getRows(); i++) {
 			for (int j = 0; j < grid.getCols(); j++) {
 				grid.get(i, j).findState();
@@ -73,9 +75,19 @@ public abstract class Sim {
 		}
 		for (int i = 0; i < grid.getRows(); i++) {
 			for (int j = 0; j < grid.getCols(); j++) {
-				grid.get(i, j).setState();
+				Cell c = grid.get(i, j);
+				c.setState();
+				if (!percentages.containsKey(c.getState())) {
+					percentages.put(c.getState(), 1.0/grid.getCols()*grid.getRows());
+				}
+				else {
+					percentages.put(c.getState(), 
+							(1.0/grid.getCols()*grid.getRows()) 
+							+ percentages.get(c.getState()));
+				}
 			}
 		}
+		return percentages;
 	}
 	/**
 	 * initializer for any  simulation
