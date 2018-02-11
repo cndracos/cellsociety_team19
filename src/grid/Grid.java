@@ -2,9 +2,6 @@ package grid;
 
 import cell.Cell;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * 
  * This is the superclass of Grid, 
@@ -63,7 +60,6 @@ public abstract class Grid {
 	}
 	
 	public double[] getCellSize(int length,int height, double DEFAULT_SPACE) {
-		System.out.println("enter again:");
 		double[] size = new double[2];
 		size[0] = (length - 2 * DEFAULT_SPACE) / (this.getCols() * 1.0);//cell width
 		size[1] = (height - 2 * DEFAULT_SPACE) / (this.getRows() * 1.0);//cell height
