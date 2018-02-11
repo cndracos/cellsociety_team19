@@ -1,6 +1,6 @@
 package sim;
 
-import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import cell.FireCell;
@@ -10,9 +10,19 @@ public class FireSim extends Sim {
 	private double probCatch;
 	private final String[] statesNames = {"EMPTY","BURNING","TREE"};
 	
+	/**
+	 * Constructor for a firesim
+	 * @param n number of rows
+	 * @param k number of cols
+	 * @param length of screen
+	 * @param width of screen
+	 * @param probCatch probability of a tree catching fire
+	 * @param keys values for making random cells
+	 * @param grid type of grid
+	 */
 	public FireSim(int n, int k, int length, int width, 
-			double probCatch, HashMap<String, double[]> keys, String grid) {
-		super(n, k, length, width, keys, grid);
+			double probCatch, Map<String, double[]> keys, String grid, boolean torus) {
+		super(n, k, length, width, keys, grid, torus);
 		this.probCatch = probCatch;
 		init();
 	}
@@ -47,12 +57,12 @@ public class FireSim extends Sim {
 						fgrid.add(f, i, j);
 					}
 				}
-				fgrid.updateNeighbors(i, j, f, "Fire");
+				fgrid.updateNeighbors(i, j, f, "Fire", this.getTorus());
 			}
 		}
 	    fgrid.setNeighbors();	
 	}
-	
+
 	public String name() {
 		return "Fire";
 	}

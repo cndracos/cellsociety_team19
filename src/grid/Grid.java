@@ -21,11 +21,7 @@ public abstract class Grid {
 	 * Constructor of grid class
 	 * @param n number of rows in the grid
 	 * @param k number of columns in the grid
-	 * @param length screen length
-	 * @width width screen width
-	 * @param keys contains mappings of the cell variables as strings in a specific
-	 * simulation  (e.g. probTree in Fire, probFish in Wa-Tor) to an upper
-	 * and lower bounds of the probability a cell is that type (e.g. 0.0-0.4)
+	 * 
 	 */
 	public Grid (int n, int k) {
 		rows = n;
@@ -49,8 +45,8 @@ public abstract class Grid {
 	/**
 	 * add the cell to specific position on screen according to its coordinate
 	 * @param c cell 
-	 * @param n coordinate on x axis
-	 * @param k coordinate on y axis
+	 * @param n which row is it in
+	 * @param k which column it is in
 	 */
 	public abstract void addToScreen(Cell c, int n, int k);
 	
@@ -99,10 +95,19 @@ public abstract class Grid {
 			}
 		}
 	}
-	
+	/**
+	 * returns the 2d neighbors array for the subclasses to use
+	 * @return neighbors
+	 */
 	public ArrayList<Cell>[][] getNeighborsArray() {
 		return neighbors;
 	}
-	
-	public abstract void updateNeighbors(int n, int k, Cell c, String sim);
+	/**
+	 * update the neighbors around the cell c at index n, k, dependent on the sim
+	 * @param n row index
+	 * @param k column index
+	 * @param c cell to be added to neighbor arrays
+	 * @param sim type of simulation
+	 */
+	public abstract void updateNeighbors(int n, int k, Cell c, String sim, boolean torus);
 }
