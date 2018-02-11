@@ -20,10 +20,16 @@ public class SquareGrid extends Grid {
 	}
 	
 	public void addToScreen(Cell c, int n, int k) {
-		c.setX(n*cellLength + DEFAULT_SPACE);
-		c.setY(k*cellWidth + DEFAULT_SPACE);
-		c.setWidth(cellWidth);
-		c.setHeight(cellLength);
+		double[] coordinates = new double[8];
+		coordinates[0] = n*cellLength + DEFAULT_SPACE;
+		coordinates[1] = k*cellWidth + DEFAULT_SPACE;
+		coordinates[2] = n*cellLength + cellLength + DEFAULT_SPACE;
+		coordinates[3] = k*cellWidth + DEFAULT_SPACE;
+		coordinates[4] = n*cellLength + DEFAULT_SPACE;
+		coordinates[5] = k*cellWidth + cellWidth + DEFAULT_SPACE;
+		coordinates[6] = n*cellLength +  cellLength + DEFAULT_SPACE;
+		coordinates[7] = k*cellWidth + cellWidth + DEFAULT_SPACE;
+		c.setPosition(coordinates);
 	}
 	
 	public void updateNeighbors (int n, int k, Cell c, String sim) {

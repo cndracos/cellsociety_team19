@@ -49,4 +49,8 @@ public class WatorSim extends Sim{
 		}
 		wgrid.setNeighbors();
 	}	
+	
+	public String name() {
+		return "Wator";
+	}
 }
