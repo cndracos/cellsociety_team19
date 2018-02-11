@@ -78,21 +78,21 @@ public class HexGrid extends Grid {
 		//look for all six neighbors
 		if (k-1>=0) neighbors[n][k-1].add(c);
 		//and per usual, loop the screen if wator sim
-		else if (sim.equals("Wator")||torus) neighbors[n][cols-1].add(c);
+		else if (torus) neighbors[n][cols-1].add(c);
 		if (k+1<cols) neighbors[n][k+1].add(c);
-		else if (sim.equals("Wator")||torus) neighbors[n][0].add(c);
+		else if (torus) neighbors[n][0].add(c);
 		if (n-1>=0) {
 			neighbors[n-1][k].add(c);
 			if (even) {
 				if (k-1>=0) neighbors[n-1][k-1].add(c);
-				else if (sim.equals("Wator")||torus) neighbors[n-1][cols-1].add(c);
+				else if (torus) neighbors[n-1][cols-1].add(c);
 			}
 			else {
 				if (k+1<cols) neighbors[n-1][k+1].add(c);
-				else if (sim.equals("Wator")||torus) neighbors[n-1][0].add(c);
+				else if (torus) neighbors[n-1][0].add(c);
 			}
 		}
-		else if (sim.equals("Wator")||torus){
+		else if (torus){
 			neighbors[rows-1][k].add(c);
 			if (even) {
 				if (k-1>=0) neighbors[rows-1][k-1].add(c);
@@ -107,14 +107,14 @@ public class HexGrid extends Grid {
 			neighbors[n+1][k].add(c);
 			if (even) {
 				if (k-1>=0) neighbors[n+1][k-1].add(c);
-				else if (sim.equals("Wator")||torus) neighbors[n+1][cols-1].add(c);
+				else if (torus) neighbors[n+1][cols-1].add(c);
 			}
 			else {
 				if (k+1<cols) neighbors[n+1][k+1].add(c);
-				else if (sim.equals("Wator")||torus) neighbors[n+1][0].add(c);
+				else if (torus) neighbors[n+1][0].add(c);
 			}
 		}
-		else if (sim.equals("Wator")||torus){
+		else if (torus){
 			neighbors[0][k].add(c);
 			if (even) {
 				if (k-1>=0) neighbors[0][k-1].add(c);
