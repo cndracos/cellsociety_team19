@@ -24,10 +24,9 @@ public class HexGrid extends Grid {
 
 	@Override
 	public double[] getCellSize(int length,int height, double DEFAULT_SPACE) {
-		System.out.println("enter");
 		double[] size = new double[2];
 		size[0] = (length - 2 * DEFAULT_SPACE) / (this.getCols() + 0.5);//cell width
-		size[1] = (height - 2 * DEFAULT_SPACE) / (3 * this.getRows() / 4 + 0.25);//cell height
+		size[1] = (height - 2 * DEFAULT_SPACE) / (3 * this.getRows() / 4.0 + 0.25);//cell height
 		return size;
 	}
 	
@@ -53,17 +52,17 @@ public class HexGrid extends Grid {
 			coordinates[11] = n*cellHeight + cellHeight/4 + DEFAULT_SPACE;
 		}
 		else {
-			coordinates[0] = k*cellWidth + 3 * cellWidth/2 + DEFAULT_SPACE;
+			coordinates[0] = k*cellWidth + cellWidth + DEFAULT_SPACE;
 			coordinates[1] = n*cellHeight - cellHeight/4 + DEFAULT_SPACE;
-			coordinates[2] = k*cellWidth + 2 * cellWidth + DEFAULT_SPACE;
+			coordinates[2] = k*cellWidth + 3 * cellWidth/2 + DEFAULT_SPACE;
 			coordinates[3] = n*cellHeight + DEFAULT_SPACE;
-			coordinates[4] = k*cellWidth + 2 * cellWidth + DEFAULT_SPACE;
+			coordinates[4] = k*cellWidth + 3 * cellWidth/2 + DEFAULT_SPACE;
 			coordinates[5] = n*cellHeight + cellHeight/2 + DEFAULT_SPACE;
-			coordinates[6] = k*cellWidth + 3 * cellWidth/2 + DEFAULT_SPACE;
-			coordinates[7] = (n + 1)*cellHeight -cellHeight/4 + DEFAULT_SPACE;
-			coordinates[8] = k*cellWidth + cellWidth/2 + DEFAULT_SPACE;
+			coordinates[6] = k*cellWidth + cellWidth + DEFAULT_SPACE;
+			coordinates[7] = (n + 1)*cellHeight - cellHeight/4 + DEFAULT_SPACE;
+			coordinates[8] = k*cellWidth + DEFAULT_SPACE;
 			coordinates[9] = n*cellHeight + cellHeight/2 + DEFAULT_SPACE;
-			coordinates[10] = k*cellWidth + cellWidth / 2 + DEFAULT_SPACE;
+			coordinates[10] = k*cellWidth + DEFAULT_SPACE;
 			coordinates[11] = n*cellHeight + DEFAULT_SPACE;
 		}
 		c.setPosition(coordinates);

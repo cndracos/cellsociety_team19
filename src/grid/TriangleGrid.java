@@ -30,18 +30,18 @@ public class TriangleGrid extends Grid {
 	public void addToScreen(Cell c, int n, int k) {
 		Double[] coordinates = new Double[6];
 		boolean facingUp = (n+k)%2==0;
-		coordinates[0] = n*cellWidth + cellWidth/2 + DEFAULT_SPACE;
-		coordinates[2] = n*cellWidth + DEFAULT_SPACE;
-		coordinates[4] = n*cellWidth + cellWidth + DEFAULT_SPACE;
+		coordinates[0] = k*cellWidth + cellWidth/2 + DEFAULT_SPACE;
+		coordinates[2] = k*cellWidth + DEFAULT_SPACE;
+		coordinates[4] = k*cellWidth + cellWidth + DEFAULT_SPACE;
 		if (facingUp) {
-			coordinates[1] = k*cellHeight + DEFAULT_SPACE;
-			coordinates[3] = k*cellHeight + cellHeight + DEFAULT_SPACE;
-			coordinates[5] = k*cellHeight + cellHeight + DEFAULT_SPACE;
+			coordinates[1] = n*cellHeight + DEFAULT_SPACE;
+			coordinates[3] = n*cellHeight + cellHeight + DEFAULT_SPACE;
+			coordinates[5] = n*cellHeight + cellHeight + DEFAULT_SPACE;
 		}
 		else {
-			coordinates[1] = k*cellHeight + cellHeight + DEFAULT_SPACE; 
-			coordinates[3] = k*cellHeight + DEFAULT_SPACE; 
-			coordinates[5] =  k*cellHeight + DEFAULT_SPACE; 
+			coordinates[1] = n*cellHeight + cellHeight + DEFAULT_SPACE; 
+			coordinates[3] = n*cellHeight + DEFAULT_SPACE; 
+			coordinates[5] =  n*cellHeight + DEFAULT_SPACE; 
 		}
 		c.setPosition(coordinates);
 	}
