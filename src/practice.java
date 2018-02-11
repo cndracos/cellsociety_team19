@@ -86,7 +86,7 @@ public class practice extends Application{
         OProb[1] = 0.7;
         keys.put("X", XProb);
         keys.put("O", OProb);
-        sim = new SegreSim(n, k, 970, 700, vals, (HashMap<String, double[]>) keys, "SQUARE"); 
+        sim = new SegreSim(n, k, 970, 700, vals, (HashMap<String, double[]>) keys, "TRIANGLE"); 
     
        //System.out.print(root== null);
                 

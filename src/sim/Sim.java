@@ -6,6 +6,7 @@ import java.util.Random;
 
 import grid.Grid;
 import grid.SquareGrid;
+import grid.TriangleGrid;
 
 public abstract class Sim {
 	private Map<String, double[]> keys;
@@ -13,14 +14,14 @@ public abstract class Sim {
 	private Random rand;
 	
 	public Sim (int n, int k, int length, int width, 
-			HashMap<String, double[]> keys, String grid) {
+		HashMap<String, double[]> keys, String grid) {
 		this.keys = keys;
 		rand = new Random();
 		if (grid.equals("SQUARE")) {
 			this.grid = new SquareGrid(n, k, length, width);
 		}
 		else if (grid.equals("TRIANGLE")) {
-			
+			this.grid = new TriangleGrid(n, k, length, width);
 		}
 		else {
 			

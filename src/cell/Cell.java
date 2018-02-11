@@ -11,7 +11,7 @@ import javafx.scene.shape.Rectangle;
  * @author Yameng Liu
  *
  */
-public abstract class Cell extends Rectangle{
+public abstract class Cell extends Polygon{
 	private ArrayList<Cell> myNeighbors;
 	protected String currState;
 	protected String newState;
@@ -25,6 +25,14 @@ public abstract class Cell extends Rectangle{
 		this.setFill(colorByState(currState));
 		this.currState = currState;
 		this.newState = currState;
+	}
+	
+	/**
+	 * Set the position of polygon according to an array of x and y coordinates
+	 * @param coordinates array of x and y coordinates of all points
+	 */
+	public void setPosition(Double[] coordinates) {
+		this.getPoints().addAll(coordinates);
 	}
 	
 	/**

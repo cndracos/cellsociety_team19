@@ -22,7 +22,7 @@ public class TriangleGrid extends Grid {
 
 	@Override
 	public void addToScreen(Cell c, int n, int k) {
-		double[] coordinates = new double[6];
+		Double[] coordinates = new Double[6];
 		if ((n+k)%2==0) {
 			coordinates[0] = n*cellLength + cellLength/2 + DEFAULT_SPACE;
 			coordinates[1] = k*cellWidth + DEFAULT_SPACE;
