@@ -1,6 +1,6 @@
 package sim;
 
-import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import cell.LifeCell;
@@ -16,7 +16,7 @@ public class LifeSim extends Sim{
 	 * @param keys values to be used when making cells
 	 * @param grid type of grid to be used
 	 */
-	public LifeSim(int n, int k, int length, int width, HashMap<String, double[]> keys, String grid) {
+	public LifeSim(int n, int k, int length, int width, Map<String, double[]> keys, String grid) {
 		super(n, k, length, width, keys, grid);
 		init();
 	}

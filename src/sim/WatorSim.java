@@ -1,6 +1,6 @@
 package sim;
 
-import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import cell.WatorCell;
@@ -19,7 +19,7 @@ public class WatorSim extends Sim{
 	 * @param grid type of grid
 	 */
 	public WatorSim(int n, int k, int length, int width, 
-			double[] vals, HashMap<String, double[]> keys, String grid) {
+			double[] vals, Map<String, double[]> keys, String grid) {
 		super(n, k, length, width, keys, grid);
 		this.vals = vals;
 		init();

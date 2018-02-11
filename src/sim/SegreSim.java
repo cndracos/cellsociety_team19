@@ -2,8 +2,9 @@ package sim;
 
 import java.util.ArrayList;
 
+
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import cell.SegreCell;
@@ -22,7 +23,7 @@ public class SegreSim extends Sim{
 	 * @param grid type of grid
 	 */
 	public SegreSim(int n, int k, int length, int width, 
-			double satisfied, HashMap<String, double[]> keys, String grid) {
+			double satisfied, Map<String, double[]> keys, String grid) {
 		super(n, k, length, width, keys, grid);
 		this.satisfied = satisfied;
 		init();
