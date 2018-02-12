@@ -59,6 +59,13 @@ public abstract class Grid {
 		return rows;
 	}
 	
+	/**
+	 * Add a cell to the 2d array at a specific index and adds to the screen
+	 * @param c Cell to be added
+	 * @param n row index
+	 * @param k column index
+	 * @author Yameng Liu
+	 */
 	public double[] getCellSize(int length,int height, double DEFAULT_SPACE) {
 		double[] size = new double[2];
 		size[0] = (length - 2 * DEFAULT_SPACE) / (this.getCols() * 1.0);//cell width
@@ -73,11 +80,13 @@ public abstract class Grid {
 	public int getCols() {
 		return cols;
 	}
+	
 	/**
 	 * Add a cell to the 2d array at a specific index and adds to the screen
 	 * @param c Cell to be added
 	 * @param n row index
 	 * @param k column index
+	 * @author Yameng Liu
 	 */
 	public void add (Cell c, int n, int k) {
 		population[n][k] = c;

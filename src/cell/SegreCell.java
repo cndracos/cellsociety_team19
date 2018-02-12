@@ -13,15 +13,25 @@ public class SegreCell extends Cell{
 	
 	/**
 	 * Constructor of SegreCell class
+	 * Assign initial state of the cell by calling constructor of super class
+	 * Assign initial value of satisfied: the proportion of same states as current cell among neighbors above which a cell is defined as "satisfied"
 	 * @param currState current state of cell
 	 * @param satisfied threshold based on which to decide whether or not a cell is satisfied
 	 */
 	public SegreCell(String currState, double satisfied) {
 		super(currState);
 		this.satisfied = satisfied;
-		System.out.println(this.satisfied);
 	}
 
+	@Override
+	/**
+	 * find the next state to update to 
+	 * call by grid class
+	 */
+	public void findState(){
+		updateByRule();
+	}
+	
 	@Override
 	/**
 	 * Update states according to simple rules on course website with probability
@@ -33,17 +43,15 @@ public class SegreCell extends Cell{
 	}
 
 	/**
-	 * Determine if the cell is satisfied or not by calculating number of same neighbors
+	 * Determine whether the cell is satisfied or not by checking 
+	 * the proportion of same states as current cell among neighbors
 	 * @return satisfied or not
 	 */
 	public boolean isSatisfied(){
 		double count = 0;
 		for (Cell myNeighbor: getNeighbors()){
-			//System.out.print(myNeighbor.getState() + " " + getState() + " ");
 			count += myNeighbor.getState() == getState() ? 1: 0;
 		}
-		//if (count/getNeighbors().size() < satisfied) System.out.println("not satis");
-		//else System.out.println("satis");
 		return count/getNeighbors().size() < satisfied ? false : true;
 	}
 	

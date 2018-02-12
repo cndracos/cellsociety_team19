@@ -30,8 +30,7 @@ public class FireSim extends Sim {
 	public String[] getStateNames() {
 		return statesNames;
 	}
-	
-	
+		
 	@Override
 	public void init() {
 		double[] probFire = this.getKeys().get("BURNING");

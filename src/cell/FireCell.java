@@ -16,7 +16,9 @@ public class FireCell extends Cell{
 	
 	
 	/**
-	 * Constructor of FireCell class
+	 * Constructor of FireCell class:
+	 * Assign initial state of the cell by calling constructor of super class
+	 * Assign the value of probability and initialize a random number generator
 	 * @param currState current state of cell
 	 * @param probCatch probability at which the cell catches on fire
 	 */

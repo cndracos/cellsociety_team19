@@ -24,6 +24,8 @@ public class WatorCell extends Cell{
 
 	/**
 	 * Constructor of WatorCell class
+	 * Assign initial state of the cell by calling constructor of super class
+	 * Set related parameters according to different states
 	 * @param currState current state of cell
 	 * @param fishR number of cells the fish needs to survive to be able to survive
 	 * @param sharkR number of cells the shark needs to survive to be able to survive
@@ -41,7 +43,8 @@ public class WatorCell extends Cell{
 	
 	@Override
 	/**
-	 * find the next state to update 
+	 * find the next state to update to 
+	 * call by grid class
 	 */
 	public void findState(){
 		updateByRule();
@@ -69,7 +72,7 @@ public class WatorCell extends Cell{
 				nextCell.newState = "FISH";
 				nextCell.fishMoves = this.fishMoves;
 				
-				//reproduce fish
+				//reproduce fish, current cell becomes a fish
 				if(fishMoves == FISH_R){
 					this.newState = "FISH";
 					nextCell.fishMoves = 0;
@@ -88,23 +91,21 @@ public class WatorCell extends Cell{
 			ArrayList<WatorCell> waters = getTypes("WATER");
 			WatorCell nextCell = null;
 			
-			//if a shark consumed all energy, it dies
+			//shark consumes 1 unit of energy at each step
 			sharkE -= 1;
-			
+			//if a shark consumes all energy, it dies,the current cell becomes water
 			if(sharkE <= 0){
 				this.newState = "WATER";
 				this.sharkMoves = 0;
 				this.sharkE = 0;
-
 				isUpdated = true;
-				System.out.println("energy after: "+sharkE);
 				return newState;
 			}
 			
 			//if shark is eligible to move
 			if(fishs.size() > 0 || waters.size() > 0){
 				sharkMoves += 1;
-				//if there is a fish, devour it
+				//if there is a fish, devour it, the current cell becomes water
 				if(fishs.size() > 0){
 					sharkE += fishE;	
 					int key = rand.nextInt(fishs.size());
@@ -115,7 +116,7 @@ public class WatorCell extends Cell{
 					nextCell.sharkMoves = this.sharkMoves;
 				}
 				
-				//otherwise if there is an unoccupied free cell, move to it
+				//otherwise if there is an unoccupied free cell, move to it, the current cell becomes water
 				else if(waters.size() > 0){
 					int key = rand.nextInt(waters.size());
 					nextCell = waters.get(key);
@@ -129,7 +130,7 @@ public class WatorCell extends Cell{
 				isUpdated = true;
 				nextCell.setUpdated(true);
 				
-				//reproduce shark
+				//reproduce shark, current cell becomes shark
 				if(sharkMoves == SHARK_R && nextCell != null && sharkE >= SHARK_E / 2.0){
 					this.newState = "SHARK";
 					this.sharkE = SHARK_E;
@@ -160,6 +161,10 @@ public class WatorCell extends Cell{
 		return typeArray;
 	}
 	
+	/**
+	 * Initialize related parameters according to currState
+	 * @param currState current state of the cell
+	 */
 	private void setParam(String currState) {
 		if(currState == "FISH") {
 			this.fishMoves = 0;
@@ -188,7 +193,7 @@ public class WatorCell extends Cell{
 	
 	@Override
 	/**
-	 * update the state of the cell, change updated status
+	 * update the state and graphics of the cell, change updated status
 	 */
 	public void setState(){
 		currState = newState;

@@ -19,15 +19,16 @@ public class RPSCell extends Cell{
 	private final double HEALTH;
 	
 	/**
-	 * Constructor of FireCell class
+	 * Constructor of FireCell class:
+	 * Assign initial state of the cell by calling constructor of super class
+	 * Assign value of full health points and each cell's initial health points, initi
+	 * isUpdated is true if the cell has computed and decided on the next state to update to, false otherwise
+	 * initialize rand
 	 * @param currState current state of cell
 	 * @param probCatch probability at which the cell catches on fire
 	 */
 	public RPSCell(String currState, double HEALTH) {
 		super(currState);
-		if(currState.equals("WHITE")) {
-			System.out.println("WHITE");
-		}
 		this.HEALTH = HEALTH;
 		health = HEALTH;
 		isUpdated = false;
@@ -36,7 +37,8 @@ public class RPSCell extends Cell{
 
 	@Override
 	/**
-	 * find the next state to update 
+	 * find the next state to update to 
+	 * call by grid class
 	 */
 	public void findState(){
 		updateByRule();
@@ -48,40 +50,40 @@ public class RPSCell extends Cell{
 	 * @return new state
 	 */
 	protected String updateByRule() {
-		//if state is "empty", do nothing
-		if(!getState().equals("WHITE")){
-			List<RPSCell> opponents = getOpponents();
-			int len = opponents.size();
-			if(len != 0) {
-				int index = rand.nextInt(len);
-				RPSCell opponent = opponents.get(index);
-				int res = beat(this,opponent);
-				//if two cells have different states, a result is achieved, and two cells are updated
-				if(res != 0) {
-					setUpdated(true);
-					opponent.setUpdated(true);
-					//if I win
-					if(res == 1) {
-						setHealth(getHealth() + 1);
-						opponent.setHealth(opponent.getHealth() - 1);
+		//get current state's non-updated neighbors
+		List<RPSCell> opponents = getOpponents();
+		int len = opponents.size();
+		//if there is a non-updated neighbors
+		if(len != 0) {
+			//get a random non-updated neighbor as opponent of current cell to play the RPS game
+			int index = rand.nextInt(len);
+			RPSCell opponent = opponents.get(index);
+			int res = beat(this,opponent);
+			//if the result is not a tie, two cells needs to be updated
+			if(res != 0) {
+				setUpdated(true);
+				opponent.setUpdated(true);
+				//if current cell win, current cell's health point + 1, opponent' health point - 1
+				if(res == 1) {
+					setHealth(getHealth() + 1);
+					opponent.setHealth(opponent.getHealth() - 1);
+				}
+				//if opponent wins, current cell's health point - 1, opponent' health point + 1
+				else {
+					setHealth(getHealth() - 1);
+					opponent.setHealth(opponent.getHealth() + 1);
+				}
+				//if either current cell or opponent dies
+				if(getHealth() == 0 || opponent.getHealth() == 0) {
+					//if current cell dies, replace current cell with opponent
+					if(getHealth() == 0) {
+						newState = opponent.getState();
+						health = HEALTH;
 					}
-					//if opponent wins
+					//if opponent dies, replace opponent cell with current cell
 					else {
-						setHealth(getHealth() - 1);
-						opponent.setHealth(opponent.getHealth() + 1);
-					}
-					//if either I or opponent dies
-					if(getHealth() == 0 || opponent.getHealth() == 0) {
-						//if I dies
-						if(getHealth() == 0) {
-							newState = opponent.getState();
-							health = HEALTH;
-						}
-						//if opponent dies
-						else {
-							opponent.newState = getState();
-							opponent.setHealth(HEALTH);
-						}
+						opponent.newState = getState();
+						opponent.setHealth(HEALTH);
 					}
 				}
 			}
@@ -89,22 +91,33 @@ public class RPSCell extends Cell{
 		return newState;
 	}
 
+	/**
+	 * Get the opponents list of current cells, which consists of all non-updated neighbors
+	 * @return list of opponents
+	 */
 	private List<RPSCell> getOpponents(){
 		List<RPSCell> opponents = new ArrayList<>();
 		for(Cell myNeighbor : getNeighbors()) {
-			if(!myNeighbor.getState().equals("WHITE") && !((RPSCell)myNeighbor).getUpdated()){
+			if(!((RPSCell)myNeighbor).getUpdated()){
 				opponents.add((RPSCell)myNeighbor);
 			}
 		}
 		return opponents;
 	}
 	
+	/**
+	 * This method takes in two states and compute who wins the RPS game
+	 * @param me state of current cell
+	 * @param opponent state of opponent
+	 * @return 0: tie; 1: current cell wins; -1: current cell loses
+	 */
 	private int beat(Cell me, Cell opponent) {
+		//if two states are the same, the result is tie
 		if(me.getState() == opponent.getState()) {
 			return 0;
 		}
 		
-		//compute whether or not I win
+		//if two states are not the same, the result if computed by RPS rules
 		boolean isWin = me.getState().equals("ROCK") && opponent.getState().equals("SCISSOR")
 					 || me.getState().equals("SCISSOR") && opponent.getState().equals("PAPER")
 					 || me.getState().equals("PAPER") && opponent.getState().equals("ROCK");
@@ -129,16 +142,16 @@ public class RPSCell extends Cell{
 	}
 	
 	/**
-	 * check whether or not the cell is updated
-	 * @return updated or not
+	 * check the current health point
+	 * @return current health point
 	 */
 	public double getHealth() {
 		return health;
 	}
 	
 	/**
-	 * change the updated status of cell to given status
-	 * @param isUpdated given status
+	 * change the health point to given value
+	 * @param given value of health point to change to
 	 */
 	public void setHealth(double health) {
 		this.health = health;
@@ -146,7 +159,7 @@ public class RPSCell extends Cell{
 	
 	@Override
 	/**
-	 * update the state of the cell, change updated status
+	 * update the current state and graphics of the cell, change updated status
 	 */
 	public void setState(){
 		currState = newState;
