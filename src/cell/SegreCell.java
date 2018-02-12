@@ -19,7 +19,6 @@ public class SegreCell extends Cell{
 	public SegreCell(String currState, double satisfied) {
 		super(currState);
 		this.satisfied = satisfied;
-		System.out.println(this.satisfied);
 	}
 
 	@Override
@@ -39,11 +38,8 @@ public class SegreCell extends Cell{
 	public boolean isSatisfied(){
 		double count = 0;
 		for (Cell myNeighbor: getNeighbors()){
-			//System.out.print(myNeighbor.getState() + " " + getState() + " ");
 			count += myNeighbor.getState() == getState() ? 1: 0;
 		}
-		//if (count/getNeighbors().size() < satisfied) System.out.println("not satis");
-		//else System.out.println("satis");
 		return count/getNeighbors().size() < satisfied ? false : true;
 	}
 	
