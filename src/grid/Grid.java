@@ -86,7 +86,6 @@ public abstract class Grid {
 	 * @param c Cell to be added
 	 * @param n row index
 	 * @param k column index
-	 * @author Yameng Liu
 	 */
 	public void add (Cell c, int n, int k) {
 		population[n][k] = c;
