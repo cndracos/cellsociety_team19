@@ -4,6 +4,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -15,11 +16,12 @@ import javafx.scene.control.TabPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import xmlparser.SimulationBuilder;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import cellsociety.CellSociety;
@@ -38,13 +40,15 @@ public class GUISetupManager {
 	private static final Button PAUSE_BUTTON = new Button("Pause");
 	private static final Button RESUME_BUTTON = new Button("Resume");
 	private static final Button STEP_BUTTON = new Button("Step");
-	private static final Button RESET_BUTTON = new Button("Reset");
+	private static final Button CLEAR_BUTTON = new Button("Clear");
+	private static final Button BEGIN_BUTTON = new Button("Begin");
 	private static final ComboBox<String> typeChooser = new ComboBox<>(FXCollections.observableList(Arrays.asList(CellSociety.SIMULATIONS)));
 	private static final ComboBox<String> shapeChooser = new ComboBox<>(FXCollections.observableList(Arrays.asList(CellSociety.SHAPES)));
+	private static final ComboBox<String>locationChooser = new ComboBox<>(FXCollections.observableList(Arrays.asList(CellSociety.LOCATIONS)));
 	private static final int BUTTON_WIDTH = 100;
 	private static final int BUTTON_HEIGHT = 25;
 	private static final int BUTTON_SPACING = 10;
-	private static final int GRID_SEPARATION = 50;
+	private static final int GRID_SEPARATION = 20;
 	// animation rates and accompanying slider
 	private static final double MAX_RATE = 3.0;
 	private static final double MIN_RATE = 0.01;
@@ -62,12 +66,8 @@ public class GUISetupManager {
 		simulation = CS;
 		currentRoot = new BorderPane(allGrids, null, null, bottom, buttonGroup);
 		init();
-		// center initialized without a simulation (empty)
-		// drop-down menu chooses the type of simulation
-		// then runs game loop where drop down menu is always active
-		// add all non-center elements
 	}
-	
+	// returns the scene for this GUI
 	public Scene getScene() {
 		return new Scene(currentRoot, DEFAULT_WIDTH, DEFAULT_HEIGHT, BACKGROUND_COLOR);
 	}
@@ -76,8 +76,7 @@ public class GUISetupManager {
 	 * Initialize all necessary GUI components. This is done only once (on initialization).
 	 */
 	private void init() {
-		allGrids.setVgap(GRID_SEPARATION);
-		allGrids.setHgap(GRID_SEPARATION);
+		initGridPane();
 		initSlider();
 		initButtonPlacement();
 		initButtonActions();
@@ -118,6 +117,18 @@ public class GUISetupManager {
 	
 	
 	/**
+	 * Initializes the GridPane that will hold all of the grids
+	 */
+	private void initGridPane() {
+		allGrids.setVgap(GRID_SEPARATION);
+		allGrids.setHgap(GRID_SEPARATION);
+		ColumnConstraints CC = new ColumnConstraints(CellSociety.GRID_HEIGHT);
+		RowConstraints RC = new RowConstraints(CellSociety.GRID_WIDTH);
+		allGrids.getRowConstraints().add(RC);
+		allGrids.getColumnConstraints().add(CC);
+	}
+	
+	/**
 	 * Set up the buttons for user control.
 	 */
 	private void initButtonPlacement() {
@@ -126,8 +137,9 @@ public class GUISetupManager {
 		setButtonProperties(PAUSE_BUTTON);
 		setButtonProperties(RESUME_BUTTON); 
 		setButtonProperties(STEP_BUTTON);
-		setButtonProperties(RESET_BUTTON);
-		buttonGroup.getChildren().addAll(PAUSE_BUTTON, RESUME_BUTTON, STEP_BUTTON, RESET_BUTTON);
+		setButtonProperties(CLEAR_BUTTON);
+		setButtonProperties(BEGIN_BUTTON);
+		buttonGroup.getChildren().addAll(PAUSE_BUTTON, RESUME_BUTTON, STEP_BUTTON, CLEAR_BUTTON);
 	}
 	
 	/**
@@ -158,14 +170,17 @@ public class GUISetupManager {
 			simulation.getTimeline().play();
 		});	
 		// to reset the simulation to a new random configuration
-		RESET_BUTTON.setOnAction(__ -> {
-			ArrayList<Sim> copy = new ArrayList<Sim>(simulation.sims());
+		CLEAR_BUTTON.setOnAction(__ -> {
 			simulation.clearSims();
 			allGrids.getChildren().clear();
-			for (Sim sim : copy) {
-				String filePath = new String("data/" + sim.name() + ".xml");
-				addGrid(filePath);
-			}
+		});
+		BEGIN_BUTTON.setOnAction(__ -> {
+			int[] placement = computeSpacing();
+			Node currentGrid = getNodeByIndex(placement[0], placement[1]);
+			if (currentGrid != null) allGrids.getChildren().remove(currentGrid);
+			
+			String filePath = new String("data/" + typeChooser.getValue() + ".xml");
+			addGrid(filePath, shapeChooser.getValue());
 		});
 	}
 	
@@ -174,23 +189,13 @@ public class GUISetupManager {
 	 */
 	
 	private void initComboBoxes() {
-		// choose the type of simulation
-		typeChooser.valueProperty().addListener(new ChangeListener<String>() {
-			@Override
-			public void changed(ObservableValue<? extends String> ov, String oldValue, String newValue) {
-				String filePath = new String("data/" + newValue + ".xml");
-				addGrid(filePath);
-			}
-		});
-		// choose the shape for simulations. Default is square
+		// choose the type of simulation. Default is fire
+		typeChooser.getSelectionModel().selectFirst();
+		// choose the shape for the simulation. Default is square
 		shapeChooser.getSelectionModel().selectFirst();
-		shapeChooser.valueProperty().addListener(new ChangeListener<String>() {
-			@Override
-			public void changed(ObservableValue<? extends String> ov, String oldValue, String newValue) {
-				
-			}
-		});
-		bottom.getChildren().addAll(typeChooser, shapeChooser);
+		// choose where to put the simulation. Default is top left
+		locationChooser.getSelectionModel().selectFirst();
+		bottom.getChildren().addAll(typeChooser, shapeChooser, locationChooser, BEGIN_BUTTON);
 	}
 	
 	/**
@@ -200,7 +205,6 @@ public class GUISetupManager {
 	private void initGrid(Sim sim) {
 		// if grid is null, do nothing
 		if (sim != null) {
-			VBox gridEncapsulator = new VBox(BUTTON_SPACING);
         		Pane gridPane = new Pane();
         		Label gridLabel = new Label(sim.name());     
         		gridLabel.setAlignment(Pos.CENTER);
@@ -210,9 +214,8 @@ public class GUISetupManager {
         				gridPane.getChildren().add(sim.getGrid().get(i, j));
         			}
         		}
-        		gridEncapsulator.getChildren().addAll(gridLabel, gridPane);
         		int[] placement = computeSpacing();
-        		allGrids.add(gridEncapsulator, placement[0], placement[1]);
+        		allGrids.add(gridPane, placement[0], placement[1]);
         		simulation.addSim(sim);
 		}
 	}
@@ -220,8 +223,8 @@ public class GUISetupManager {
 	/**
 	 * Adds another grid to the view (for seeing multiple simulations at once)
 	 */
-	private void addGrid(String filePath) {
-        	Sim newSim = (new SimulationBuilder(filePath)).build(CellSociety.GRID_WIDTH,  CellSociety.GRID_HEIGHT);
+	private void addGrid(String filePath, String shape) {
+        	Sim newSim = (new SimulationBuilder(filePath, shape)).build(CellSociety.GRID_WIDTH,  CellSociety.GRID_HEIGHT);
         	initGrid(newSim);
 	}
 	
@@ -231,15 +234,27 @@ public class GUISetupManager {
 	 * @return an integer array where the first entry is the row and the second entry is the column
 	 */
 	private int[] computeSpacing() {
-		switch (simulation.numSimulations()) {
-		case 0:
+		switch (locationChooser.getValue()) {
+		case "Top left":
 			return new int[] {0, 0};
-		case 1:
+		case "Bottom left":
 			return new int[] {0, 1};
-		case 2: 
+		case "Top right": 
 			return new int[] {1, 0};
 		default:
 			return new int[] {1, 1};
 		}
+	}
+	
+	// finds the node at a certain index of the GridPane
+	private Node getNodeByIndex(int row, int col) {
+		Node result = null;
+		for (Node child : allGrids.getChildren()) {
+			if (allGrids.getColumnIndex(child) == row && allGrids.getRowIndex(child) == col) {
+				result = child;
+				break;
+			}
+		}
+		return result;
 	}
 }

@@ -23,23 +23,29 @@ import sim.Sim;
 public class CellSociety {
 	public static final String DATA_TYPE = "CA";
 	protected static final String[] SIMULATIONS = {
-			"Wator",
 			"Fire",
+			"Wator",
 			"GameOfLife",
 			"Segregation",
 			"RPS"
 	};
 	protected static final String[] SHAPES = {
-			"Square",
-			"Triangle",
-			"Hexagon"
+			"SQUARE",
+			"TRIANGLE",
+			"HEXAGON"
+	};
+	protected static final String[] LOCATIONS = {
+			"Top left",
+			"Top right",
+			"Bottom left",
+			"Bottom right"
 	};
 	// dimensions of the viewing window
 	protected static final int X_DIMENSION = 840;
 	protected static final int Y_DIMENSION =840;
 	protected static final int GRID_WIDTH = 300;
 	protected static final int GRID_HEIGHT = 300;
-	private static final Map<String, Double> cellData = new HashMap<String, Double>();
+	private static Map<String, Double> cellData = new HashMap<String, Double>();
 	// the offset when the user would like to add multiple simulations at once
 	// for animations
 	protected static double ANIMATION_RATE = 1.0;
