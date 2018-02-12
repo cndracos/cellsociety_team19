@@ -37,7 +37,7 @@ public class SegreSim extends Sim{
 	public String[] getStateNames() {
 		return statesNames;
 	}
-	
+
 	@Override
 	public void init() {
 		double[] probX = this.getKeys().get("X");
