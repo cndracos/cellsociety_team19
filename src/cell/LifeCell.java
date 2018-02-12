@@ -11,6 +11,7 @@ import javafx.scene.paint.Color;
 public class LifeCell extends Cell{	
 	/**
 	 * Constructor of LifeCell class
+	 * Assign initial state of the cell by calling constructor of super class
 	 * @param currState current state of cell
 	 * @param probCatch this probability will not be used in this class
 	 */
@@ -29,15 +30,15 @@ public class LifeCell extends Cell{
 			count += myNeighbor.getState() == "ALIVE"? 1: 0;
 		}
 		
-		//die because of "overpopulation" or "underpopulation"
+		//an alive cell dies because of "overpopulation" or "underpopulation"
 		if(count < 2 || count > 3){
 			return "DEAD";
 		}
-		//keep alive when is surrounded by 2 or 3 alive neighbors
+		//an alive cell keeps alive when is surrounded by 2 or 3 alive neighbors
 		if(count == 2 || count == 3){
 			return "ALIVE";
 		}
-		//recover when there are 3 alive neighbors 
+		//a dead cell recovers when there are 3 alive neighbors 
 		if(getState() == "DEAD" && count == 3){
 			return "ALIVE";
 		}

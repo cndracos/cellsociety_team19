@@ -37,7 +37,8 @@ public abstract class Cell extends Polygon{
 	
 	
 	/**
-	 * set neighbors array of the cell 
+	 * Set neighbors array of the cell 
+	 * Since the neighbors are constant during program, store them initially for the convinience of accessing them
 	 * @param neighbors neighbors passed in by grid 
 	 */
 	public void setNeighbors(ArrayList<Cell> neighbors){
@@ -45,14 +46,15 @@ public abstract class Cell extends Polygon{
 	}
 	
 	/**
-	 * find the next state to update 
+	 * find the next state to update to 
+	 * call by grid class
 	 */
 	public void findState(){
 		newState = updateByRule();
 	}
 	
 	/**
-	 * get current state
+	 * Get current state
 	 * @return current state
 	 */
 	public String getState(){
@@ -60,7 +62,7 @@ public abstract class Cell extends Polygon{
 	}
 	
 	/**
-	 * update the state of the cell
+	 * Update the state and graphics of the cell
 	 */
 	public void setState(){
 		currState = newState;
@@ -68,7 +70,7 @@ public abstract class Cell extends Polygon{
 	}
 
 	/**
-	 * get neighbors list of the cell
+	 * Get neighbors list of the cell
 	 */
 	public ArrayList<Cell> getNeighbors(){
 		return myNeighbors;
@@ -77,6 +79,10 @@ public abstract class Cell extends Polygon{
 	
 	/**
 	 * abstract method: instantiate by subclasses according to specific updating rules
+	 * If one cell is replaced by another, just replace the currStates and parameters
+	 * If two cells are exchanged, exchange their parameters and currStates
+	 * If one cell moves to another cells, replace the target cell with current cell's state and parameters,
+	 * and update the current state's new state and new parameters
 	 * @return new state
 	 */
 	protected abstract String updateByRule();
