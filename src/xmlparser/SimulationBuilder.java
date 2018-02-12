@@ -26,12 +26,17 @@ public class SimulationBuilder {
 	private static final String ERROR_MESSAGE = new String("Incorrect input of type %s. Please refer to documentation for correct format.\n");
 	// name of this specific simulation to build
 	private static String simulationName;
-	private static final String DEFAULT_SHAPE = "SQUARE";
+	private static String shape = "SQUARE";
 	
-	// constructor
+	// default constructor where shape is SQUARE
 	public SimulationBuilder(String filePath) {
 		XMLFile = new File(filePath);
-
+	}
+	
+	// constructor where shape is specified
+	public SimulationBuilder(String filePath, String cellshape) {
+		this(filePath);
+		shape = cellshape;
 	}
 	
 	/**
@@ -51,7 +56,7 @@ public class SimulationBuilder {
 				// extract the percentages for the initial states of the cells
 				HashMap<String, double[]> initialStates = (HashMap<String, double[]>) parser.getInitialStates(XMLFile);
 				// check for correctness
-				if (badProbabilities(probability, initialStates)) {
+				if (badProbabilities(initialStates)) {
 					throw new SimulationInputException(ERROR_MESSAGE, "probability");
 				}
 				return generateGrid(rows, cols, screenLength,screenWidth,probability, initialStates);
@@ -69,27 +74,23 @@ public class SimulationBuilder {
 		switch (simulationName) {
 			case "Fire": 
 				// probability[0] only b/c only one probability exists for this simulation
-				return new FireSim(rows, cols, screenLength, screenWidth,probability[0], initialStates, DEFAULT_SHAPE, false);
+				return new FireSim(rows, cols, screenLength, screenWidth,probability[0], initialStates, shape, false);
 			case "Segregation":
 				// probability[0] only b/c only one probability exists for this simulation
-				return new SegreSim(rows, cols, screenLength, screenWidth, probability[0], initialStates, DEFAULT_SHAPE, false);
+				return new SegreSim(rows, cols, screenLength, screenWidth, probability[0], initialStates, shape, false);
 			case "Wator":
-				return new WatorSim(rows, cols, screenLength, screenWidth, probability, initialStates, DEFAULT_SHAPE, true);	
+				return new WatorSim(rows, cols, screenLength, screenWidth, probability, initialStates, shape, true);	
 			case "Game of Life":
-				return new LifeSim(rows, cols, screenLength, screenWidth, initialStates , DEFAULT_SHAPE, false);
+				return new LifeSim(rows, cols, screenLength, screenWidth, initialStates , shape, false);
+			case "RPS":
+				return new RPSSim(rows, cols, screenLength, screenWidth, probability[0], initialStates, shape);
 		}
 		// if none of the cases were returned, then there is an issue
 		throw new SimulationInputException(ERROR_MESSAGE, "model");
 	}
 	
 	// check if any of the given probabilities are greater than 1 or less than 0
-	private boolean badProbabilities(double[] probability, HashMap<String, double[]> initialStates) {
-		// "update" probabilities
-		for (double prob : probability) {
-			if (prob > 1 || prob < 0) {
-				return true;
-			}
-		}
+	private boolean badProbabilities(HashMap<String, double[]> initialStates) {
 		// initial states
 		for (double[] probs : initialStates.values()) {
 			for (double prob : probs) {

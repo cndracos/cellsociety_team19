@@ -7,11 +7,11 @@ import cell.RPSCell;
 import grid.Grid;
 
 public class RPSSim extends Sim{
-	private int vals;
+	private double vals;
 	private final String[] statesNames = {"WATER","FISH","SHARK"};
 	
 	public RPSSim(int n, int k, int length, int width, 
-			int vals, HashMap<String, double[]> keys, String grid) {
+			double vals, HashMap<String, double[]> keys, String grid) {
 		super(n, k, length, width, keys, grid, true);
 		this.vals = vals;
 		init();
@@ -27,7 +27,7 @@ public class RPSSim extends Sim{
 		double[] probR = this.getKeys().get("ROCK");
 		double[] probP = this.getKeys().get("PAPER");
 		//gets the other values for the sim from the vals array
-		int health = vals;
+		double health = vals;
 		Grid RPSgrid = this.getGrid();
 		Random rand = this.getRand();
 		for (int i = 0; i < RPSgrid.getRows(); i++) {
